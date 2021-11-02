@@ -23,3 +23,7 @@ Es una aplicación web donde los usuarios pueden crear y gestionar sus propias B
     - Ver fecha de Devolucvión
 - Crear una Nueva Ficha
     - Añadir datos de la obra literaria
+
+
+## Relación de datos.
+![esquema-datos](https://user-images.githubusercontent.com/91878984/139833158-3215638d-7be0-4a2f-afa6-1ec504a0d505.png)
