@@ -1,5 +1,5 @@
 # Gestión Biblioteca *(nombre provisional)*
-Es una aplicación web donde los usuarios pueden crear y gestionar sus propias bibliotecas virtuales.
+Es una aplicación web donde los usuarios pueden crear y gestionar sus propias Bibliotecas Virtuales.
 
 
 
