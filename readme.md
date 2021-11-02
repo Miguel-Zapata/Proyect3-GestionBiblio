@@ -21,8 +21,11 @@ Es una aplicación web donde los usuarios pueden crear y gestionar sus propias B
     - Reservar una Ficha
     - Ver fecha de Reserva
     - Ver fecha de Devolucvión
+    - Cambiar estado de la Ficha
+    - Cambiar estado de Reserva
 - Crear una Nueva Ficha
-    - Añadir datos de la obra literaria
+    - Modificar Ficha
+    - Eliminar Ficha
 ***
 
 ## Relación de datos.
