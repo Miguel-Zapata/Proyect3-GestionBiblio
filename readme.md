@@ -29,5 +29,4 @@ Es una aplicación web donde los usuarios pueden crear y gestionar sus propias B
 ***
 
 ## Relación de datos.
-![esquema-datos](https://user-images.githubusercontent.com/91878984/139833158-3215638d-7be0-4a2f-afa6-1ec504a0d505.png)
->>>>>>> 60a9a8fb7e645790c324d9900b4f4299884f1e93
+![esquema-datos](https://user-images.githubusercontent.com/91878984/139840589-3e439428-c4a1-46d7-a02c-4d3f4b049651.png)
