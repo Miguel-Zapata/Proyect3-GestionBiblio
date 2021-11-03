@@ -1,0 +1,25 @@
+{
+    "name": "proyecto_3",
+    "version": "1.0.0",
+    "description": "Es una aplicación web donde los usuarios pueden crear y gestionar sus propias Bibliotecas Virtuales.\r ***",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "server": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Miguel-Zapata/Proyect3-GestionBiblio.git"
+    },
+    "author": "Miguel Zapata",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Miguel-Zapata/Proyect3-GestionBiblio/issues"
+    },
+    "homepage": "https://github.com/Miguel-Zapata/Proyect3-GestionBiblio#readme",
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1"
+    }
+}
