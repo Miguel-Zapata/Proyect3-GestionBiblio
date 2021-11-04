@@ -6,6 +6,10 @@ const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT;
 
+// Conecta el archivo de la ruta con este.
+const connectDB = require('./DB/connection.js');
+connectDB();
+
 // Esto es para que fs no salga Undefined
 const fs = require("fs");
 
@@ -13,8 +17,17 @@ const fs = require("fs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+// const Test = require("./routes/testRouter");
+app.use('/routes/personaModel', require('./routes/testRouter'));
+
+
+// Esto es para trabajar en el puerto que le digamos
+app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
+
+
 // Esto es una ruta
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
     return res.send("Hello moon")
 })
 
@@ -56,6 +69,4 @@ app.get("/info/:ms", (req, res) => {
         });
     });
 });
-
-// Esto es para trabajar en el puerto que le digamos
-app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
+ */
