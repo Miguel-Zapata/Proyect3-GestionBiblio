@@ -1,6 +1,6 @@
 # Gestión Biblioteca *(nombre provisional)*
 Es una aplicación web donde los usuarios pueden crear y gestionar sus propias Bibliotecas Virtuales.
-
+***
 
 
 ## Descripción funcional de la aplicación.
@@ -21,5 +21,12 @@ Es una aplicación web donde los usuarios pueden crear y gestionar sus propias B
     - Reservar una Ficha
     - Ver fecha de Reserva
     - Ver fecha de Devolucvión
+    - Cambiar estado de la Ficha
+    - Cambiar estado de Reserva
 - Crear una Nueva Ficha
-    - Añadir datos de la obra literaria
+    - Modificar Ficha
+    - Eliminar Ficha
+***
+
+## Relación de datos.
+![esquema-datos](https://user-images.githubusercontent.com/91878984/139840589-3e439428-c4a1-46d7-a02c-4d3f4b049651.png)
