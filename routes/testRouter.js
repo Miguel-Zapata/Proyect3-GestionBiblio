@@ -30,4 +30,8 @@ testRouter
         });
     });
 
+testRouter.get("/test", (req, res) => {
+    res.send("prueba");
+})
+
 module.exports = testRouter;

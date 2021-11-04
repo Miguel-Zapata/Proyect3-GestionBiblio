@@ -10,21 +10,22 @@ const PORT = process.env.PORT;
 const connectDB = require('./DB/connection.js');
 connectDB();
 
-// Esto es para que fs no salga Undefined
-const fs = require("fs");
-
 // Esto para poder crear desde Postman
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// const Test = require("./routes/testRouter");
-app.use('/routes/personaModel', require('./routes/testRouter'));
+// Indico nombre de ruta y ruta real que quiero usar
+app.use('/api/test', require('./routes/testRouter')); // bifurcación
 
 
 // Esto es para trabajar en el puerto que le digamos
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
 
+
+
+
+// Esto es para que fs no salga Undefined
+// const fs = require("fs");
 
 // Esto es una ruta
 /* app.get("/", (req, res) => {
