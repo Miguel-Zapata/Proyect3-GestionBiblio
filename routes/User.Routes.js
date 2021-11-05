@@ -28,7 +28,7 @@ UserRouter.post("/", async(req, res) => {
         console.log(err);
         return res.status(400).send({
             success: false,
-            message: err.message
+            message: err.message || err._message
         });
     }
 });
@@ -45,12 +45,81 @@ UserRouter.get("/", async(req, res) => {
         console.log(err);
         return res.status(400).send({
             success: false,
-            message: err.message
+            message: err.message || err._message
         });
     }
-
 });
 
+// Mostrar 1 usuario concreto.
+UserRouter.get("/find/:id", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id);
+        return res.send({
+            success: true,
+            user
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
 
+// Eliminar Usuario
+UserRouter.delete("/find/:id/delete", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findByIdAndDelete(id);
+        return res.send({
+            success: true,
+            message: `el usuario ${user.userName} a sido eliminado`
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+// Modificar datos del usuario.
+UserRouter.put("/find/:id/update", async(req, res) => {
+    try {
+        const { id } = req.params;
+        let { name, surname, userName, email, password } = req.body;
+        const user = await User.findById(id);
+        if (name) {
+            user.name = name
+        }
+        if (surname) {
+            user.surname = surname
+        }
+        if (userName) {
+            user.userName = userName
+        }
+        if (email) {
+            user.email = email
+        }
+        if (password) {
+            user.password = password
+        }
+        const updateUser = await user.save();
+
+        return res.send({
+            success: true,
+            message: `${user.userName} se ha modificado correctamente`
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
 
 module.exports = UserRouter;

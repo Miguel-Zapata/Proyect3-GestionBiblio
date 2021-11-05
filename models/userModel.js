@@ -36,7 +36,7 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: "Por favor introduce una Contraseña",
-        validate: [validatePassword, "Por favor introduce una Contraseña válida"]
+        validate: [validatePassword, "La contraseña debe contener al menos una Mayuscula (ABC), un Número (123) y un Caracter especial (!@#$%^&*)"]
     }
 });
 
