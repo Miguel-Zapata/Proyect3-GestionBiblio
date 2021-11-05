@@ -6,12 +6,12 @@ var validateEmail = function(email) {
     return re.test(email);
 };
 
-let regularExpresion = function(password) {
-    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+let validatePassword = function(password) {
+    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
     return reg.test(password);
 };
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         required: "Por favor introduce un Nombre"
@@ -36,9 +36,8 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: "Por favor introduce una Contraseña",
-        minlength: 8,
-        regex: [regularExpresion, "Por favor introduce una Contraseña válida"]
+        validate: [validatePassword, "Por favor introduce una Contraseña válida"]
     }
 });
 
-module.exports = Test = mongoose.model("User", userSchema);
+module.exports = User = mongoose.model("User", UserSchema);

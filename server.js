@@ -14,8 +14,21 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Importo la ruta de User
+const User = require("./routes/User.Routes")
+
 // Indico nombre de ruta y ruta real que quiero usar
-app.use('/api/test', require('./routes/testRouter')); // bifurcación
+app.use('/api/users', User); // bifurcación
+
+
+
+
+
+
+
+
+
+
 
 
 // Esto es para trabajar en el puerto que le digamos
