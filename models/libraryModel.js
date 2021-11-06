@@ -3,14 +3,13 @@ const Schema = mongoose.Schema;
 
 const LibrarySchema = new Schema({
     name: { type: String },
-    cards: [{
-            card: {
-                type: mongoose.Types.ObjectId,
-                ref: "Card"
-            }
+    cards: {
+        card: {
+            type: mongoose.Types.ObjectId,
+            ref: "Card"
         },
-        { condition: { type: Boolean } }
-    ],
+        condition: { type: Boolean }
+    },
     admin: {
         type: mongoose.Types.ObjectId,
         ref: "User"

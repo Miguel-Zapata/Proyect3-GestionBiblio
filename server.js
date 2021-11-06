@@ -15,10 +15,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Importo la ruta de User
-const User = require("./routes/User.Routes")
+const User = require("./routes/User.Routes");
+const Library = require("./routes/Library.Routes");
+const Card = require("./routes/Card.Routes");
+
 
 // Indico nombre de ruta y ruta real que quiero usar
 app.use('/api/users', User); // bifurcación
+app.use('/api/libraries', Library);
+app.use('/api/cards', Card);
+
 
 
 
