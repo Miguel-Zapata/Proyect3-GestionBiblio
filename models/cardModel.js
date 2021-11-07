@@ -10,11 +10,7 @@ const CardSchema = new Schema({
         type: String,
         required: true
     },
-    number: { type: Number }, //lluis
-    author: {
-        type: String,
-        required: true
-    },
+    number: { type: Number }, //lluis los numeros serán obligatorios en unos casos pero en otros no.
     writer: {
         type: String,
         required: true
@@ -31,7 +27,8 @@ const CardSchema = new Schema({
     language: { type: String },
     isbn: { type: Number },
     publication_Date: { type: Date }, //lluis la fecha sale mal
-    description: { type: String },
+    format: { type: String },
+    synopsis: { type: String }
 });
 
 module.exports = Card = mongoose.model("Card", CardSchema);

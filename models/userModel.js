@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         type: String,
         required: "Por favor introduce un Apellido"
     },
-    userName: {
+    user_Name: {
         type: String,
         required: "Por favor introduce un Nombre de Usuario",
         unique: true

@@ -11,11 +11,11 @@ const LibraryRouter = express.Router();
 //Crear Biblioteca
 LibraryRouter.post("/", async(req, res) => {
     try {
-        let { name, cards, card, condition, admin, give } = req.body; //lluis
+        let { name, cards, card, condition, admin, give } = req.body;
 
         let library = new Library({
             name,
-            cards: {
+            cards: { // lluis no llama a la variable cards
                 card,
                 condition
             },
@@ -45,9 +45,6 @@ LibraryRouter.put("/find/:id/update", async(req, res) => {
         if (name) {
             library.name = name
         }
-
-        //lluis
-
         if (card) {
             library.cards.card = card
         }
