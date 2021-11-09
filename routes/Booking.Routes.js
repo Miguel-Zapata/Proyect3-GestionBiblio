@@ -1,8 +1,11 @@
+// añadir reserva a un usuario
+
 const express = require("express");
 const Booking = require("../models/BookingModel");
+// mirara usuario
 const BookingRouter = express.Router();
 
-// Crear Reserva
+// Crear Reserva + añadir reserva al usuario
 BookingRouter.post("/", async(req, res) => {
     try {
         let { user, card, library, condition, start_Date, finish_Date } = req.body;

@@ -1,4 +1,9 @@
 // crear Array de reservas
+// modificar array de reservas
+// eliminar 1 libro del array de reservas
+// eliminar todo el array de reservas
+// buscar  libro en el array de reservas
+// login
 
 const express = require("express");
 const User = require("../models/UserModel");

@@ -1,5 +1,5 @@
-// añadir libro
-//cambiar estado libro
+// buscar libros por filtros
+// si libro no existe error -- 
 
 const express = require("express");
 const Library = require("../models/LibraryModel");
@@ -13,8 +13,8 @@ LibraryRouter.post("/", async(req, res) => {
         let library = new Library({
             name,
             admin,
-            give: Boolean(give)
-        })
+            give //Boolean(give)  //lluis
+        });
         const newLibrary = await library.save();
         return res.status(201).send({
             success: true,
@@ -60,23 +60,22 @@ LibraryRouter.put("/find/:id/update", async(req, res) => {
 });
 
 // Añadir Ficha
-LibraryRouter.put("/find/:id/add", async(req, res) => {
+LibraryRouter.put("/find/:id/add-card", async(req, res) => {
     try {
-        const { id } = req.params; // condicion error se repite el libro
+        const { id } = req.params;
         let { card } = req.body;
         let contain = { card, condition: true };
         const library = await Library.findById(id);
 
-        if (library.cards.includes(card) == true) {
-            return res.status(400).send({
-                success: false,
-                message: "Este libro ya existe en tu biblioteca"
-            });
-        }
-
-
-
-
+        //find
+        library.cards.forEach(item => { //lluis con un find no funciona.
+            if (item.card.equals(card)) {
+                return res.status(400).send({
+                    success: false,
+                    message: "Este libro ya existe en tu biblioteca"
+                });
+            }
+        });
         library.cards.push(contain);
         const addCard = await library.save();
         return res.status(200).send({
@@ -91,6 +90,58 @@ LibraryRouter.put("/find/:id/add", async(req, res) => {
         });
     }
 
+});
+
+// cambiar condition de ficha
+LibraryRouter.put("/find/:id/change-condition", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const library = await Library.findById(id);
+        let { card } = req.body;
+
+        library.cards.find(item => {
+            if (item.card.equals(card)) {
+                item.condition = !item.condition;
+                library.save();
+                return res.status(200).send({
+                    success: true,
+                    message: item.condition ? "Libro Disponible" : "Libro No Disponible" // ternaria BUSCAR
+                });
+            };
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+// Eliminar Ficha de la biblioteca
+LibraryRouter.put("/find/:id/delete-card", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const library = await Library.findById(id);
+        let { card } = req.body;
+
+        library.cards.forEach(function(ficha, index, object) {
+            if (ficha.card.equals(card)) {
+                object.splice(index, 1);
+                library.save();
+                return res.status(200).send({
+                    success: true,
+                    message: `La ficha se ha eliminado`
+                });
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
 });
 
 // Eliminar Biblioteca
@@ -145,5 +196,27 @@ LibraryRouter.get("/find/:id", async(req, res) => {
         });
     }
 });
+
+// Mostrar todos los libros de la Biblioteca
+LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const library = await Library.findById(id);
+
+        let cosa = library.cards.map(function(libro) {
+            console.log(libro.card);
+            return libro.card;
+        });
+        return res.send(cosa);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
 
 module.exports = LibraryRouter;

@@ -1,3 +1,6 @@
+// Buscar fichas por filtros 
+// eliminar libro de todos los sitios --
+
 const express = require("express");
 const Card = require("../models/CardModel");
 const CardRouter = express.Router();
