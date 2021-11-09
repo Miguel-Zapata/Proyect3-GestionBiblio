@@ -1,9 +1,3 @@
-// Crear Ficha
-// Modificar ficha
-// Eliminar Ficha
-// Mostrar todas las fichas
-// Mostrar 1 ficha
-
 const express = require("express");
 const Card = require("../models/CardModel");
 const CardRouter = express.Router();
@@ -12,6 +6,15 @@ const CardRouter = express.Router();
 CardRouter.post("/", async(req, res) => {
     try {
         let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
+        let date
+
+        if (publication_Date) {
+            date = new Date(publication_Date);
+            date.setHours(date.getHours() + 2);
+        }
+        console.log(date);
+
+
         let card = new Card({
             type,
             title,
@@ -25,7 +28,7 @@ CardRouter.post("/", async(req, res) => {
             page_Number,
             language,
             isbn,
-            publication_Date, //lluis la fecha sale mal
+            publication_Date: date,
             format,
             synopsis
         })
@@ -117,6 +120,41 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
         return res.send({
             success: true,
             message: `la Ficha [${card.title}] a sido eliminada`
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+// Mostrar todas Fichas
+CardRouter.get("/", async(req, res) => {
+    try {
+        const cards = await Card.find({});
+        return res.send({
+            success: true,
+            cards
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+// Mostrar 1 Ficha
+CardRouter.get("/find/:id", async(req, res) => {
+    try {
+        const { id } = req.params;
+        const card = await Card.findById(id);
+        return res.send({
+            success: true,
+            card
         });
     } catch (err) {
         console.log(err);

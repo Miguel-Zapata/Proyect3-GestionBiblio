@@ -1,8 +1,5 @@
-// Crear Biblioteca
-// Modificar datos de la Biblioteca
-// Eliminar Biblioteca
-// Mostrar Todas las Bibliotecas
-// Mostrar una biblioteca
+// añadir libro
+//cambiar estado libro
 
 const express = require("express");
 const Library = require("../models/LibraryModel");
@@ -11,16 +8,12 @@ const LibraryRouter = express.Router();
 //Crear Biblioteca
 LibraryRouter.post("/", async(req, res) => {
     try {
-        let { name, cards, card, condition, admin, give } = req.body;
+        let { name, admin, give } = req.body;
 
         let library = new Library({
             name,
-            cards: { // lluis no llama a la variable cards
-                card,
-                condition
-            },
             admin,
-            give
+            give: Boolean(give)
         })
         const newLibrary = await library.save();
         return res.status(201).send({
@@ -40,16 +33,10 @@ LibraryRouter.post("/", async(req, res) => {
 LibraryRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
-        let { name, cards, card, condition, admin, give } = req.body;
+        let { name, admin, give } = req.body;
         const library = await Library.findById(id);
         if (name) {
             library.name = name
-        }
-        if (card) {
-            library.cards.card = card
-        }
-        if (condition) {
-            library.cards.condition = condition
         }
         if (admin) {
             library.admin = admin
@@ -70,6 +57,40 @@ LibraryRouter.put("/find/:id/update", async(req, res) => {
             message: err.message || err._message
         });
     }
+});
+
+// Añadir Ficha
+LibraryRouter.put("/find/:id/add", async(req, res) => {
+    try {
+        const { id } = req.params; // condicion error se repite el libro
+        let { card } = req.body;
+        let contain = { card, condition: true };
+        const library = await Library.findById(id);
+
+        if (library.cards.includes(card) == true) {
+            return res.status(400).send({
+                success: false,
+                message: "Este libro ya existe en tu biblioteca"
+            });
+        }
+
+
+
+
+        library.cards.push(contain);
+        const addCard = await library.save();
+        return res.status(200).send({
+            success: true,
+            library: addCard
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
 });
 
 // Eliminar Biblioteca

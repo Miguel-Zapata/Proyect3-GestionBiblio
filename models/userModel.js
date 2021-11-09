@@ -37,7 +37,8 @@ const UserSchema = new Schema({
         type: String,
         required: "Por favor introduce una Contraseña",
         validate: [validatePassword, "La contraseña debe contener al menos una Mayuscula (ABC), un Número (123) y un Caracter especial (!@#$%^&*)"]
-    }
+    },
+    bookings: { type: Array }
 });
 
 module.exports = User = mongoose.model("User", UserSchema);

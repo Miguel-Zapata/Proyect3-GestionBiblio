@@ -1,8 +1,4 @@
-// Crear Usuario
-// Modificar datos del usuario
-// Eliminar el usuario
-// Mostrar todos los usuarios.
-// Mostrar 1 usuario concreto.
+// crear Array de reservas
 
 const express = require("express");
 const User = require("../models/UserModel");

@@ -10,7 +10,7 @@ const CardSchema = new Schema({
         type: String,
         required: true
     },
-    number: { type: Number }, //lluis los numeros serán obligatorios en unos casos pero en otros no.
+    number: { type: Number },
     writer: {
         type: String,
         required: true
@@ -26,7 +26,7 @@ const CardSchema = new Schema({
     page_Number: { type: Number },
     language: { type: String },
     isbn: { type: Number },
-    publication_Date: { type: Date }, //lluis la fecha sale mal
+    publication_Date: { type: Date },
     format: { type: String },
     synopsis: { type: String }
 });
