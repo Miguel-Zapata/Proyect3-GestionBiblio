@@ -13,7 +13,7 @@ LibraryRouter.post("/", async(req, res) => {
         let library = new Library({
             name,
             admin,
-            give //Boolean(give)  //lluis
+            give
         });
         const newLibrary = await library.save();
         return res.status(201).send({

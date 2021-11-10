@@ -1,14 +1,14 @@
-// añadir reserva a un usuario
-
 const express = require("express");
 const Booking = require("../models/BookingModel");
-// mirara usuario
+const User = require("../models/UserModel");
+const Library = require("../models/LibraryModel");
 const BookingRouter = express.Router();
 
-// Crear Reserva + añadir reserva al usuario
+// Crear Reserva + añadir reserva al usuario + valida libro +valida biblioteca
+
 BookingRouter.post("/", async(req, res) => {
     try {
-        let { user, card, library, condition, start_Date, finish_Date } = req.body;
+        let { user, card, library, start_Date, finish_Date } = req.body;
         let st_Date
         let fin_Date
 
@@ -25,15 +25,28 @@ BookingRouter.post("/", async(req, res) => {
             user,
             card,
             library,
-            condition, // Boolean(condition)  //lluis con Boolean me pone siempre en true.
+            condition: true,
             start_Date: st_Date,
-            finish_Date: fin_Date, //lluis para que me aparezca tengo que poner la fecha de inicio.
+            finish_Date: fin_Date,
         })
-        const newBooking = await booking.save();
-        return res.status(201).send({
-            success: true,
-            booking: newBooking
-        });
+
+        let libraryFind = await Library.findById(library);
+        console.log(libraryFind.cards[0].condition);
+
+        if ((libraryFind.cards[0].condition == true) && (libraryFind.give == true)) {
+
+            const newBooking = await booking.save();
+            let arrayBooking = await User.findById(user);
+            arrayBooking.bookings.push(newBooking._id);
+            await arrayBooking.save();
+            return res.status(201).send({
+                success: true,
+                booking: newBooking
+            });
+        } else {
+            return res.send("PASO DE TU CARA");
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({

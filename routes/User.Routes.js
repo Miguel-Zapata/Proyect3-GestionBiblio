@@ -1,16 +1,14 @@
-// crear Array de reservas
 // modificar array de reservas
 // eliminar 1 libro del array de reservas
 // eliminar todo el array de reservas
 // buscar  libro en el array de reservas
-// login
 
 const express = require("express");
 const User = require("../models/UserModel");
 const UserRouter = express.Router();
 
 // Crea un Nuevo Usuario
-UserRouter.post("/", async(req, res) => {
+/* UserRouter.post("/", async(req, res) => {
     try {
         let { name, surname, user_Name, email, password } = req.body;
         let user = new User({
@@ -32,7 +30,7 @@ UserRouter.post("/", async(req, res) => {
             message: err.message || err._message
         });
     }
-});
+}); */
 
 // Modificar datos del usuario.
 UserRouter.put("/find/:id/update", async(req, res) => {
