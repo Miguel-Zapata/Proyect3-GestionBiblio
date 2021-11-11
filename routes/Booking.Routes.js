@@ -5,7 +5,6 @@ const Library = require("../models/LibraryModel");
 const BookingRouter = express.Router();
 
 // Crear Reserva + añadir reserva al usuario + valida libro +valida biblioteca
-
 BookingRouter.post("/", async(req, res) => {
     try {
         let { user, card, library, start_Date, finish_Date } = req.body;
@@ -44,7 +43,7 @@ BookingRouter.post("/", async(req, res) => {
                 booking: newBooking
             });
         } else {
-            return res.send("PASO DE TU CARA");
+            return res.send("ERROR AL CREAR LA RESERVA");
         }
 
     } catch (err) {
@@ -77,9 +76,9 @@ BookingRouter.put("/find/:id/update", async(req, res) => {
         if (start_Date) {
             booking.start_Date = start_Date
         }
-        if (finish_Date) {
+        /* if (finish_Date) {
             booking.finish_Date = finish_Date
-        }
+        } */
         const updateBooking = await booking.save();
 
         return res.send({
@@ -95,7 +94,7 @@ BookingRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Eliminar Reserva
+// Eliminar 1 Reserva
 BookingRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;

@@ -3,7 +3,7 @@ const User = require("../models/UserModel");
 const AuthRouter = express.Router();
 
 // Crea un Nuevo Usuario
-AuthRouter.post("/", async(req, res) => {
+AuthRouter.post("/create-user", async(req, res) => {
     try {
         let { name, surname, user_Name, email, password } = req.body;
         let user = new User({

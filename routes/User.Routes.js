@@ -1,41 +1,11 @@
-// modificar array de reservas
-// eliminar 1 libro del array de reservas
-// eliminar todo el array de reservas
-// buscar  libro en el array de reservas
-
 const express = require("express");
 const User = require("../models/UserModel");
 const UserRouter = express.Router();
 
-// Crea un Nuevo Usuario
-/* UserRouter.post("/", async(req, res) => {
-    try {
-        let { name, surname, user_Name, email, password } = req.body;
-        let user = new User({
-            name,
-            surname,
-            user_Name,
-            email,
-            password
-        })
-        const newUser = await user.save();
-        return res.status(201).send({
-            success: true,
-            user: newUser
-        });
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send({
-            success: false,
-            message: err.message || err._message
-        });
-    }
-}); */
-
 // Modificar datos del usuario.
-UserRouter.put("/find/:id/update", async(req, res) => {
+UserRouter.put("/update", async(req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
         let { name, surname, user_Name, email, password } = req.body;
         const user = await User.findById(id);
         if (name) {
@@ -69,9 +39,9 @@ UserRouter.put("/find/:id/update", async(req, res) => {
 });
 
 // Eliminar Usuario
-UserRouter.delete("/find/:id/delete", async(req, res) => {
+UserRouter.delete("/delete", async(req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
         const user = await User.findByIdAndDelete(id);
         return res.send({
             success: true,
@@ -104,9 +74,9 @@ UserRouter.get("/", async(req, res) => {
 });
 
 // Mostrar 1 usuario concreto.
-UserRouter.get("/find/:id", async(req, res) => {
+UserRouter.get("/find", async(req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
         const user = await User.findById(id);
         return res.send({
             success: true,
@@ -119,6 +89,72 @@ UserRouter.get("/find/:id", async(req, res) => {
             message: err.message || err._message
         });
     }
+});
+
+
+// Mostrar mis Reservas
+UserRouter.get("/mybookings", async(req, res) => {
+    try {
+        const { id } = req.body;
+        const myUser = await User.findById(id);
+        return res.send({
+            success: true,
+            myBookings: myUser.bookings
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+// Eliminar TODAS mis Reservas
+UserRouter.delete("/mybookings/delete", async(req, res) => {
+    try {
+        const { id } = req.body;
+        const myUser = await User.findById(id);
+        let bookingsDelete = myUser.bookings.splice(0, myUser.bookings.length);
+        await myUser.save();
+
+        return res.send({
+            success: true,
+            message: 'Todas tus reservas han sido eliminadas'
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
+});
+
+// Eliminar 1 de mis Reservas
+UserRouter.delete("/mybookings/delete/book", async(req, res) => {
+    try {
+        const { id, bookId } = req.body;
+        const myUser = await User.findById(id);
+        let bookingsDelete = myUser.bookings;
+        const bookDelete = bookingsDelete.find(book => book == bookId);
+        let index = bookingsDelete.indexOf(bookDelete);
+        bookingsDelete.splice(index, 1);
+        await myUser.save();
+        return res.send({
+            success: true,
+            message: 'Tu libro se ha desvanecido',
+            bookingsDelete
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
 });
 
 module.exports = UserRouter;

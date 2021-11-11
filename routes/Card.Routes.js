@@ -136,7 +136,7 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
 // Mostrar todas Fichas
 CardRouter.get("/", async(req, res) => {
     try {
-        const cards = await Card.find({});
+        const cards = await Card.find({}).select("title number writer");
         return res.send({
             success: true,
             cards
@@ -154,7 +154,7 @@ CardRouter.get("/", async(req, res) => {
 CardRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const card = await Card.findById(id);
+        const card = await Card.findById(id).select("title number writer");
         return res.send({
             success: true,
             card

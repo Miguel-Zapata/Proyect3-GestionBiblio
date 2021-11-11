@@ -165,7 +165,7 @@ LibraryRouter.delete("/find/:id/delete", async(req, res) => {
 // Mostrar todas las Bibliotecas
 LibraryRouter.get("/", async(req, res) => {
     try {
-        const libraries = await Library.find({});
+        const libraries = await Library.find().populate("cards.card", "title");
         return res.send({
             success: true,
             libraries
@@ -183,7 +183,7 @@ LibraryRouter.get("/", async(req, res) => {
 LibraryRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const library = await Library.findById(id);
+        const library = await Library.findById(id).populate("cards.card", "title");
         return res.send({
             success: true,
             library
@@ -201,13 +201,13 @@ LibraryRouter.get("/find/:id", async(req, res) => {
 LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
     try {
         const { id } = req.params;
-        const library = await Library.findById(id);
+        const library = await Library.findById(id).populate("cards.card", "title");
 
-        let cosa = library.cards.map(function(libro) {
+        let libroFind = library.cards.map(function(libro) {
             console.log(libro.card);
             return libro.card;
         });
-        return res.send(cosa);
+        return res.send(libroFind);
 
     } catch (err) {
         console.log(err);
