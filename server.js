@@ -1,10 +1,16 @@
 // Esto enlaza express con el archivo .js
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
-
-// Esto es para proteger datos. La constante PORT está en el archivo .env y saca la info desde ahí.
-require('dotenv').config();
 const PORT = process.env.PORT;
+const { checkToken } = require('./middlewares');
+
+const Auth = require("./routes/Auth.Routes")
+const User = require("./routes/User.Routes");
+const Library = require("./routes/Library.Routes");
+const Card = require("./routes/Card.Routes");
+const Booking = require("./routes/Booking.Routes");
 
 // Conecta el archivo de la ruta con este.
 const connectDB = require('./DB/connection.js');
@@ -14,18 +20,9 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Importo la ruta de User
-const Auth = require("./routes/Auth.Routes")
-const User = require("./routes/User.Routes");
-const Library = require("./routes/Library.Routes");
-const Card = require("./routes/Card.Routes");
-const Booking = require("./routes/Booking.Routes");
-
-
 // Indico nombre de ruta y ruta real que quiero usar
-
 app.use('/api/authentications', Auth); // lluis
-app.use('/api/users', User); // bifurcación
+app.use('/api/users', checkToken, User); // bifurcación
 app.use('/api/libraries', Library);
 app.use('/api/cards', Card);
 app.use('/api/bookings', Booking);

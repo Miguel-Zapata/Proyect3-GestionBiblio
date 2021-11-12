@@ -1,13 +1,17 @@
+require('dotenv').config();
+
 const express = require("express");
 const Booking = require("../models/BookingModel");
 const User = require("../models/UserModel");
 const Library = require("../models/LibraryModel");
+const { checkToken } = require('../middlewares');
 const BookingRouter = express.Router();
 
 // Crear Reserva + añadir reserva al usuario + valida libro +valida biblioteca
-BookingRouter.post("/", async(req, res) => {
+BookingRouter.post("/", checkToken, async(req, res) => {
     try {
-        let { user, card, library, start_Date, finish_Date } = req.body;
+        const { user } = req.user;
+        let { /* user, */ card, library, start_Date, finish_Date } = req.body;
         let st_Date
         let fin_Date
 

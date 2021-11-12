@@ -1,14 +1,18 @@
 // buscar libros por filtros
 // si libro no existe error -- 
+// verificar que el admin es el mismo que la id del user logeado.
 
+require('dotenv').config();
 const express = require("express");
+const { checkToken } = require("../middlewares");
 const Library = require("../models/LibraryModel");
 const LibraryRouter = express.Router();
 
-//Crear Biblioteca
-LibraryRouter.post("/", async(req, res) => {
+// Crear Mi Biblioteca
+LibraryRouter.post("/", checkToken, async(req, res) => {
     try {
-        let { name, admin, give } = req.body;
+        const { admin } = req.user;
+        let { name, give } = req.body;
 
         let library = new Library({
             name,
@@ -29,18 +33,19 @@ LibraryRouter.post("/", async(req, res) => {
     }
 });
 
-// Modificar datos de Biblioteca.
-LibraryRouter.put("/find/:id/update", async(req, res) => {
+// Modificar datos de  Mi Biblioteca
+LibraryRouter.put("/:id/update", checkToken, async(req, res) => {
     try {
-        const { id } = req.params;
-        let { name, admin, give } = req.body;
+        const { admin } = req.user;
+        const { id } = req.params; // id de library
+        let { name, give } = req.body;
         const library = await Library.findById(id);
         if (name) {
             library.name = name
         }
-        if (admin) {
+        /* if (admin) {
             library.admin = admin
-        }
+        } */
         if (give) {
             library.give = give
         }
@@ -59,11 +64,31 @@ LibraryRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Añadir Ficha
-LibraryRouter.put("/find/:id/add-card", async(req, res) => {
+// Eliminar  Mi Biblioteca
+LibraryRouter.delete("/:id/delete", checkToken, async(req, res) => {
     try {
-        const { id } = req.params;
-        let { card } = req.body;
+        const { admin } = req.user;
+        const { id } = req.params; // id de library
+        const library = await Library.findByIdAndDelete(id);
+        return res.send({
+            success: true,
+            message: `La Biblioteca ${library.name} a sido eliminada`
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+// Añadir Libro a Mi Biblioteca
+LibraryRouter.put("/:id/add-card", checkToken, async(req, res) => {
+    try {
+        const { admin } = req.user;
+        const { id } = req.params; // id de library
+        let { card } = req.body; // id de card
         let contain = { card, condition: true };
         const library = await Library.findById(id);
 
@@ -92,12 +117,13 @@ LibraryRouter.put("/find/:id/add-card", async(req, res) => {
 
 });
 
-// cambiar condition de ficha
-LibraryRouter.put("/find/:id/change-condition", async(req, res) => {
+// Cambiar estado de 1 Libro de Mi Biblioteca
+LibraryRouter.put("/:id/card-condition", checkToken, async(req, res) => {
     try {
-        const { id } = req.params;
+        const { admin } = req.user;
+        const { id } = req.params; // id de library
         const library = await Library.findById(id);
-        let { card } = req.body;
+        let { card } = req.body; // id de card
 
         library.cards.find(item => {
             if (item.card.equals(card)) {
@@ -118,12 +144,13 @@ LibraryRouter.put("/find/:id/change-condition", async(req, res) => {
     }
 });
 
-// Eliminar Ficha de la biblioteca
-LibraryRouter.put("/find/:id/delete-card", async(req, res) => {
+// Eliminar 1 Libro de Mi Biblioteca
+LibraryRouter.put("/:id/delete-card", checkToken, async(req, res) => {
     try {
-        const { id } = req.params;
+        const { admin } = req.user;
+        const { id } = req.params; // id de library
         const library = await Library.findById(id);
-        let { card } = req.body;
+        let { card } = req.body; // id de card
 
         library.cards.forEach(function(ficha, index, object) {
             if (ficha.card.equals(card)) {
@@ -134,24 +161,6 @@ LibraryRouter.put("/find/:id/delete-card", async(req, res) => {
                     message: `La ficha se ha eliminado`
                 });
             }
-        });
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send({
-            success: false,
-            message: err.message || err._message
-        });
-    }
-});
-
-// Eliminar Biblioteca
-LibraryRouter.delete("/find/:id/delete", async(req, res) => {
-    try {
-        const { id } = req.params;
-        const library = await Library.findByIdAndDelete(id);
-        return res.send({
-            success: true,
-            message: `La Biblioteca ${library.name} a sido eliminada`
         });
     } catch (err) {
         console.log(err);
@@ -182,7 +191,7 @@ LibraryRouter.get("/", async(req, res) => {
 // Mostrar 1 Biblioteca.
 LibraryRouter.get("/find/:id", async(req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params; // id de library a buscar
         const library = await Library.findById(id).populate("cards.card", "title");
         return res.send({
             success: true,
@@ -197,10 +206,10 @@ LibraryRouter.get("/find/:id", async(req, res) => {
     }
 });
 
-// Mostrar todos los libros de la Biblioteca
+// Mostrar todos los libros de 1 Biblioteca
 LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params; // id de library
         const library = await Library.findById(id).populate("cards.card", "title");
 
         let libroFind = library.cards.map(function(libro) {

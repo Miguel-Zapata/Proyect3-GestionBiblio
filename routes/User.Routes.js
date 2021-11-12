@@ -5,7 +5,7 @@ const UserRouter = express.Router();
 // Modificar datos del usuario.
 UserRouter.put("/update", async(req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.user;
         let { name, surname, user_Name, email, password } = req.body;
         const user = await User.findById(id);
         if (name) {
@@ -41,7 +41,7 @@ UserRouter.put("/update", async(req, res) => {
 // Eliminar Usuario
 UserRouter.delete("/delete", async(req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.user;
         const user = await User.findByIdAndDelete(id);
         return res.send({
             success: true,
@@ -74,9 +74,9 @@ UserRouter.get("/", async(req, res) => {
 });
 
 // Mostrar 1 usuario concreto.
-UserRouter.get("/find", async(req, res) => {
+UserRouter.get("/find/:id", async(req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const user = await User.findById(id);
         return res.send({
             success: true,
@@ -95,7 +95,7 @@ UserRouter.get("/find", async(req, res) => {
 // Mostrar mis Reservas
 UserRouter.get("/mybookings", async(req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.user;
         const myUser = await User.findById(id);
         return res.send({
             success: true,
@@ -113,7 +113,7 @@ UserRouter.get("/mybookings", async(req, res) => {
 // Eliminar TODAS mis Reservas
 UserRouter.delete("/mybookings/delete", async(req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.user;
         const myUser = await User.findById(id);
         let bookingsDelete = myUser.bookings.splice(0, myUser.bookings.length);
         await myUser.save();
@@ -135,7 +135,7 @@ UserRouter.delete("/mybookings/delete", async(req, res) => {
 // Eliminar 1 de mis Reservas
 UserRouter.delete("/mybookings/delete/book", async(req, res) => {
     try {
-        const { id, bookId } = req.body;
+        const { id, bookId } = req.user;
         const myUser = await User.findById(id);
         let bookingsDelete = myUser.bookings;
         const bookDelete = bookingsDelete.find(book => book == bookId);

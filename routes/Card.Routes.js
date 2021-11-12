@@ -1,13 +1,17 @@
 // Buscar fichas por filtros . Backend
 // eliminar libro de todos los sitios --
 
+// require('dotenv').config();
+
 const express = require("express");
+const { checkToken } = require("../middlewares");
 const Card = require("../models/CardModel");
 const CardRouter = express.Router();
 
 // Crea una Ficha
-CardRouter.post("/", async(req, res) => {
+CardRouter.post("/", checkToken, async(req, res) => {
     try {
+        // const { user } = req.user;
         let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         let date
 
@@ -16,7 +20,6 @@ CardRouter.post("/", async(req, res) => {
             date.setHours(date.getHours() + 2);
         }
         console.log(date);
-
 
         let card = new Card({
             type,
