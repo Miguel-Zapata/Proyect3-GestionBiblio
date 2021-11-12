@@ -1,10 +1,13 @@
 const express = require("express");
 const User = require("../models/UserModel");
 const AuthRouter = express.Router();
+const bcrypt = require('bcrypt');
 
 // Crea un Nuevo Usuario
 AuthRouter.post("/create-user", async(req, res) => {
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
         let { name, surname, user_Name, email, password } = req.body;
         let user = new User({
             name,
