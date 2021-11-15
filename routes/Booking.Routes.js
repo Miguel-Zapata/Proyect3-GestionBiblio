@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const express = require("express");
 const Booking = require("../models/BookingModel");
 const User = require("../models/UserModel");
@@ -59,7 +57,7 @@ BookingRouter.post("/", checkToken, async(req, res) => {
     }
 });
 
-// Modificar Reserva
+// Modificar Reserva // lluis Necesito que esto solo lo haga el admin de la web
 BookingRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
@@ -98,7 +96,7 @@ BookingRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Eliminar 1 Reserva
+// Eliminar 1 Reserva // lluis Necesito que esto solo lo haga el admin de la web
 BookingRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;
@@ -116,7 +114,7 @@ BookingRouter.delete("/find/:id/delete", async(req, res) => {
     }
 });
 
-// Mostrar todas Reservas
+// Mostrar todas Reservas // lluis Necesito que esto solo lo haga el admin de la web
 BookingRouter.get("/", async(req, res) => {
     try {
         const bookings = await Booking.find({});
@@ -133,7 +131,7 @@ BookingRouter.get("/", async(req, res) => {
     }
 });
 
-// Mostrar 1 Reserva
+// Mostrar 1 Reserva // lluis Necesito que esto solo lo haga el admin de la web
 BookingRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;

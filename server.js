@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 // Indico nombre de ruta y ruta real que quiero usar
 app.use('/api/authentications', Auth); // lluis
 app.use('/api/users', checkToken, User); // bifurcación
-app.use('/api/libraries', Library);
+app.use('/api/libraries', checkToken, Library);
 app.use('/api/cards', Card);
 app.use('/api/bookings', Booking);
 

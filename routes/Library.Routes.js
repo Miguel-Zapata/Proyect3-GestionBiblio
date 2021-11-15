@@ -1,15 +1,9 @@
-// buscar libros por filtros
-// si libro no existe error -- 
-// verificar que el admin es el mismo que la id del user logeado.
-
-require('dotenv').config();
 const express = require("express");
-const { checkToken } = require("../middlewares");
 const Library = require("../models/LibraryModel");
 const LibraryRouter = express.Router();
 
 // Crear Mi Biblioteca
-LibraryRouter.post("/", checkToken, async(req, res) => {
+LibraryRouter.post("/", async(req, res) => {
     try {
         const { admin } = req.user;
         let { name, give } = req.body;
@@ -34,27 +28,39 @@ LibraryRouter.post("/", checkToken, async(req, res) => {
 });
 
 // Modificar datos de  Mi Biblioteca
-LibraryRouter.put("/:id/update", checkToken, async(req, res) => {
+LibraryRouter.put("/:id/update", async(req, res) => {
     try {
         const { admin } = req.user;
         const { id } = req.params; // id de library
         let { name, give } = req.body;
         const library = await Library.findById(id);
-        if (name) {
-            library.name = name
-        }
-        /* if (admin) {
-            library.admin = admin
-        } */
-        if (give) {
-            library.give = give
-        }
-        const updateLibrary = await library.save();
 
-        return res.send({
-            success: true,
-            message: `${library.name} se ha modificado correctamente`
-        });
+        if (library.admin == admin) {
+
+            if (name) {
+                library.name = name
+            }
+            /* if (admin) {
+                library.admin = admin
+            } */
+            if (give) {
+                library.give = give
+            }
+            const updateLibrary = await library.save();
+
+            return res.send({
+                success: true,
+                message: `${library.name} se ha modificado correctamente`
+            });
+        }
+
+        if (library.admin != admin) {
+            return res.json({
+                success: false,
+                message: "Esta no es tu Biblioteca"
+            })
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -65,15 +71,26 @@ LibraryRouter.put("/:id/update", checkToken, async(req, res) => {
 });
 
 // Eliminar  Mi Biblioteca
-LibraryRouter.delete("/:id/delete", checkToken, async(req, res) => {
+LibraryRouter.delete("/:id/delete", async(req, res) => {
     try {
         const { admin } = req.user;
         const { id } = req.params; // id de library
         const library = await Library.findByIdAndDelete(id);
-        return res.send({
-            success: true,
-            message: `La Biblioteca ${library.name} a sido eliminada`
-        });
+
+        if (library.admin == admin) {
+            return res.send({
+                success: true,
+                message: `La Biblioteca ${library.name} a sido eliminada`
+            });
+        }
+
+        if (library.admin != admin) {
+            return res.json({
+                success: false,
+                message: "Esta no es tu Biblioteca"
+            });
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -84,7 +101,7 @@ LibraryRouter.delete("/:id/delete", checkToken, async(req, res) => {
 });
 
 // Añadir Libro a Mi Biblioteca
-LibraryRouter.put("/:id/add-card", checkToken, async(req, res) => {
+LibraryRouter.put("/:id/add-card", async(req, res) => {
     try {
         const { admin } = req.user;
         const { id } = req.params; // id de library
@@ -92,21 +109,31 @@ LibraryRouter.put("/:id/add-card", checkToken, async(req, res) => {
         let contain = { card, condition: true };
         const library = await Library.findById(id);
 
-        //find
-        library.cards.forEach(item => { //lluis con un find no funciona.
-            if (item.card.equals(card)) {
-                return res.status(400).send({
-                    success: false,
-                    message: "Este libro ya existe en tu biblioteca"
-                });
-            }
-        });
-        library.cards.push(contain);
-        const addCard = await library.save();
-        return res.status(200).send({
-            success: true,
-            library: addCard
-        });
+        if (library.admin == admin) {
+            //find
+            library.cards.forEach(item => { //lluis con un find no funciona.
+                if (item.card.equals(card)) {
+                    return res.status(400).send({
+                        success: false,
+                        message: "Este libro ya existe en tu biblioteca"
+                    });
+                }
+            });
+            library.cards.push(contain);
+            const addCard = await library.save();
+            return res.status(200).send({
+                success: true,
+                library: addCard
+            });
+        }
+
+        if (library.admin != admin) {
+            return res.json({
+                success: false,
+                message: "Esta no es tu Biblioteca"
+            });
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -118,23 +145,33 @@ LibraryRouter.put("/:id/add-card", checkToken, async(req, res) => {
 });
 
 // Cambiar estado de 1 Libro de Mi Biblioteca
-LibraryRouter.put("/:id/card-condition", checkToken, async(req, res) => {
+LibraryRouter.put("/:id/card-condition", async(req, res) => {
     try {
         const { admin } = req.user;
         const { id } = req.params; // id de library
         const library = await Library.findById(id);
         let { card } = req.body; // id de card
 
-        library.cards.find(item => {
-            if (item.card.equals(card)) {
-                item.condition = !item.condition;
-                library.save();
-                return res.status(200).send({
-                    success: true,
-                    message: item.condition ? "Libro Disponible" : "Libro No Disponible" // ternaria BUSCAR
-                });
-            };
-        });
+        if (library.admin == admin) {
+            library.cards.find(item => {
+                if (item.card.equals(card)) {
+                    item.condition = !item.condition;
+                    library.save();
+                    return res.status(200).send({
+                        success: true,
+                        message: item.condition ? "Libro Disponible" : "Libro No Disponible" // ternaria BUSCAR
+                    });
+                };
+            });
+        }
+
+        if (library.admin != admin) {
+            return res.json({
+                success: false,
+                message: "Este Libro no pertenece a tu Biblioteca"
+            });
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -145,23 +182,33 @@ LibraryRouter.put("/:id/card-condition", checkToken, async(req, res) => {
 });
 
 // Eliminar 1 Libro de Mi Biblioteca
-LibraryRouter.put("/:id/delete-card", checkToken, async(req, res) => {
+LibraryRouter.put("/:id/delete-card", async(req, res) => {
     try {
         const { admin } = req.user;
         const { id } = req.params; // id de library
         const library = await Library.findById(id);
         let { card } = req.body; // id de card
 
-        library.cards.forEach(function(ficha, index, object) {
-            if (ficha.card.equals(card)) {
-                object.splice(index, 1);
-                library.save();
-                return res.status(200).send({
-                    success: true,
-                    message: `La ficha se ha eliminado`
-                });
-            }
-        });
+        if (library.admin == admin) {
+            library.cards.forEach(function(ficha, index, object) {
+                if (ficha.card.equals(card)) {
+                    object.splice(index, 1);
+                    library.save();
+                    return res.status(200).send({
+                        success: true,
+                        message: `La ficha se ha eliminado`
+                    });
+                }
+            });
+        }
+
+        if (library.admin != admin) {
+            return res.json({
+                success: false,
+                message: "Este Libro no pertenece a tu Biblioteca"
+            });
+        }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -226,6 +273,36 @@ LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
         });
     }
 });
+
+// Mostrar Libro por filtro
+/* LibraryRouter.get("/find/:id/filters", async(req, res) => {
+
+    try {
+        const { id } = req.params; // id de library
+        const library = await Library.findById(id);
+        let query = {};
+        if (req.query.type) query.type = req.query.type;
+        if (req.query.title) query.title = req.query.title;
+        if (req.query.number) query.number = req.query.number;
+        if (req.query.writer) query.writer = req.query.writer;
+        if (req.query.editorial) query.editorial = req.query.editorial;
+
+        let filter = await Library.find(query);
+        return res.json({
+            success: true,
+            filter
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
+}); */
+
 
 
 module.exports = LibraryRouter;
