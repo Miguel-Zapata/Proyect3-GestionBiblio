@@ -1,4 +1,3 @@
-// Buscar fichas por filtros . Backend
 // eliminar libro de todos los sitios --
 
 const express = require("express");
@@ -50,7 +49,7 @@ CardRouter.post("/", checkToken, async(req, res) => {
     }
 });
 
-// Modificar Ficha // lluis Necesito que esto solo lo haga el admin de la web
+// Modificar Ficha // SOLO ADMIN
 CardRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
@@ -116,7 +115,7 @@ CardRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Eliminar Ficha // lluis Necesito que esto solo lo haga el admin de la web
+// Eliminar Ficha // SOLO ADMIN
 CardRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;
@@ -173,7 +172,6 @@ CardRouter.get("/find/:id", checkToken, async(req, res) => {
 CardRouter.get("/filters", checkToken, async(req, res) => {
 
     try {
-        const { id } = req.params; // id de library
         let query = {};
         if (req.query.type) query.type = req.query.type;
         if (req.query.title) query.title = req.query.title;

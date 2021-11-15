@@ -6,15 +6,15 @@ const jwt = require("jsonwebtoken");
 const { env: { JWT_SECRET } } = process;
 
 
-var validateEmail = function(email) {
-    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email);
-};
+let validatePassword = function(password) {
+    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    return reg.test(password);
+}
 
 // Crea un Nuevo Usuario
 AuthRouter.post("/create-user", async(req, res) => {
     try {
-        let { name, surname, user_Name, email, password } = req.body;
+        const { name, surname, user_Name, email, password } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
@@ -24,10 +24,27 @@ AuthRouter.post("/create-user", async(req, res) => {
             user_Name,
             email,
             password: hash
-        })
+        });
         if (password) {
-            validateEmail;
+            validatePassword;
         }
+
+        let userEmail = await User.findOne({ email });
+        if (userEmail) {
+            return res.json({
+                success: false,
+                message: "Este correo ya Existe"
+            });
+        }
+
+        let userNick = await User.findOne({ user_Name });
+        if (userNick) {
+            return res.json({
+                success: false,
+                message: "Este nombre de Usuario ya Existe"
+            });
+        }
+
         const newUser = await user.save();
 
         return res.status(201).send({
@@ -54,7 +71,7 @@ AuthRouter.post("/login", async(req, res) => {
             return res.status(401).json({
                 success: false,
                 message: "Información Incorrecta"
-            })
+            });
         }
 
         const match = await bcrypt.compare(password, user.password);
@@ -63,7 +80,7 @@ AuthRouter.post("/login", async(req, res) => {
             return res.status(401).json({
                 success: false,
                 message: "Información Incorrecta"
-            })
+            });
         }
 
         // Crear Token
@@ -73,18 +90,7 @@ AuthRouter.post("/login", async(req, res) => {
             success: true,
             message: "ESTÁS LOGIN",
             token
-        })
-
-        /* let userEmail = await User.findOne({ email: email }); // lluis entra al if, pero se queda pensando
-        // console.log(userEmail);
-        if (userEmail.password == password && userEmail.email == email) {
-            // console.log("LOGIN!!!");
-            return res.send("LOGIN");
-
-        } else {
-            console.log("OUT!!!")
-            return res.send("OUT")
-        } */
+        });
 
     } catch (err) {
         console.log(err);

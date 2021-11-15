@@ -8,6 +8,7 @@ UserRouter.put("/update", async(req, res) => {
         const { id } = req.user;
         let { name, surname, user_Name, email, password } = req.body;
         const user = await User.findById(id);
+
         if (name) {
             user.name = name
         }
@@ -29,6 +30,7 @@ UserRouter.put("/update", async(req, res) => {
             success: true,
             message: `${user.user_Name} se ha modificado correctamente`
         });
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -43,10 +45,13 @@ UserRouter.delete("/delete", async(req, res) => {
     try {
         const { id } = req.user;
         const user = await User.findByIdAndDelete(id);
+
+        // if (user._id.equals(id)) {}
         return res.send({
             success: true,
             message: `el usuario ${user.user_Name} a sido eliminado`
         });
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -97,10 +102,13 @@ UserRouter.get("/mybookings", async(req, res) => {
     try {
         const { id } = req.user;
         const myUser = await User.findById(id);
-        return res.send({
-            success: true,
-            myBookings: myUser.bookings
-        });
+
+        if (myUser._id.equals(id)) {
+            return res.send({
+                success: true,
+                myBookings: myUser.bookings
+            });
+        }
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -115,13 +123,15 @@ UserRouter.delete("/mybookings/delete", async(req, res) => {
     try {
         const { id } = req.user;
         const myUser = await User.findById(id);
-        let bookingsDelete = myUser.bookings.splice(0, myUser.bookings.length);
-        await myUser.save();
+        if (myUser._id.equals(id)) {
+            let bookingsDelete = myUser.bookings.splice(0, myUser.bookings.length);
+            await myUser.save();
 
-        return res.send({
-            success: true,
-            message: 'Todas tus reservas han sido eliminadas'
-        });
+            return res.send({
+                success: true,
+                message: 'Todas tus reservas han sido eliminadas'
+            });
+        }
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -137,6 +147,8 @@ UserRouter.delete("/mybookings/delete/book", async(req, res) => {
     try {
         const { id, bookId } = req.user;
         const myUser = await User.findById(id);
+
+        // if (myUser._id.equals(id)) {}
         let bookingsDelete = myUser.bookings;
         const bookDelete = bookingsDelete.find(book => book == bookId);
         let index = bookingsDelete.indexOf(bookDelete);
@@ -147,6 +159,7 @@ UserRouter.delete("/mybookings/delete/book", async(req, res) => {
             message: 'Tu libro se ha desvanecido',
             bookingsDelete
         });
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({

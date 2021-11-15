@@ -32,8 +32,6 @@ BookingRouter.post("/", checkToken, async(req, res) => {
         })
 
         let libraryFind = await Library.findById(library);
-        console.log(libraryFind.cards[0].condition);
-
         if ((libraryFind.cards[0].condition == true) && (libraryFind.give == true)) {
 
             const newBooking = await booking.save();
@@ -57,7 +55,7 @@ BookingRouter.post("/", checkToken, async(req, res) => {
     }
 });
 
-// Modificar Reserva // lluis Necesito que esto solo lo haga el admin de la web
+// Modificar Reserva // SOLO ADMIN
 BookingRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
@@ -96,7 +94,7 @@ BookingRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Eliminar 1 Reserva // lluis Necesito que esto solo lo haga el admin de la web
+// Eliminar 1 Reserva // SOLO ADMIN
 BookingRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;
@@ -114,7 +112,7 @@ BookingRouter.delete("/find/:id/delete", async(req, res) => {
     }
 });
 
-// Mostrar todas Reservas // lluis Necesito que esto solo lo haga el admin de la web
+// Mostrar todas Reservas // SOLO ADMIN
 BookingRouter.get("/", async(req, res) => {
     try {
         const bookings = await Booking.find({});
@@ -131,7 +129,7 @@ BookingRouter.get("/", async(req, res) => {
     }
 });
 
-// Mostrar 1 Reserva // lluis Necesito que esto solo lo haga el admin de la web
+// Mostrar 1 Reserva // SOLO ADMIN
 BookingRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;

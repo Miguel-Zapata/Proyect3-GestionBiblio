@@ -6,13 +6,38 @@ const LibraryRouter = express.Router();
 LibraryRouter.post("/", async(req, res) => {
     try {
         const { admin } = req.user;
-        let { name, give } = req.body;
-
+        const { name, give } = req.body;
+        console.log(admin);
         let library = new Library({
             name,
             admin,
             give
         });
+
+        let libraryAdmin = Library.findOne({ admin });
+        if (admin === libraryAdmin) {
+            return res.json({
+                success: false,
+                message: "Solo se puede tener 1 Biblioteca por Usuario"
+            });
+        }
+
+        let libraryName = Library.findOne({ name });
+        if (name === libraryName) {
+            return res.json({
+                success: false,
+                message: "El nombre de Biblioteca ya está en uso"
+            });
+        }
+
+        if (!admin) {
+            return res.json({
+                message: "Cualquier cosa"
+            });
+
+        }
+
+
         const newLibrary = await library.save();
         return res.status(201).send({
             success: true,
@@ -273,36 +298,5 @@ LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
         });
     }
 });
-
-// Mostrar Libro por filtro
-/* LibraryRouter.get("/find/:id/filters", async(req, res) => {
-
-    try {
-        const { id } = req.params; // id de library
-        const library = await Library.findById(id);
-        let query = {};
-        if (req.query.type) query.type = req.query.type;
-        if (req.query.title) query.title = req.query.title;
-        if (req.query.number) query.number = req.query.number;
-        if (req.query.writer) query.writer = req.query.writer;
-        if (req.query.editorial) query.editorial = req.query.editorial;
-
-        let filter = await Library.find(query);
-        return res.json({
-            success: true,
-            filter
-        });
-
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send({
-            success: false,
-            message: err.message || err._message
-        });
-    }
-
-}); */
-
-
 
 module.exports = LibraryRouter;
