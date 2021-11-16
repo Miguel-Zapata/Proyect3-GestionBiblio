@@ -18,7 +18,7 @@ const LibrarySchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: "User",
         unique: true,
-        // required: true
+        required: true
     },
     give: {
         type: Boolean,

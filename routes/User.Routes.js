@@ -1,3 +1,5 @@
+// FALTA COMPROBAR: Eliminar todas las reservas y Eliminar 1 Reserva
+
 const express = require("express");
 const User = require("../models/UserModel");
 const UserRouter = express.Router();
@@ -6,8 +8,16 @@ const UserRouter = express.Router();
 UserRouter.put("/update", async(req, res) => {
     try {
         const { id } = req.user;
+        // const id = req.user.id // igual que arriba
         let { name, surname, user_Name, email, password } = req.body;
         const user = await User.findById(id);
+
+        if (!user._id.equals(id)) {
+            return res.json({
+                success: false,
+                message: "No puedes modificar el Usuario de otra persona"
+            });
+        }
 
         if (name) {
             user.name = name
@@ -46,7 +56,13 @@ UserRouter.delete("/delete", async(req, res) => {
         const { id } = req.user;
         const user = await User.findByIdAndDelete(id);
 
-        // if (user._id.equals(id)) {}
+        if (!user._id.equals(id)) {
+            return res.json({
+                success: false,
+                message: "No puedes eliminar el Usuario de otra persona"
+            });
+        }
+
         return res.send({
             success: true,
             message: `el usuario ${user.user_Name} a sido eliminado`
@@ -96,19 +112,24 @@ UserRouter.get("/find/:id", async(req, res) => {
     }
 });
 
-
 // Mostrar mis Reservas
 UserRouter.get("/mybookings", async(req, res) => {
     try {
         const { id } = req.user;
         const myUser = await User.findById(id);
 
-        if (myUser._id.equals(id)) {
-            return res.send({
-                success: true,
-                myBookings: myUser.bookings
+        if (!myUser._id.equals(id)) {
+            return res.json({
+                success: false,
+                message: "No puedes acceder a las reservas de otro Usuario"
             });
         }
+
+        return res.send({
+            success: true,
+            myBookings: myUser.bookings
+        });
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -145,10 +166,17 @@ UserRouter.delete("/mybookings/delete", async(req, res) => {
 // Eliminar 1 de mis Reservas
 UserRouter.delete("/mybookings/delete/book", async(req, res) => {
     try {
-        const { id, bookId } = req.user;
+        const { id } = req.user;
+        const bookId = req.body;
         const myUser = await User.findById(id);
 
-        // if (myUser._id.equals(id)) {}
+        if (!myUser._id.equals(id)) {
+            return res.json({
+                success: false,
+                message: "No puedes eliminar una reserva de otro Usuario"
+            });
+        }
+
         let bookingsDelete = myUser.bookings;
         const bookDelete = bookingsDelete.find(book => book == bookId);
         let index = bookingsDelete.indexOf(bookDelete);

@@ -8,8 +8,8 @@ const BookingRouter = express.Router();
 // Crear Reserva + añadir reserva al usuario + valida libro +valida biblioteca
 BookingRouter.post("/", checkToken, async(req, res) => {
     try {
-        const { user } = req.user;
-        let { /* user, */ card, library, start_Date, finish_Date } = req.body;
+        const user = req.user.id;
+        let { card, library, start_Date, finish_Date } = req.body;
         let st_Date
         let fin_Date
 

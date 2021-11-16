@@ -1,3 +1,5 @@
+// REVISADO. TODO FUNCIONA
+
 const express = require("express");
 const User = require("../models/UserModel");
 const AuthRouter = express.Router();

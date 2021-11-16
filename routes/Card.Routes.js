@@ -1,4 +1,4 @@
-// eliminar libro de todos los sitios --
+// REVISADO. TODO FUNCIONA
 
 const express = require("express");
 const { checkToken } = require("../middlewares");
