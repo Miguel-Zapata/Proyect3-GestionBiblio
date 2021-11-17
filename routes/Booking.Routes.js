@@ -1,3 +1,5 @@
+// FALTA validación de Reserva
+
 const express = require("express");
 const Booking = require("../models/BookingModel");
 const User = require("../models/UserModel");
@@ -9,7 +11,7 @@ const BookingRouter = express.Router();
 BookingRouter.post("/", checkToken, async(req, res) => {
     try {
         const user = req.user.id;
-        let { card, library, start_Date, finish_Date } = req.body;
+        const { card, library, start_Date, finish_Date } = req.body;
         let st_Date
         let fin_Date
 
@@ -32,8 +34,14 @@ BookingRouter.post("/", checkToken, async(req, res) => {
         })
 
         let libraryFind = await Library.findById(library);
-        if ((libraryFind.cards[0].condition == true) && (libraryFind.give == true)) {
+        let libro = libraryFind.cards.find(item => {
+            return item.card.equals(card);
+        });
 
+        // ESTUDIAR ESTO
+        console.log(libro.condition);
+        console.log(libraryFind.give);
+        if ((libro.condition == true) && (libraryFind.give == true)) {
             const newBooking = await booking.save();
             let arrayBooking = await User.findById(user);
             arrayBooking.bookings.push(newBooking._id);

@@ -1,4 +1,4 @@
-// FALTA COMPROBAR: Eliminar todas las reservas y Eliminar 1 Reserva
+// FALTA COMPROBAR:Eliminar 1 Reserva
 
 const express = require("express");
 const User = require("../models/UserModel");
@@ -167,25 +167,33 @@ UserRouter.delete("/mybookings/delete", async(req, res) => {
 UserRouter.delete("/mybookings/delete/book", async(req, res) => {
     try {
         const { id } = req.user;
-        const bookId = req.body;
-        const myUser = await User.findById(id);
+        const { bookId } = req.body;
+        const user = await User.findById(id);
 
-        if (!myUser._id.equals(id)) {
+        if (!user._id.equals(id)) {
             return res.json({
                 success: false,
                 message: "No puedes eliminar una reserva de otro Usuario"
             });
         }
 
-        let bookingsDelete = myUser.bookings;
-        const bookDelete = bookingsDelete.find(book => book == bookId);
-        let index = bookingsDelete.indexOf(bookDelete);
-        bookingsDelete.splice(index, 1);
-        await myUser.save();
+        let reservas = user.bookings;
+        console.log(reservas);
+        console.log(bookId);
+        let index = reservas.indexOf(bookId);
+        console.log(index);
+        if (index == -1) {
+            return res.send({
+                success: false,
+                message: 'Reserva no encontrada',
+            });
+        }
+        reservas.splice(index, 1);
+        await user.save();
         return res.send({
             success: true,
             message: 'Tu libro se ha desvanecido',
-            bookingsDelete
+            reservas
         });
 
     } catch (err) {
