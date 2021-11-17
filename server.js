@@ -1,4 +1,3 @@
-// Esto enlaza express con el archivo .js
 require('dotenv').config();
 
 const express = require('express');
@@ -12,17 +11,16 @@ const Library = require("./routes/Library.Routes");
 const Card = require("./routes/Card.Routes");
 const Booking = require("./routes/Booking.Routes");
 
-// Conecta el archivo de la ruta con este.
 const connectDB = require('./DB/connection.js');
 connectDB();
 
-// Esto para poder crear desde Postman
+// Postman Frontend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Indico nombre de ruta y ruta real que quiero usar
-app.use('/api/authentications', Auth); // lluis
-app.use('/api/users', checkToken, User); // bifurcación
+// Rutas
+app.use('/api/authentications', Auth);
+app.use('/api/users', checkToken, User);
 app.use('/api/libraries', checkToken, Library);
 app.use('/api/cards', Card);
 app.use('/api/bookings', Booking);

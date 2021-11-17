@@ -6,11 +6,6 @@ var validateEmail = function(email) {
     return re.test(email);
 };
 
-/* let validatePassword = function(password) {
-    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-    return reg.test(password);
-}; */
-
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -36,8 +31,6 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: "Por favor introduce una Contraseña",
-        // match: (/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/)
-        // validate: [validatePassword, "La contraseña debe contener al menos una Mayuscula (ABC), un Número (123) y un Caracter especial (!@#$%^&*)"]
     },
     bookings: [{
         type: mongoose.Types.ObjectId,

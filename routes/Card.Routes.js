@@ -1,5 +1,3 @@
-// REVISADO. TODO FUNCIONA
-
 const express = require("express");
 const { checkToken } = require("../middlewares");
 const Card = require("../models/CardModel");
@@ -8,7 +6,6 @@ const CardRouter = express.Router();
 // Crea una Ficha
 CardRouter.post("/", checkToken, async(req, res) => {
     try {
-        // const { user } = req.user;
         let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         let date
 
@@ -16,7 +13,6 @@ CardRouter.post("/", checkToken, async(req, res) => {
             date = new Date(publication_Date);
             date.setHours(date.getHours() + 2);
         }
-        console.log(date);
 
         let card = new Card({
             type,

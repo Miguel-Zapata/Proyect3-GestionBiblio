@@ -1,5 +1,3 @@
-// FALTA COMPROBAR:Eliminar 1 Reserva
-
 const express = require("express");
 const User = require("../models/UserModel");
 const UserRouter = express.Router();
@@ -8,7 +6,6 @@ const UserRouter = express.Router();
 UserRouter.put("/update", async(req, res) => {
     try {
         const { id } = req.user;
-        // const id = req.user.id // igual que arriba
         let { name, surname, user_Name, email, password } = req.body;
         const user = await User.findById(id);
 
@@ -35,7 +32,6 @@ UserRouter.put("/update", async(req, res) => {
             user.password = password
         }
         const updateUser = await user.save();
-
         return res.send({
             success: true,
             message: `${user.user_Name} se ha modificado correctamente`
@@ -147,12 +143,12 @@ UserRouter.delete("/mybookings/delete", async(req, res) => {
         if (myUser._id.equals(id)) {
             let bookingsDelete = myUser.bookings.splice(0, myUser.bookings.length);
             await myUser.save();
-
             return res.send({
                 success: true,
                 message: 'Todas tus reservas han sido eliminadas'
             });
         }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -178,10 +174,8 @@ UserRouter.delete("/mybookings/delete/book", async(req, res) => {
         }
 
         let reservas = user.bookings;
-        console.log(reservas);
-        console.log(bookId);
         let index = reservas.indexOf(bookId);
-        console.log(index);
+
         if (index == -1) {
             return res.send({
                 success: false,

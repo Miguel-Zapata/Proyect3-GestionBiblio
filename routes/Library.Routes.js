@@ -1,5 +1,3 @@
-// REVISADO. TODO FUNCIONA
-
 const express = require("express");
 const Library = require("../models/LibraryModel");
 const LibraryRouter = express.Router();
@@ -57,9 +55,8 @@ LibraryRouter.post("/", async(req, res) => {
 LibraryRouter.put("/update", async(req, res) => {
     try {
         const admin = req.user.id;
-        const { id } = req.params; // id de library
+        const { id } = req.params;
         let { name, give } = req.body;
-        // const library = await Library.findById(id);
         const library = await Library.findOne({ admin });
         console.log(library);
 
@@ -68,14 +65,10 @@ LibraryRouter.put("/update", async(req, res) => {
             if (name) {
                 library.name = name
             }
-            /* if (admin) {
-                library.admin = admin
-            } */
             if (give) {
                 library.give = give
             }
             const updateLibrary = await library.save();
-
             return res.send({
                 success: true,
                 message: `${library.name} se ha modificado correctamente`
@@ -90,7 +83,6 @@ LibraryRouter.put("/update", async(req, res) => {
             })
         }
 
-
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -104,7 +96,7 @@ LibraryRouter.put("/update", async(req, res) => {
 LibraryRouter.delete("/delete", async(req, res) => {
     try {
         const admin = req.user.id;
-        const { id } = req.params; // id de library
+        const { id } = req.params;
         const library = await Library.findOneAndDelete({ admin });
 
         if (!library.admin) {
@@ -113,7 +105,6 @@ LibraryRouter.delete("/delete", async(req, res) => {
                 message: "Esta no es tu Biblioteca"
             });
         }
-        // if (library.admin) {}
         return res.send({
             success: true,
             message: `La Biblioteca ${library.name} a sido eliminada`
@@ -132,8 +123,8 @@ LibraryRouter.delete("/delete", async(req, res) => {
 LibraryRouter.put("/add-card", async(req, res) => {
     try {
         const admin = req.user.id;
-        const { id } = req.params; // id de library
-        let { card } = req.body; // id de card
+        const { id } = req.params;
+        let { card } = req.body;
         let contain = { card, condition: true };
         const library = await Library.findOne({ admin });
 
@@ -145,10 +136,8 @@ LibraryRouter.put("/add-card", async(req, res) => {
         }
 
         let repetido = library.cards.find(item => {
-            console.log(item);
             return item.card.equals(card);
         });
-        console.log(repetido);
         if (repetido) {
             return res.status(400).send({
                 success: false,
@@ -175,9 +164,9 @@ LibraryRouter.put("/add-card", async(req, res) => {
 LibraryRouter.put("/card-condition", async(req, res) => {
     try {
         const admin = req.user.id;
-        const { id } = req.params; // id de library
+        const { id } = req.params;
         const library = await Library.findOne({ admin });
-        let { card } = req.body; // id de card
+        let { card } = req.body;
 
         if (!library.admin.equals(admin)) {
             return res.json({
@@ -210,9 +199,9 @@ LibraryRouter.put("/card-condition", async(req, res) => {
 LibraryRouter.put("/delete-card", async(req, res) => {
     try {
         const admin = req.user.id;
-        const { id } = req.params; // id de library
+        const { id } = req.params;
         const library = await Library.findOne({ admin });
-        let { card } = req.body; // id de card
+        let { card } = req.body;
 
         if (!library.admin.equals(admin)) {
             return res.json({
@@ -231,14 +220,6 @@ LibraryRouter.put("/delete-card", async(req, res) => {
                 });
             }
         });
-
-        /* let cardDelete = library.cards.findOneAndDelete({ card });
-        console.log(cardDelete);
-        library.save();
-        return res.status(200).send({
-            success: true,
-            message: `La ficha ${cardDelete} se ha eliminado`
-        }); */
 
     } catch (err) {
         console.log(err);
@@ -269,7 +250,7 @@ LibraryRouter.get("/", async(req, res) => {
 // Mostrar 1 Biblioteca.
 LibraryRouter.get("/find/:id", async(req, res) => {
     try {
-        const { id } = req.params; // id de library a buscar
+        const { id } = req.params;
         const library = await Library.findById(id).populate("cards.card", "title");
         return res.send({
             success: true,
@@ -287,11 +268,10 @@ LibraryRouter.get("/find/:id", async(req, res) => {
 // Mostrar todos los libros de 1 Biblioteca
 LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
     try {
-        const { id } = req.params; // id de library
+        const { id } = req.params;
         const library = await Library.findById(id).populate("cards.card", "title");
 
         let libroFind = library.cards.map(function(libro) {
-            console.log(libro.card);
             return libro.card;
         });
         return res.send(libroFind);
