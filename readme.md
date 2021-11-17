@@ -1,32 +1,88 @@
 # Gestión Biblioteca *(nombre provisional)*
-Es una aplicación web donde los usuarios pueden crear y gestionar sus propias Bibliotecas Virtuales.
+Es una aplicación web donde los usuarios pueden crear y gestionar sus propias Bibliotecas Virtuales. Así como prestar libros o tomarlos prestados de las Bibliotecas de otros Usuarios.
 ***
+## Instalación
+Necesitarás instalar la ultima versión de [NodeJs](https://nodejs.org/es/) y en la ruta del proyecto escribir en tu Terminal:
+```
+npm init
+```
+Despues instalar todas las dependencias que aparecen en el archivo package.json. También desde tu Terminal:
+```
+npm i bcrypt dotenv express jsonwebtoken mongoose
+```
+Si aun no tienes instalado nodemon de manera global en tu PC, puedes instalarlo desde tu Terminal.
 
+Instala en el PC de manera global (Recomendado):
+```
+npm i -g nodemon
+```
+Instala en package.json, solo para este proyecto:
+```
+npm i -D nodemon
+```
+Necesitarás crear un archivo .env donde guardarás los datos que deberán ser secretos. A saber:
+```
+PORT= Nº de puerto para trabjar.
 
+URI= ruta de MongoDB.
+
+JWT_SECRET= frase secreta que abrirá el token.
+```
+También necesitarás un archivo .gitignore donde meterás todo lo que no quieras que se suba a GitHub.
+```
+node_modules/
+.env
+/package-lock.json
+```
+***
 ## Descripción funcional de la aplicación.
-- Crear un Usuario
-    - Modificar datos del Usuario
-    - Eliminar el Usuario
-- Crear Biblioteca
-    - Modificar datos de la Biblioteca
-    - Eliminar la Biblioteca
-    - Ver listado de Bibliotecas
-    - Filtrar listado de Bibliotecas
-    - Añadir Fichas a la Biblioteca
-    - Eliminar Fichas de la Biblioteca
-    - Ver listado de Fichas de la Biblioteca
-    - Filtrar listado de Fichas de la Biblioteca
-    - Activar prestamos
-    - Buscar una Ficha
-    - Reservar una Ficha
-    - Ver fecha de Reserva
-    - Ver fecha de Devolucvión
-    - Cambiar estado de la Ficha
-    - Cambiar estado de Reserva
-- Crear una Nueva Ficha
-    - Modificar Ficha
-    - Eliminar Ficha
-***
+Como visitante de la web podrás acceder a una home donde hay un apartado de novedades editoriales y desde donde registrarse en la web y hacer login.
 
+Como Usuario Registrado podrás:
+- Modificar o Eliminar el propio Usuario.
+- Buscar otros Usuarios.
+- Reservar libros en las Bibliotecas que lo permitan.
+- Ver y eliminar reservas de tu perfil.
+- Crear, Modificar o Eliminar una Biblioteca.
+- Añadir o Eliminar Libros a tu biblioteca.
+- Cambiar disponibilidad de tus libros.
+- Buscar las bibliotecas de otros Usuarios y ver su contenido.
+- Crear nuevos Libros para añadirlos a tu biblioteca.
+- Buscar libros por filtros.
+
+Existen Rutas reservadas solo para un Administrador. Tales como:
+- Modificar o Eliminar un Libro ya existente.
+- Ver, Modificar o Eliminar las Reservas de cualquier Usuario.
+***
+## Tecnologías y Herramientas utilizadas.
+- [Javascript:](https://developer.mozilla.org/es/docs/Web/JavaScript) Como lenguaje de programación.
+- [MongoDB:](https://www.mongodb.com/) Como Base de datos.
+- [Postman:](https://www.postman.com/) Como Frontend para ejecutar las distintas rutas.
+- [Visual Estudio Code:](https://code.visualstudio.com/) Como editor de código.
+- [Git Bash](https://gitforwindows.org/) Como Terminal.
+- [Xmind:](https://www.xmind.net/) Para crear el esquema de la relación de datos.
+- [Express:](https://expressjs.com/es/) Para crear y relacionar las distintas rutas.
+- [Mongoose:](https://mongoosejs.com/) Para crear los Modelos y relacionarlos entre ellos.
+- [Dotenv:](https://www.npmjs.com/package/dotenv) Para mantener en secreto nuestros datos sensibles.
+- [Bcrypt:](https://www.npmjs.com/package/bcrypt) Para encriptar las contraseñas de los Usuarios.
+- [Jsonwebtoken:](https://www.npmjs.com/package/jsonwebtoken?activeTab=readme) Para hacer login y privatizar las rutas que solo podrá usar un Usuario Registrado.
+- [Github:](https://github.com/) Como repositorio.
+- [Google:](https://www.google.es/) Como principal herramienta de busqueda.
+- [Trello:](https://trello.com/) Para organizar las tareas.
+- [Google Calendar](https://calendar.google.com/) Para gestionar mi tiempo de manera eficiente.
+***
+## Versión
+Versión 1.0 - 18/11/2021
+***
+## To Do
+- Añadir Administrador 
+- Personalizar más errores.
+***
 ## Relación de datos.
-![esquema-datos](https://user-images.githubusercontent.com/91878984/139840589-3e439428-c4a1-46d7-a02c-4d3f4b049651.png)
+![gestion_biblioteca](https://user-images.githubusercontent.com/91878984/142232089-2c290cee-6097-4def-9aea-7601711f4992.png)
+***
+## Agradecimientos
+- A mi mentor de Let's Coder, Lluís, por su paciencia para explicarme las cosas a lo Richard Feynman.
+- A mis compañeros, Abel y Noelia, por los ánimos en los momentos de bajón y sacar tiempo para ayudarme con el proyecto.
+- A mi pareja, Cristina, por permitirme aprovechar la oportunidad de estudiar y aguantarme durante 19 años ♥‿♥
+- A mi mismo por la paciencia y el autocontrol adquiridos.
