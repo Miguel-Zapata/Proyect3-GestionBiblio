@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const LibrarySchema = new Schema({
-    name: { type: String },
+    name: {
+        type: String,
+        unique: true,
+        required: true
+    },
     cards: [{
         card: {
             type: mongoose.Types.ObjectId,
@@ -13,6 +17,7 @@ const LibrarySchema = new Schema({
     admin: {
         type: mongoose.Types.ObjectId,
         ref: "User",
+        unique: true,
         required: true
     },
     give: {

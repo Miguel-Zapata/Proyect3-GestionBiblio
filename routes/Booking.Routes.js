@@ -1,13 +1,17 @@
+// FALTA validación de Reserva
+
 const express = require("express");
 const Booking = require("../models/BookingModel");
 const User = require("../models/UserModel");
 const Library = require("../models/LibraryModel");
+const { checkToken } = require('../middlewares');
 const BookingRouter = express.Router();
 
 // Crear Reserva + añadir reserva al usuario + valida libro +valida biblioteca
-BookingRouter.post("/", async(req, res) => {
+BookingRouter.post("/", checkToken, async(req, res) => {
     try {
-        let { user, card, library, start_Date, finish_Date } = req.body;
+        const user = req.user.id;
+        const { card, library, start_Date, finish_Date } = req.body;
         let st_Date
         let fin_Date
 
@@ -30,10 +34,14 @@ BookingRouter.post("/", async(req, res) => {
         })
 
         let libraryFind = await Library.findById(library);
-        console.log(libraryFind.cards[0].condition);
+        let libro = libraryFind.cards.find(item => {
+            return item.card.equals(card);
+        });
 
-        if ((libraryFind.cards[0].condition == true) && (libraryFind.give == true)) {
-
+        // ESTUDIAR ESTO
+        console.log(libro.condition);
+        console.log(libraryFind.give);
+        if ((libro.condition == true) && (libraryFind.give == true)) {
             const newBooking = await booking.save();
             let arrayBooking = await User.findById(user);
             arrayBooking.bookings.push(newBooking._id);
@@ -55,7 +63,7 @@ BookingRouter.post("/", async(req, res) => {
     }
 });
 
-// Modificar Reserva
+// Modificar Reserva // SOLO ADMIN
 BookingRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
@@ -94,7 +102,7 @@ BookingRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Eliminar 1 Reserva
+// Eliminar 1 Reserva // SOLO ADMIN
 BookingRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;
@@ -112,7 +120,7 @@ BookingRouter.delete("/find/:id/delete", async(req, res) => {
     }
 });
 
-// Mostrar todas Reservas
+// Mostrar todas Reservas // SOLO ADMIN
 BookingRouter.get("/", async(req, res) => {
     try {
         const bookings = await Booking.find({});
@@ -129,7 +137,7 @@ BookingRouter.get("/", async(req, res) => {
     }
 });
 
-// Mostrar 1 Reserva
+// Mostrar 1 Reserva // SOLO ADMIN
 BookingRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;

@@ -1,13 +1,14 @@
-// Buscar fichas por filtros . Backend
-// eliminar libro de todos los sitios --
+// REVISADO. TODO FUNCIONA
 
 const express = require("express");
+const { checkToken } = require("../middlewares");
 const Card = require("../models/CardModel");
 const CardRouter = express.Router();
 
 // Crea una Ficha
-CardRouter.post("/", async(req, res) => {
+CardRouter.post("/", checkToken, async(req, res) => {
     try {
+        // const { user } = req.user;
         let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         let date
 
@@ -16,7 +17,6 @@ CardRouter.post("/", async(req, res) => {
             date.setHours(date.getHours() + 2);
         }
         console.log(date);
-
 
         let card = new Card({
             type,
@@ -49,7 +49,7 @@ CardRouter.post("/", async(req, res) => {
     }
 });
 
-// Modificar Ficha.
+// Modificar Ficha // SOLO ADMIN
 CardRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
@@ -115,7 +115,7 @@ CardRouter.put("/find/:id/update", async(req, res) => {
     }
 });
 
-// Eliminar Ficha
+// Eliminar Ficha // SOLO ADMIN
 CardRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;
@@ -134,7 +134,7 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
 });
 
 // Mostrar todas Fichas
-CardRouter.get("/", async(req, res) => {
+CardRouter.get("/", checkToken, async(req, res) => {
     try {
         const cards = await Card.find({}).select("title number writer");
         return res.send({
@@ -151,7 +151,7 @@ CardRouter.get("/", async(req, res) => {
 });
 
 // Mostrar 1 Ficha
-CardRouter.get("/find/:id", async(req, res) => {
+CardRouter.get("/find/:id", checkToken, async(req, res) => {
     try {
         const { id } = req.params;
         const card = await Card.findById(id).select("title number writer");
@@ -167,5 +167,47 @@ CardRouter.get("/find/:id", async(req, res) => {
         });
     }
 });
+
+// Mostrar por filtros
+CardRouter.get("/filters", checkToken, async(req, res) => {
+
+    try {
+        let query = {};
+        if (req.query.type) query.type = req.query.type;
+        if (req.query.title) query.title = req.query.title;
+        if (req.query.number) query.number = req.query.number;
+        if (req.query.writer) query.writer = req.query.writer;
+        if (req.query.editorial) query.editorial = req.query.editorial;
+        if (req.query.genre) query.genre = req.query.genre;
+        if (req.query.serie) query.serie = req.query.serie;
+        if (req.query.language) query.language = req.query.language;
+        if (req.query.isbn) query.isbn = req.query.isbn;
+
+        let filter = await Card.find(query)
+            .populate("type")
+            .populate("title")
+            .populate("number")
+            .populate("writer")
+            .populate("editorial")
+            .populate("genre")
+            .populate("serie")
+            .populate("language")
+            .populate("isbn")
+
+        return res.json({
+            success: true,
+            filter
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
+
 
 module.exports = CardRouter;
