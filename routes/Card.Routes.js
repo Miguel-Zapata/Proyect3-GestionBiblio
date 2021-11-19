@@ -180,7 +180,7 @@ CardRouter.get("/filters", checkToken, async(req, res) => {
         if (req.query.isbn) query.isbn = req.query.isbn;
 
         let filter = await Card.find(query)
-            .populate("type")
+            /* .populate("type")
             .populate("title")
             .populate("number")
             .populate("writer")
@@ -188,7 +188,7 @@ CardRouter.get("/filters", checkToken, async(req, res) => {
             .populate("genre")
             .populate("serie")
             .populate("language")
-            .populate("isbn")
+            .populate("isbn") */
 
         return res.json({
             success: true,

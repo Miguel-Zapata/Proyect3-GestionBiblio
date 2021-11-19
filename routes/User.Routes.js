@@ -1,5 +1,6 @@
 const express = require("express");
-const User = require("../models/UserModel");
+const User = require("../models/userModel");
+const Booking = require("../models/bookingModel");
 const UserRouter = express.Router();
 
 // Modificar datos del usuario.
@@ -112,9 +113,16 @@ UserRouter.get("/find/:id", async(req, res) => {
 UserRouter.get("/mybookings", async(req, res) => {
     try {
         const { id } = req.user;
-        const myUser = await User.findById(id);
+        const user = await User.findById(id).populate({
+            path: "bookings",
+            select: "card",
+            populate: {
+                path: "card",
+                select: "title"
+            }
+        });
 
-        if (!myUser._id.equals(id)) {
+        if (!user._id.equals(id)) {
             return res.json({
                 success: false,
                 message: "No puedes acceder a las reservas de otro Usuario"
@@ -123,7 +131,7 @@ UserRouter.get("/mybookings", async(req, res) => {
 
         return res.send({
             success: true,
-            myBookings: myUser.bookings
+            myBookings: user.bookings
         });
 
     } catch (err) {
@@ -133,6 +141,46 @@ UserRouter.get("/mybookings", async(req, res) => {
             message: err.message || err._message
         });
     }
+});
+
+// Mostrar 1 de mis Reservas
+UserRouter.get("/mybookings/:bookingId", async(req, res) => {
+
+    try {
+        const { id } = req.user;
+        const { bookingId } = req.params;
+        const user = await User.findById(id)
+
+        if (!user._id.equals(id)) {
+            return res.json({
+                success: false,
+                message: "No puedes acceder a las reservas de otro Usuario"
+            });
+        }
+
+        let reservas = user.bookings;
+        let index = reservas.indexOf(bookingId);
+        if (index == -1) {
+            return res.send({
+                success: false,
+                message: 'Reserva no encontrada',
+            });
+        }
+
+        let reserva = await Booking.findById(bookingId);
+        return res.send({
+            success: true,
+            reserva
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
 });
 
 // Eliminar TODAS mis Reservas

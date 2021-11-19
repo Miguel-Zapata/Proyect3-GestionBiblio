@@ -1,6 +1,6 @@
 const express = require("express");
-const Booking = require("../models/BookingModel");
-const User = require("../models/UserModel");
+const Booking = require("../models/bookingModel");
+const User = require("../models/userModel");
 const Library = require("../models/LibraryModel");
 const { checkToken } = require('../middlewares');
 const BookingRouter = express.Router();
@@ -12,6 +12,15 @@ BookingRouter.post("/", checkToken, async(req, res) => {
         const { card, library, start_Date, finish_Date } = req.body;
         let st_Date
         let fin_Date
+
+        // TODAS LAS COMPROBACIONES MALAS AL PRINCIPIO.
+
+        // comprobar si la biblioteca existe
+        let libraryFind = await Library.findById(library);
+        if (!libraryFind) {
+
+        }
+        // comprobar si el card existe
 
         if (start_Date) {
             st_Date = new Date(start_Date);
@@ -31,12 +40,11 @@ BookingRouter.post("/", checkToken, async(req, res) => {
             finish_Date: fin_Date,
         })
 
-        let libraryFind = await Library.findById(library);
         let libro = libraryFind.cards.find(item => {
             return item.card.equals(card);
         });
 
-        // ESTUDIAR ESTO
+        // ESTUDIAR ESTO false
         if ((libro.condition == true) && (libraryFind.give == true)) {
             const newBooking = await booking.save();
             let arrayBooking = await User.findById(user);
