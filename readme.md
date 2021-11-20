@@ -75,6 +75,7 @@ Existen Rutas reservadas solo para un Administrador. Tales como:
 Versión 1.0 - 18/11/2021
 ***
 ## To Do
+- Cambiar estado de un Libro al crear una reserva
 - Añadir Administrador 
 - Personalizar más errores.
 - Añadir Portadas al Modelo de Libros.

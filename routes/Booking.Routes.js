@@ -9,18 +9,41 @@ const BookingRouter = express.Router();
 BookingRouter.post("/", checkToken, async(req, res) => {
     try {
         const user = req.user.id;
-        const { card, library, start_Date, finish_Date } = req.body;
+        const { card, library, start_Date } = req.body;
         let st_Date
         let fin_Date
-
-        // TODAS LAS COMPROBACIONES MALAS AL PRINCIPIO.
-
+            // TODAS LAS COMPROBACIONES MALAS AL PRINCIPIO.
+        if (!card || !library || !start_Date) {
+            return res.json({
+                success: false,
+                message: "Rellena todos los campos"
+            });
+        }
         // comprobar si la biblioteca existe
         let libraryFind = await Library.findById(library);
         if (!libraryFind) {
-
+            return res.json({
+                success: false,
+                message: "Esta Biblioteca no existe"
+            });
         }
-        // comprobar si el card existe
+        // comprobar si el libro existe en esa biblioteca
+        let libro = libraryFind.cards.find(item => {
+            return item.card.equals(card);
+        });
+        if (!libro) {
+            return res.json({
+                success: false,
+                message: "Libro no encontrado en la Biblioteca especificada"
+            });
+        }
+
+        if ((libro.condition == false) || (libraryFind.give == false)) {
+            return res.json({
+                success: false,
+                message: "Este libro no puede tomarse prestado"
+            });
+        }
 
         if (start_Date) {
             st_Date = new Date(start_Date);
@@ -40,23 +63,14 @@ BookingRouter.post("/", checkToken, async(req, res) => {
             finish_Date: fin_Date,
         })
 
-        let libro = libraryFind.cards.find(item => {
-            return item.card.equals(card);
+        const newBooking = await booking.save();
+        let arrayBooking = await User.findById(user);
+        arrayBooking.bookings.push(newBooking._id);
+        await arrayBooking.save();
+        return res.status(201).send({
+            success: true,
+            booking: newBooking
         });
-
-        // ESTUDIAR ESTO false
-        if ((libro.condition == true) && (libraryFind.give == true)) {
-            const newBooking = await booking.save();
-            let arrayBooking = await User.findById(user);
-            arrayBooking.bookings.push(newBooking._id);
-            await arrayBooking.save();
-            return res.status(201).send({
-                success: true,
-                booking: newBooking
-            });
-        } else {
-            return res.send("ERROR AL CREAR LA RESERVA");
-        }
 
     } catch (err) {
         console.log(err);

@@ -9,6 +9,20 @@ CardRouter.post("/", checkToken, async(req, res) => {
         let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         let date
 
+        /* if (type != Card.type) {
+            return res.json({
+                success: false,
+                message: "Escoge un tipo válido (Libro, Cómic, Juego de rol)"
+            });
+        } */
+
+        if (!type || !title || !writer || !editorial) {
+            return res.json({
+                success: false,
+                message: "Rellena los campos obligatorios"
+            });
+        }
+
         if (publication_Date) {
             date = new Date(publication_Date);
             date.setHours(date.getHours() + 2);
@@ -51,6 +65,14 @@ CardRouter.put("/find/:id/update", async(req, res) => {
         const { id } = req.params;
         let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         const card = await Card.findById(id);
+
+        if (!card) {
+            return res.json({
+                success: false,
+                message: "Este libro no existe"
+            });
+        }
+
         if (type) {
             card.type = type
         }
@@ -115,10 +137,19 @@ CardRouter.put("/find/:id/update", async(req, res) => {
 CardRouter.delete("/find/:id/delete", async(req, res) => {
     try {
         const { id } = req.params;
-        const card = await Card.findByIdAndDelete(id);
+        const card = await Card.findById(id);
+
+        if (!card) {
+            return res.json({
+                success: false,
+                message: "Este libro no existe"
+            });
+        }
+
+        const cardDelete = await Card.findByIdAndDelete(card);
         return res.send({
             success: true,
-            message: `la Ficha [${card.title}] a sido eliminada`
+            message: `la Ficha [${cardDelete.title}] a sido eliminada`
         });
     } catch (err) {
         console.log(err);
@@ -132,7 +163,7 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
 // Mostrar todas Fichas
 CardRouter.get("/", checkToken, async(req, res) => {
     try {
-        const cards = await Card.find({}).select("title number writer");
+        const cards = await Card.find({}).select("title number writer editorial publication_Date");
         return res.send({
             success: true,
             cards
@@ -150,7 +181,15 @@ CardRouter.get("/", checkToken, async(req, res) => {
 CardRouter.get("/find/:id", checkToken, async(req, res) => {
     try {
         const { id } = req.params;
-        const card = await Card.findById(id).select("title number writer");
+        const card = await Card.findById(id);
+
+        if (!card) {
+            return res.json({
+                success: false,
+                message: "Este libro no existe"
+            });
+        }
+
         return res.send({
             success: true,
             card
@@ -179,16 +218,16 @@ CardRouter.get("/filters", checkToken, async(req, res) => {
         if (req.query.language) query.language = req.query.language;
         if (req.query.isbn) query.isbn = req.query.isbn;
 
-        let filter = await Card.find(query)
-            /* .populate("type")
-            .populate("title")
-            .populate("number")
-            .populate("writer")
-            .populate("editorial")
-            .populate("genre")
-            .populate("serie")
-            .populate("language")
-            .populate("isbn") */
+        let filter = await Card.find(query).select("title number writer editorial publication_Date");
+        /* .populate("type")
+        .populate("title")
+        .populate("number")
+        .populate("writer")
+        .populate("editorial")
+        .populate("genre")
+        .populate("serie")
+        .populate("language")
+        .populate("isbn") */
 
         return res.json({
             success: true,

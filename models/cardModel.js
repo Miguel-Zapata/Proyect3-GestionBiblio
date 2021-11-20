@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const CardSchema = new Schema({
     type: {
         type: String,
-        required: true
+        required: true,
+        enum: ["Libro", "Cómic", "Juego de rol"]
     },
     title: {
         type: String,
