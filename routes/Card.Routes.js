@@ -1,13 +1,17 @@
 const express = require("express");
+const upload = require("../multer");
+const cloudinary = require("../claudinary");
+
 const { checkToken } = require("../middlewares");
 const Card = require("../models/CardModel");
 const CardRouter = express.Router();
 
 // Crea una Ficha
-CardRouter.post("/", checkToken, async(req, res) => {
+CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
     try {
-        let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
-        let date
+        const result = await cloudinary.uploader.upload(req.file.path);
+        const { type, portada, cloudinary_id, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
+        let date;
 
         /* if (type != Card.type) {
             return res.json({
@@ -30,6 +34,8 @@ CardRouter.post("/", checkToken, async(req, res) => {
 
         let card = new Card({
             type,
+            portada: result.secure_url,
+            cloudinary_id: result.public_id,
             title,
             number,
             writer,
@@ -60,10 +66,10 @@ CardRouter.post("/", checkToken, async(req, res) => {
 });
 
 // Modificar Ficha // SOLO ADMIN
-CardRouter.put("/find/:id/update", async(req, res) => {
+CardRouter.put("/find/:id/update", upload.single("portada"), async(req, res) => {
     try {
         const { id } = req.params;
-        let { type, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
+        const { type, portada, cloudinary_id, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         const card = await Card.findById(id);
 
         if (!card) {
@@ -74,49 +80,52 @@ CardRouter.put("/find/:id/update", async(req, res) => {
         }
 
         if (type) {
-            card.type = type
+            card.type = type;
+        }
+        if (portada) {
+            card.portada = portada;
         }
         if (title) {
-            card.title = title
+            card.title = title;
         }
         if (number) {
-            card.number = number
+            card.number = number;
         }
         if (writer) {
-            card.writer = email
+            card.writer = writer;
         }
         if (art) {
-            card.art = art
+            card.art = art;
         }
         if (color) {
-            card.color = color
+            card.color = color;
         }
         if (editorial) {
-            card.editorial = editorial
+            card.editorial = editorial;
         }
         if (genre) {
-            card.genre = genre
+            card.genre = genre;
         }
         if (serie) {
             card.serie = serie
         }
         if (page_Number) {
-            card.page_Number = page_Number
+            card.page_Number = page_Number;
         }
         if (language) {
-            card.language = language
+            card.language = language;
         }
         if (isbn) {
-            card.isbn = isbn
+            card.isbn = isbn;
         }
         if (publication_Date) {
-            card.publication_Date = publication_Date
+            card.publication_Date = publication_Date;
         }
         if (format) {
-            card.format = format
+            card.format = format;
         }
         if (synopsis) {
-            card.synopsis = synopsis
+            card.synopsis = synopsis;
         }
         const updateCard = await card.save();
 
@@ -147,6 +156,7 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
         }
 
         const cardDelete = await Card.findByIdAndDelete(card);
+        await cloudinary.uploader.destroy(card.cloudinary_id);
         return res.send({
             success: true,
             message: `la Ficha [${cardDelete.title}] a sido eliminada`

@@ -1,15 +1,20 @@
 require('dotenv').config();
 
+// cloudinary
+require('cloudinary').config();
+const CLOUDINARY_URL = process.env.CLOUDINARY_URL;
+
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT;
 const { checkToken } = require('./middlewares');
 
-const Auth = require("./routes/Auth.Routes") // Modificar a minusculaRouter
-const User = require("./routes/User.Routes");
-const Library = require("./routes/Library.Routes");
-const Card = require("./routes/Card.Routes");
-const Booking = require("./routes/Booking.Routes");
+const authRouter = require("./routes/Auth.Routes")
+const userRouter = require("./routes/User.Routes");
+const libraryRouter = require("./routes/Library.Routes");
+const cardRouter = require("./routes/Card.Routes");
+const bookingRouter = require("./routes/Booking.Routes");
 
 const connectDB = require('./DB/connection.js');
 connectDB();
@@ -19,11 +24,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.use('/api/authentications', Auth);
-app.use('/api/users', checkToken, User);
-app.use('/api/libraries', checkToken, Library);
-app.use('/api/cards', Card);
-app.use('/api/bookings', Booking);
+app.use('/api/authentications', authRouter);
+app.use('/api/users', checkToken, userRouter);
+app.use('/api/libraries', checkToken, libraryRouter);
+app.use('/api/cards', cardRouter);
+app.use('/api/bookings', bookingRouter);
 
 // Puerto
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
