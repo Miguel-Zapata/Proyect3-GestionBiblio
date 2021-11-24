@@ -4,7 +4,14 @@ const Schema = mongoose.Schema;
 const CardSchema = new Schema({
     type: {
         type: String,
-        required: true
+        required: true,
+        enum: ["Libro", "Cómic", "Juego de rol"]
+    },
+    portada: {
+        type: String
+    },
+    cloudinary_id: {
+        type: String
     },
     title: {
         type: String,

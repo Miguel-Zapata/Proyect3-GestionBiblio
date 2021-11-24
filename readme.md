@@ -75,8 +75,11 @@ Existen Rutas reservadas solo para un Administrador. Tales como:
 Versión 1.0 - 18/11/2021
 ***
 ## To Do
+- Cambiar estado de un Libro al crear una reserva
 - Añadir Administrador 
 - Personalizar más errores.
+- Añadir Portadas al Modelo de Libros.
+- Añadir un Modo Oscuro.
 ***
 ## Relación de datos.
 ![gestion_biblioteca](https://user-images.githubusercontent.com/91878984/142232089-2c290cee-6097-4def-9aea-7601711f4992.png)

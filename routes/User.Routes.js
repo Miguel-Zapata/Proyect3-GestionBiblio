@@ -1,14 +1,12 @@
-// FALTA COMPROBAR:Eliminar 1 Reserva
-
 const express = require("express");
-const User = require("../models/UserModel");
+const User = require("../models/userModel");
+const Booking = require("../models/bookingModel");
 const UserRouter = express.Router();
 
 // Modificar datos del usuario.
 UserRouter.put("/update", async(req, res) => {
     try {
         const { id } = req.user;
-        // const id = req.user.id // igual que arriba
         let { name, surname, user_Name, email, password } = req.body;
         const user = await User.findById(id);
 
@@ -35,7 +33,6 @@ UserRouter.put("/update", async(req, res) => {
             user.password = password
         }
         const updateUser = await user.save();
-
         return res.send({
             success: true,
             message: `${user.user_Name} se ha modificado correctamente`
@@ -116,9 +113,16 @@ UserRouter.get("/find/:id", async(req, res) => {
 UserRouter.get("/mybookings", async(req, res) => {
     try {
         const { id } = req.user;
-        const myUser = await User.findById(id);
+        const user = await User.findById(id).populate({
+            path: "bookings",
+            select: "card",
+            populate: {
+                path: "card",
+                select: "title"
+            }
+        });
 
-        if (!myUser._id.equals(id)) {
+        if (!user._id.equals(id)) {
             return res.json({
                 success: false,
                 message: "No puedes acceder a las reservas de otro Usuario"
@@ -127,7 +131,7 @@ UserRouter.get("/mybookings", async(req, res) => {
 
         return res.send({
             success: true,
-            myBookings: myUser.bookings
+            myBookings: user.bookings
         });
 
     } catch (err) {
@@ -139,6 +143,46 @@ UserRouter.get("/mybookings", async(req, res) => {
     }
 });
 
+// Mostrar 1 de mis Reservas
+UserRouter.get("/mybookings/:bookingId", async(req, res) => {
+
+    try {
+        const { id } = req.user;
+        const { bookingId } = req.params;
+        const user = await User.findById(id)
+
+        if (!user._id.equals(id)) {
+            return res.json({
+                success: false,
+                message: "No puedes acceder a las reservas de otro Usuario"
+            });
+        }
+
+        let reservas = user.bookings;
+        let index = reservas.indexOf(bookingId);
+        if (index == -1) {
+            return res.send({
+                success: false,
+                message: 'Reserva no encontrada',
+            });
+        }
+
+        let reserva = await Booking.findById(bookingId);
+        return res.send({
+            success: true,
+            reserva
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
+});
+
 // Eliminar TODAS mis Reservas
 UserRouter.delete("/mybookings/delete", async(req, res) => {
     try {
@@ -147,12 +191,12 @@ UserRouter.delete("/mybookings/delete", async(req, res) => {
         if (myUser._id.equals(id)) {
             let bookingsDelete = myUser.bookings.splice(0, myUser.bookings.length);
             await myUser.save();
-
             return res.send({
                 success: true,
                 message: 'Todas tus reservas han sido eliminadas'
             });
         }
+
     } catch (err) {
         console.log(err);
         return res.status(400).send({
@@ -178,10 +222,8 @@ UserRouter.delete("/mybookings/delete/book", async(req, res) => {
         }
 
         let reservas = user.bookings;
-        console.log(reservas);
-        console.log(bookId);
         let index = reservas.indexOf(bookId);
-        console.log(index);
+
         if (index == -1) {
             return res.send({
                 success: false,

@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var validateEmail = function(email) {
+/* var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
-};
+}; */
 
 /* let validatePassword = function(password) {
-    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
     return reg.test(password);
-}; */
+} */
 
 const UserSchema = new Schema({
     name: {
@@ -31,13 +31,12 @@ const UserSchema = new Schema({
         lowercase: true,
         unique: true,
         required: "Por favor introduce una dirección de email",
-        validate: [validateEmail, "Por favor introduce un email válido"],
+        // validate: [validateEmail, "Por favor introduce un email válido"],
     },
     password: {
         type: String,
         required: "Por favor introduce una Contraseña",
-        // match: (/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/)
-        // validate: [validatePassword, "La contraseña debe contener al menos una Mayuscula (ABC), un Número (123) y un Caracter especial (!@#$%^&*)"]
+        // validate: [validatePassword, "La contraseña debe contener al menos 1 numero, 1 mayuscula y 1 caracter especial"]
     },
     bookings: [{
         type: mongoose.Types.ObjectId,
