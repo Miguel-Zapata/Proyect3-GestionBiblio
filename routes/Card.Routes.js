@@ -68,6 +68,7 @@ CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
 // Modificar Ficha // SOLO ADMIN
 CardRouter.put("/find/:id/update", upload.single("portada"), async(req, res) => {
     try {
+        const result = await cloudinary.uploader.upload(req.file.path); // ESTO TO SIEMPRE
         const { id } = req.params;
         const { type, portada, cloudinary_id, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         const card = await Card.findById(id);
@@ -82,9 +83,15 @@ CardRouter.put("/find/:id/update", upload.single("portada"), async(req, res) => 
         if (type) {
             card.type = type;
         }
-        if (portada) {
-            card.portada = portada;
+
+        if ({ portada }) {
+            await cloudinary.uploader.destroy(card.cloudinary_id);
+            card.portada = result.secure_url;
         }
+        if ({ cloudinary_id }) {
+            card.cloudinary_id = result.public_id;
+        }
+
         if (title) {
             card.title = title;
         }
