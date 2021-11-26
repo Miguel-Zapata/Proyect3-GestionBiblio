@@ -178,9 +178,9 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
 });
 
 // Mostrar todas Fichas
-CardRouter.get("/", checkToken, async(req, res) => {
+CardRouter.get("/", /* checkToken, */ async(req, res) => {
     try {
-        const cards = await Card.find({}).select("title number writer editorial publication_Date");
+        const cards = await Card.find({}).select("title portada number writer editorial language publication_Date");
         return res.send({
             success: true,
             cards

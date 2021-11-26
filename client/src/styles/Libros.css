@@ -1,0 +1,27 @@
+
+.container_libroList {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    align-items:stretch;
+    justify-content:start;
+    border-bottom: 2px solid rgb(59, 41, 0)
+}
+
+.libroList--portada {
+    height: 110px;
+    width: auto;
+}
+
+.libroList--portada__imagen {
+    height: 100%;
+    border: 1px solid #16161d;
+}
+
+.libroList--info {
+    height: 110px;
+    width: 100%;
+    padding-left: 10px;
+    text-align:left;
+}

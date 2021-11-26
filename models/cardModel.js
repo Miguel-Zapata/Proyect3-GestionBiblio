@@ -31,7 +31,10 @@ const CardSchema = new Schema({
     genre: { type: String },
     serie: { type: String },
     page_Number: { type: Number },
-    language: { type: String },
+    language: { 
+        type: String,
+        required: true
+    },
     isbn: { type: Number },
     publication_Date: { type: Date },
     format: { type: String },
