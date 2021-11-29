@@ -1,4 +1,4 @@
-
+import { Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from 'react';
 import LibroList from "../components/LibroList";
@@ -24,8 +24,15 @@ useEffect(()=>{
 return(
     <div>
         <div>
-            <button>Filtros</button>
+        <button><Link to="/Home">Home</Link></button>
+        <button><Link to="/Bibliotecas">Bibliotecas</Link></button>
+        <button><Link to="/MiCuenta">Mi Cuenta</Link></button>
         </div>
+
+        <div>
+        <button>Filtros</button>
+        </div>
+
         {listaLibros.map((libro,i)=> {
             return(
                 <div>

@@ -1,0 +1,24 @@
+
+
+.container--navbar{
+    background-color: #3b2900;
+}
+
+.home--navbar {
+    height: 30px;
+}
+
+.user--navbar{
+    height: 30px;
+}
+
+.libros--navbar{
+    height: 30px;
+}
+.bibliotecas--navbar{
+    height: 30px;
+}
+
+.text-main{
+    color:#fcfcf3 !important;
+}
