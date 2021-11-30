@@ -10,7 +10,7 @@ const Libros = ()=>{
 useEffect(()=>{
     const getData = async ()=>{
         try{
-            let response = await axios('http://localhost:5000/api/cards');
+            let response = await axios('/cards');
             console.log(response.data);
             setListaLibros(response.data.cards);
         }
@@ -23,11 +23,6 @@ useEffect(()=>{
 
 return(
     <div>
-        {/* <div>
-        <button><Link to="/">Home</Link></button>
-        <button><Link to="/Bibliotecas">Bibliotecas</Link></button>
-        <button><Link to="/MiCuenta">Mi Cuenta</Link></button>
-        </div> */}
 
         <div>
         <button>Filtros</button>
@@ -36,7 +31,7 @@ return(
         {listaLibros.map((libro,i)=> {
             return(
                 <div>
-                <LibroList key={i} libro={libro} />
+                    <Link style={{ display:"block"}} to={`${libro._id}`} key={i}> <LibroList key={i} libro={libro} /> </Link>
                 </div>
             );
         })}

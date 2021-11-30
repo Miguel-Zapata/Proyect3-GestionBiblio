@@ -2,6 +2,7 @@
 
 .container--navbar{
     background-color: #3b2900;
+    height:fit-content;
 }
 
 .home--navbar {
