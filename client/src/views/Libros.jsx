@@ -23,11 +23,11 @@ useEffect(()=>{
 
 return(
     <div>
-        <div>
-        <button><Link to="/Home">Home</Link></button>
+        {/* <div>
+        <button><Link to="/">Home</Link></button>
         <button><Link to="/Bibliotecas">Bibliotecas</Link></button>
         <button><Link to="/MiCuenta">Mi Cuenta</Link></button>
-        </div>
+        </div> */}
 
         <div>
         <button>Filtros</button>

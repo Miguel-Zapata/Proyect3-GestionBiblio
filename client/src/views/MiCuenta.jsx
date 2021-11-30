@@ -4,11 +4,11 @@ const MiCuenta = ()=>{
 
     return (
         <div>
-            <div>
-            <button><Link to="/Home">Home</Link></button>
+            {/* <div>
+            <button><Link to="/">Home</Link></button>
             <button><Link to="/Libros">Libros</Link></button>
             <button><Link to="/Bibliotecas">Bibliotecas</Link></button>
-            </div>
+            </div> */}
 
             <div>
             <h3>MI CUENTA</h3>

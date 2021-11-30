@@ -4,7 +4,7 @@ const Registro = ()=>{
 
     return (
         <div>
-            <button><Link to="/Home">Home</Link></button>
+            {/* <button><Link to="/">Home</Link></button> */}
             <h3>REGISTRO</h3>
             <button><Link to="/Login">Login</Link></button>
 

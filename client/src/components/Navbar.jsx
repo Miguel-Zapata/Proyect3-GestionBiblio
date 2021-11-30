@@ -14,7 +14,7 @@ const BarraNavegacion = ()=>{
 
 <Navbar className="container--navbar" /* bg="dark" variant="dark" */ fixed="bottom">
     <Container className="container--navbar">
-    <Navbar.Brand href="/Home"><img className="home--navbar" src={homeNav} alt="home" /></Navbar.Brand>
+    <Navbar.Brand href="/"><img className="home--navbar" src={homeNav} alt="home" /></Navbar.Brand>
     <Nav className="me-auto">
       <Nav.Link href="/Libros"><img className="libros--navbar" src={librosNav} alt="libros" /></Nav.Link>
       <Nav.Link href="/Bibliotecas"><img className="bibliotecas--navbar" src={bibliotecasNav} alt="bibliotecas" /></Nav.Link>

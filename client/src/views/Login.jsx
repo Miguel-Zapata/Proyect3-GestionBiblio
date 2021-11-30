@@ -7,7 +7,7 @@ const Login = ()=>{
         <div>
             <h3>LOGIN</h3>
 
-            <Link to="/Home">Home</Link>
+            <Link to="/">Home</Link>
         </div>
     );
 };

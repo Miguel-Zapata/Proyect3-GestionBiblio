@@ -9,7 +9,7 @@ console.log(params);
     return (
         <div>
             <div>
-            <button><Link to="/Home">Home</Link></button>
+            <button><Link to="/">Home</Link></button>
             </div>
             
             <div>
