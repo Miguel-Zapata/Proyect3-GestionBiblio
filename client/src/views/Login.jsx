@@ -1,13 +1,28 @@
-// import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 const Login = ()=>{
 
     return (
         <div>
-            <h3>LOGIN</h3>
+            <form>
+                <h3>Inicio de Sesión</h3>
 
-            <Link to="/">Home</Link>
+                <div className="form-group">
+                    {/* <label>Email address</label> */}
+                    <input type="email" className="form-control" placeholder="Email" />
+                </div>
+
+                <div className="form-group">
+                    {/* <label>Password</label> */}
+                    <input type="password" className="form-control" placeholder="Contraseña" />
+                </div>
+
+                <Link to="/"><button type="submit" className="btn btn-primary btn-block">Iniciar Sesión</button></Link>
+                <p className="forgot-password text-right">
+                    ¿No estás registrado? <Link to="/Registro">Regístrate</Link>
+                </p>
+            </form>
         </div>
     );
 };

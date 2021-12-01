@@ -28,7 +28,10 @@ const Libro = () => {
 
   const content = ()=>{
       return (
-        <p>{libro.title}</p>
+        <div>
+          <p>{libro.title}</p>
+          <button>Añadir a mi Biblioteca</button>
+        </div>
       );
   }
   return(

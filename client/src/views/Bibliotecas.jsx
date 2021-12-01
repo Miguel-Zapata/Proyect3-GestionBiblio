@@ -1,24 +1,48 @@
-import { Routes, Route, Link } from "react-router-dom";
+
+import {useEffect, useState} from 'react';
+import axios from "axios";
+import BiblioList from "../components/BiblioList";
+
 
 const Bibliotecas = ()=>{
 
+    const [listaBibliotecas, setlistaBibliotecas] = useState([]);
+
+    useEffect(()=>{
+        const getData = async ()=>{
+            try{
+                let response = await axios('/libraries', {
+                    headers: {
+                        Authorization:
+                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODM1MTMzMSwiZXhwIjoxNjM4NDM3NzMxfQ.vcF_58px2elxQbYsyDvCs9z2AEINWyHJ2DvdWpxMRwc",
+                      },
+                });
+                console.log(response.data);
+                setlistaBibliotecas(response.data.libraries);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getData();
+    }, []);
+
     return (
         <div>
-            {/* <div>
-            <button><Link to="/">Home</Link></button>
-            <button><Link to="/Libros">Libros</Link></button>
-            <button><Link to="/MiCuenta">Mi Cuenta</Link></button>
-            </div> */}
 
             <div>
-            
              <button>Buscar...</button>
-        
             </div>
 
-            <div>
-            <h3>BIBLIOTECAS</h3>
-            </div>
+            
+            {listaBibliotecas.map((biblioteca,i)=> {
+            return(
+                <div>
+                    <BiblioList key={i} biblioteca={biblioteca} />
+                </div>
+            );
+        })}
+            
         </div>
     );
 };

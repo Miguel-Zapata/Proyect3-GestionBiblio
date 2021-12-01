@@ -1,14 +1,10 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MiCuenta = ()=>{
 
     return (
         <div>
-            {/* <div>
-            <button><Link to="/">Home</Link></button>
-            <button><Link to="/Libros">Libros</Link></button>
-            <button><Link to="/Bibliotecas">Bibliotecas</Link></button>
-            </div> */}
+           
 
             <div>
             <h3>MI CUENTA</h3>

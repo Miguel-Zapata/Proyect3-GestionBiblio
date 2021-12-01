@@ -19,7 +19,7 @@ const BarraNavegacion = ()=>{
       <NavLink to="/Libros"><img className="libros--navbar" src={librosNav} alt="libros" /></NavLink>
       <NavLink to="/Bibliotecas"><img className="bibliotecas--navbar" src={bibliotecasNav} alt="bibliotecas" /></NavLink>
       <NavLink className="text-main"  to="/Registro">Registro</NavLink>
-      <NavLink className="text-main" to="/Login">Login</NavLink>
+      <NavLink className="text-main" to="/Login">Inicio de Sesión</NavLink>
       <NavLink to="/MiCuenta"><img className="user--navbar" src={userNav} alt="miCuenta" /></NavLink>
     </Nav>
     </Container>

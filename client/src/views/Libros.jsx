@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from 'react';
 import LibroList from "../components/LibroList";
@@ -23,15 +23,21 @@ useEffect(()=>{
 
 return(
     <div>
+        <div>
+            <label htmlFor="buscaLibro">Buscar</label>
+            <input type="search" name="buscaLibro" id="buscaLibro" />
+        </div>
 
         <div>
         <button>Filtros</button>
+        <Link to="/LibroCrear"><button>Crear Libro</button></Link>
         </div>
+
 
         {listaLibros.map((libro,i)=> {
             return(
                 <div>
-                    <Link style={{ display:"block"}} to={`${libro._id}`} key={i}> <LibroList key={i} libro={libro} /> </Link>
+                    <LibroList key={i} libro={libro} />
                 </div>
             );
         })}

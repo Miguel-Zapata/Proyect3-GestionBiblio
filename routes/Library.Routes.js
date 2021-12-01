@@ -227,7 +227,7 @@ LibraryRouter.put("/delete-card", async(req, res) => {
 // Mostrar todas las Bibliotecas
 LibraryRouter.get("/", async(req, res) => {
     try {
-        const libraries = await Library.find().select("name give");
+        const libraries = await Library.find().select("name admin give");
         return res.send({
             success: true,
             libraries

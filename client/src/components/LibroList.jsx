@@ -1,5 +1,5 @@
 import '../styles/Libros.css';
-import Libros from '../views/Libros';
+import { Link } from "react-router-dom";
 
 
 
@@ -12,10 +12,11 @@ return(
     </div>
 
     <div className="libroList--info">
-        <h5>{props.libro.title} {props.libro.number}</h5>
+    <Link className="libroList--link" to={`${props.libro._id}`} key={props.libro._id}> <h5>{props.libro.title} {props.libro.number}</h5></Link>
         <p>{props.libro.writer}</p>
         <p>{props.libro.editorial}</p>
         <p>{props.libro.language}</p>
+        <button>Añadir a mi Biblioteca</button>
     </div>
 </div>
     );
