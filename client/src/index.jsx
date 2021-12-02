@@ -9,11 +9,11 @@ import Login from './views/Login';
 import Libros from './views/Libros';
 import Libro from './views/Libro';
 import Bibliotecas from './views/Bibliotecas';
-import MiCuenta from './views/MiCuenta';
-import Home from './views/Home';
 import Biblioteca from './views/Biblioteca';
 import BibliotecaLibro from './views/BibliotecaLibro';
-import TomarPrestado from './views/TomarPrestado';
+import MiCuenta from './views/MiCuenta';
+import Home from './views/Home';
+import HacerReserva from './views/HacerReserva';
 import MisDatos from './views/MisDatos';
 import MiBiblioteca from './views/MiBiblioteca';
 import MiBibliotecaLibro from './views/MiBibliotecaLibro';
@@ -24,6 +24,7 @@ import MisReservasDelete from './views/MisReservasDelete';
 import MiReservaDelete from './views/MiReservaDelete';
 import MiCuentaDelete from './views/MiCuentaDelete';
 import LibroCrear from './views/LibroCrear';
+import CrearBiblioteca from './views/CrearBiblioteca';
 
 
 // import reportWebVitals from './reportWebVitals';
@@ -42,9 +43,10 @@ ReactDOM.render(
             <Route path="Bibliotecas" element={<Bibliotecas />} />
             <Route path="Bibliotecas/:BibliotecaId" element={<Biblioteca />} />
             <Route path="Bibliotecas/:BibliotecaId/:LibroId" element={<BibliotecaLibro />} />
-            <Route path="TomarPrestado" element={<TomarPrestado />} />
+            <Route path="HacerReserva" element={<HacerReserva />} />
             <Route path="MiCuenta" element={<MiCuenta />} />
             <Route path="MisDatos" element={<MisDatos />} />
+            <Route path="CrearBiblioteca" element={<CrearBiblioteca />} />
             <Route path="MiBiblioteca" element={<MiBiblioteca />} />
             <Route path="MiBibliotecaLibro" element={<MiBibliotecaLibro />} />
             <Route path="MiBibliotecaDelete" element={<MiBibliotecaDelete />} />
@@ -57,7 +59,7 @@ ReactDOM.render(
 
         </Route>       
       </Routes>
-    </BrowserRouter>,
+    </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );

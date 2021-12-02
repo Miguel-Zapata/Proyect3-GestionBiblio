@@ -14,7 +14,7 @@ const Libro = () => {
         let response = await axios(`/cards/find/${LibroId}`, {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODI4Njg0OCwiZXhwIjoxNjM4MzczMjQ4fQ._rLWqpZN2siTBYhQshsEEsTdPX4ryu7lG04bpnlZo-k",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODQzNTY4MiwiZXhwIjoxNjM4NTIyMDgyfQ.x9TvA_z7oVNGQmP-aWRGMh0U0EhwSTmJ570av6745hw",
           },
         });
         console.log(response.data);

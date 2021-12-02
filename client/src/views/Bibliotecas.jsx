@@ -14,7 +14,7 @@ const Bibliotecas = ()=>{
                 let response = await axios('/libraries', {
                     headers: {
                         Authorization:
-                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODM1MTMzMSwiZXhwIjoxNjM4NDM3NzMxfQ.vcF_58px2elxQbYsyDvCs9z2AEINWyHJ2DvdWpxMRwc",
+                          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODQzNTY4MiwiZXhwIjoxNjM4NTIyMDgyfQ.x9TvA_z7oVNGQmP-aWRGMh0U0EhwSTmJ570av6745hw",
                       },
                 });
                 console.log(response.data);

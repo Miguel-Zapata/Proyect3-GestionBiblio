@@ -1,7 +1,13 @@
+import FormCrearLibro from "../components/FormCrearLibro";
+
+
+
 const LibroCrear = ()=>{
 
 
-    return ("AQUÍ EL FORMULARIO DE CREAR LILBRO")
+    return (
+        <FormCrearLibro/>
+    );
 }
 
 export default LibroCrear;

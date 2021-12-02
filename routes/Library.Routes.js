@@ -245,7 +245,8 @@ LibraryRouter.get("/", async(req, res) => {
 LibraryRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const library = await Library.findById(id);
+        const library = await Library.findById(id).populate("cards.card");
+        console.log(library);
         return res.send({
             success: true,
             library

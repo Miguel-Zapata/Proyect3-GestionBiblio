@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import LibroList from "../components/LibroList";
+
 
 const Biblioteca = ()=>{
 
@@ -15,7 +17,7 @@ const Biblioteca = ()=>{
         let response = await axios(`/libraries/find/${BibliotecaId}`, {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODM1MTMzMSwiZXhwIjoxNjM4NDM3NzMxfQ.vcF_58px2elxQbYsyDvCs9z2AEINWyHJ2DvdWpxMRwc",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODQzNTY4MiwiZXhwIjoxNjM4NTIyMDgyfQ.x9TvA_z7oVNGQmP-aWRGMh0U0EhwSTmJ570av6745hw",
           },
         });
         console.log(response.data);
@@ -35,9 +37,19 @@ const Biblioteca = ()=>{
             <p>{biblioteca.admin}</p>
         </div>
 
-        <div>
-            <button>Ver Libros</button>
-        </div>
+            <div>
+
+            {biblioteca.cards.map((libro,i)=> {
+            return(
+                <div key={i}>
+                    <LibroList  url={`/Bibliotecas/${biblioteca._id}/${libro._id}`} libro={libro.card} />
+                </div>
+            );
+        })}
+        
+
+             <Link to="/BibliotecaLibro"><button>AQUÍ IRAN LISTADOS LOS LIBROS</button></Link>
+            </div>
 
         </div>
 

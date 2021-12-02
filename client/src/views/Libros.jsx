@@ -10,7 +10,12 @@ const Libros = ()=>{
 useEffect(()=>{
     const getData = async ()=>{
         try{
-            let response = await axios('/cards');
+            let response = await axios('/cards', {
+                headers: {
+                  Authorization:
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODQzNTY4MiwiZXhwIjoxNjM4NTIyMDgyfQ.x9TvA_z7oVNGQmP-aWRGMh0U0EhwSTmJ570av6745hw",
+                },
+              });
             console.log(response.data);
             setListaLibros(response.data.cards);
         }
@@ -36,8 +41,8 @@ return(
 
         {listaLibros.map((libro,i)=> {
             return(
-                <div>
-                    <LibroList key={i} libro={libro} />
+                <div key={i}>
+                    <LibroList  url={`/Libros/${libro._id}`} libro={libro} />
                 </div>
             );
         })}
