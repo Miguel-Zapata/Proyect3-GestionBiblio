@@ -37,3 +37,8 @@ div.container_libroList div.libroList--info h5 {
     font-size: 18px;
 }
 
+/* INFOLIBRO */
+
+.infoLibro--portada {
+    height: 20rem;
+}

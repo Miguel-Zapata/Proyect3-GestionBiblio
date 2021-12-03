@@ -17,7 +17,7 @@ const Biblioteca = ()=>{
         let response = await axios(`/libraries/find/${BibliotecaId}`, {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODQzNTY4MiwiZXhwIjoxNjM4NTIyMDgyfQ.x9TvA_z7oVNGQmP-aWRGMh0U0EhwSTmJ570av6745hw",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODUyMjE0MCwiZXhwIjoxNjM4NjA4NTQwfQ.TVJB3qjYlWkcgb34CrI19-wNfTqRFTIuaRbY3Qnr2FI",
           },
         });
         console.log(response.data);
@@ -42,7 +42,7 @@ const Biblioteca = ()=>{
             {biblioteca.cards.map((libro,i)=> {
             return(
                 <div key={i}>
-                    <LibroList  url={`/Bibliotecas/${biblioteca._id}/${libro._id}`} libro={libro.card} />
+                    <LibroList  url={`/Bibliotecas/${biblioteca._id}/${libro.card._id}`} libro={libro.card} />
                 </div>
             );
         })}

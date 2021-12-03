@@ -260,6 +260,29 @@ LibraryRouter.get("/find/:id", async(req, res) => {
     }
 });
 
+// Mostrar 1 Libro de 1 Biblioteca.
+LibraryRouter.get("/find/:libraryId/:cardId", async(req, res) => {
+
+    try {
+        const {cardId} = req.params;
+        const { libraryId } = req.params;
+        const library = await Library.findById(libraryId).populate("cards.card");
+
+        let libro = library.cards.find(cards => cards.card._id.equals(cardId));
+       
+            console.log(libro);
+        return res.send(libro);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
+});
+
 // Mostrar todos los libros de 1 Biblioteca
 LibraryRouter.get("/find/:id/all-cards", async(req, res) => {
     try {
