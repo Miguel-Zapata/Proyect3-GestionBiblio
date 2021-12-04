@@ -6,7 +6,7 @@
     padding: 10px;
     align-items:stretch;
     justify-content:start;
-    border-bottom: 2px solid #3b2900;
+    /* border-bottom: 2px solid #3b2900; */
 }
 
 .libroList--portada {
@@ -39,6 +39,15 @@ div.container_libroList div.libroList--info h5 {
 
 /* INFOLIBRO */
 
+.libros__container {
+   
+    border-bottom: 2px solid #3b2900;
+}
+
 .infoLibro--portada {
     height: 20rem;
+}
+
+.infoLibro--sinopsis {
+    font-weight: bold;
 }

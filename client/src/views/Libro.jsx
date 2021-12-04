@@ -5,8 +5,15 @@ const Libro = () => {
   
   return(
       <div>
-        <InfoLibro/>
+        <div>
         <button>Añadir a mi Biblioteca</button>
+        </div>
+        <div>
+        <InfoLibro/>
+        </div>
+        <div>
+        <button>Añadir a mi Biblioteca</button>
+        </div>
       </div>
   );
   
