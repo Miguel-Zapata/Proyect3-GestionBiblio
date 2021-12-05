@@ -1,16 +1,24 @@
-const HacerReserva = ()=>{
 
+import { Link } from "react-router-dom";
+import InfoLibro from "../components/InfoLibro";
 
+const HacerReserva = () => {
+  return (
+    <div>
+      <div>
+        <p>TITULO DE LA BIBLIOTECA</p>
+      </div>
 
-    return(
-        <div>
-            <p>Nombre de la biblioteca</p>
-            <p>portada del libro</p>
-            <p>titulo del libro</p>
-            <input type="date" name="fecha recogida" id="fechaR" />
-            <button>Hacer Reserva</button>
-        </div>
-    );
-}
+      <div>
+        <InfoLibro />
+      </div>
+
+      <div>
+        <input type="date" name="fecha recogida" id="fechaR" />
+        <button>Hacer Reserva</button>
+      </div>
+    </div>
+  );
+};
 
 export default HacerReserva;

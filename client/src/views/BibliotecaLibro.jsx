@@ -5,9 +5,9 @@ const BibliotecaLibro = () => {
   return (
     <div>
       <div>
-        <Link to="/HacerReserva">
-          <button>Tomar prestado</button>
-        </Link>
+        <a href="#abajo">
+          <button>Quiero Reservarlo</button>
+        </a>
       </div>
 
       <div>
@@ -15,9 +15,9 @@ const BibliotecaLibro = () => {
       </div>
 
       <div>
-        <Link to="/HacerReserva">
-          <button>Tomar prestado</button>
-        </Link>
+        <input type="date" name="fecha recogida" id="fechaR" />
+        <button>Hacer Reserva</button>
+        <a name="abajo"></a>
       </div>
     </div>
   );

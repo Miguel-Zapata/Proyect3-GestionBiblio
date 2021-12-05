@@ -101,7 +101,7 @@ AuthRouter.post("/login", async(req, res) => {
         }
 
         // Crear Token
-        let token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "24h" });
+        let token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1y" });
 
         return res.json({
             success: true,

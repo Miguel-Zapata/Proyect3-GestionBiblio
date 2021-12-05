@@ -43,7 +43,7 @@ ReactDOM.render(
             <Route path="Bibliotecas" element={<Bibliotecas />} />
             <Route path="Bibliotecas/:BibliotecaId" element={<Biblioteca />} />
             <Route path="Bibliotecas/:BibliotecaId/:LibroId" element={<BibliotecaLibro />} />
-            <Route path="HacerReserva" element={<HacerReserva />} />
+            {/* <Route path="HacerReserva" element={<HacerReserva />} /> */}
             <Route path="MiCuenta" element={<MiCuenta />} />
             <Route path="MisDatos" element={<MisDatos />} />
             <Route path="CrearBiblioteca" element={<CrearBiblioteca />} />

@@ -1,18 +1,19 @@
 
 import InfoLibro from "../components/InfoLibro";
+import LoTengo from "../components/LoTengo";
 
 const Libro = () => {
   
   return(
       <div>
         <div>
-        <button>Añadir a mi Biblioteca</button>
+        <LoTengo/>
         </div>
         <div>
         <InfoLibro/>
         </div>
         <div>
-        <button>Añadir a mi Biblioteca</button>
+        <LoTengo/>
         </div>
       </div>
   );

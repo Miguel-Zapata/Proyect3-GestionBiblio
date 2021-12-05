@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LibroList from "../components/LibroList";
-import PruebaCheck from "../components/PruebaCheck";
+import LoTengo from "../components/LoTengo";
 
 const Libros = () => {
   const [listaLibros, setListaLibros] = useState([]);
@@ -13,7 +13,7 @@ const Libros = () => {
         let response = await axios("/cards", {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODYwNjc1MSwiZXhwIjoxNjM4NjkzMTUxfQ.KglbB8DYpPHLDSlgJSM-2ma1z9GzOxo0CbaoPPSX2t8",
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODcwMDA5MCwiZXhwIjoxNjcwMjU3NjkwfQ.mACPWJKHi7MmgTys7yRAmC-gP2uz5MWzv59GWaya-Ik",
           },
         });
         console.log(response.data);
@@ -45,7 +45,7 @@ const Libros = () => {
             <div >
               <LibroList url={`/Libros/${libro._id}`} libro={libro} />
               <div>
-                <PruebaCheck />
+                <LoTengo />
               </div>
             </div>
           </div>
