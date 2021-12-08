@@ -8,8 +8,11 @@ const CardRouter = express.Router();
 
 // Crea una Ficha
 CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
+    console.log(req.file.path);
     try {
-        const result = await cloudinary.uploader.upload(req.file.path);
+
+            const result = await cloudinary.uploader.upload(req.file.path);
+        
         const { type, portada, cloudinary_id, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         let date;
 
@@ -51,7 +54,8 @@ CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
             format,
             synopsis
         })
-        const newCard = await card.save();
+            const newCard = await card.save();
+      
         return res.status(201).send({
             success: true,
             card: newCard

@@ -1,30 +1,79 @@
-
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = ()=>{
+const Login = () => {
+    let navigate = useNavigate();
+  let [state, setState] = useState({
+    email: "",
+    password: "",
+  });
 
-    return (
-        <div>
-            <form>
-                <h3>Inicio de Sesión</h3>
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-                <div className="form-group">
-                    {/* <label>Email address</label> */}
-                    <input type="email" className="form-control" placeholder="Email" />
-                </div>
+  const submit = async (e) => {
+      e.preventDefault() // para prevenir lo que hace el form por defecto
+    try {
+      const response = await axios.post("/authentications/login", state);
+      console.log(response.data);
 
-                <div className="form-group">
-                    {/* <label>Password</label> */}
-                    <input type="password" className="form-control" placeholder="Contraseña" />
-                </div>
+      navigate("/");
 
-                <Link to="/"><button type="submit" className="btn btn-primary btn-block">Iniciar Sesión</button></Link>
-                <p className="forgot-password text-right">
-                    ¿No estás registrado? <Link to="/Registro">Regístrate</Link>
-                </p>
-            </form>
+      localStorage.setItem("jwt_token", response.data.token);
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
+
+  return (
+    <div>
+      <form>
+        <h3>Inicio de Sesión</h3>
+
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
         </div>
-    );
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            id="pass"
+            name="password"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <button
+          onClick={(e)=> submit(e)} // esta sintaxis es por estar dentro del form
+          type="submit"
+          className="btn btn-primary btn-block"
+        >
+          Iniciar Sesión
+        </button>
+        
+        <p className="forgot-password text-right">
+          ¿No estás registrado? <Link to="/Registro">Regístrate</Link>
+        </p>
+      </form>
+    </div>
+  );
 };
 
 export default Login;

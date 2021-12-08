@@ -1,44 +1,112 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Registro = ()=>{
+const Registro = () => {
+  let navigate = useNavigate();
 
-    return (
-        <div>
-            
-            <form>
-                <h3>Registro de usuario</h3>
+  let [state, setState] = useState({
+    name: "",
+    surname: "",
+    user_Name: "",
+    email: "",
+    password: "",
+  });
 
-                <div className="form-group">
-                    {/* <label>First name</label> */}
-                    <input type="text" className="form-control" placeholder="Nombre" />
-                </div>
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-                <div className="form-group">
-                    {/* <label>Last name</label> */}
-                    <input type="text" className="form-control" placeholder="Apellido" />
-                </div>
+  const submit = async (e) => {
+    e.preventDefault(); // para prevenir lo que hace el form por defecto
+    try {
+      const response = await axios.post("/authentications/create-user", state);
+      console.log(response.data);
 
-                <div className="form-group">
-                    {/* <label>Email address</label> */}
-                    <input type="email" className="form-control" placeholder="Email" />
-                </div>
+      navigate("/Login");
 
-                <div className="form-group">
-                    {/* <label>Password</label> */}
-                    <input type="password" className="form-control" placeholder="Contraseña" />
-                </div>
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
 
-                <Link to="/Login"><button type="submit" className="btn btn-primary btn-block">Registrarse</button></Link>
-                <p className="forgot-password text-right">
-                    ¿Ya estás registrado? <Link to="/Login">Inicia Sesión</Link>
-                </p>
-            </form>
+  return (
+    <div>
+      <form>
+        <h3>Registro de usuario</h3>
 
-            {/* <button><Link to="/Login">Login</Link></button> */}
-
-            
+        <div className="form-group">
+          <label>Nombre</label>
+          <input
+            type="text"
+            name="name"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
         </div>
-    );
+
+        <div className="form-group">
+          <label>Apellido</label>
+          <input
+            type="text"
+            name="surname"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Nombre de Usuario</label>
+          <input
+            type="text"
+            name="user_Name"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Contraseña</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <button
+          onClick={(e) => submit(e)}
+          type="submit"
+          className="btn btn-primary btn-block"
+        >
+          Registrarse
+        </button>
+        <p className="forgot-password text-right">
+          ¿Ya estás registrado? <Link to="/Login">Inicia Sesión</Link>
+        </p>
+      </form>
+    </div>
+  );
 };
 
 export default Registro;

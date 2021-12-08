@@ -7,7 +7,7 @@ const { env: { JWT_SECRET } } = process;
 
 
 let validatePassword = function(password) {
-    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,24}$/;
     return reg.test(password);
 }
 var validateEmail = function(email) {
