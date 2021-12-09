@@ -13,14 +13,13 @@ const InfoLibro = () => {
       try {
         let response = await axios(`/cards/find/${LibroId}`, {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODcwMDA5MCwiZXhwIjoxNjcwMjU3NjkwfQ.mACPWJKHi7MmgTys7yRAmC-gP2uz5MWzv59GWaya-Ik",
+            Authorization: localStorage.getItem("jwt_token"),
           },
         });
         console.log(response.data);
         setLibro(response.data.card);
       } catch (err) {
-        console.log(err);
+        console.log(err.response.data);
       }
     };
     getData();

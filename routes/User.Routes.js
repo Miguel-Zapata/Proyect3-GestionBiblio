@@ -47,6 +47,25 @@ UserRouter.put("/update", async(req, res) => {
     }
 });
 
+// Mostrar mi Usuario
+UserRouter.get("/myuser", async(req, res) => {
+    try{
+        const { id } = req.user;
+        const myUser = await User.findById(id);
+        return res.send({
+            success: true,
+            myUser
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
 // Eliminar Usuario
 UserRouter.delete("/delete", async(req, res) => {
     try {

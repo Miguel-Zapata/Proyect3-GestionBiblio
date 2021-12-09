@@ -52,6 +52,27 @@ LibraryRouter.post("/", async(req, res) => {
     }
 });
 
+// Mostrar MI Biblioteca
+LibraryRouter.get("/mylibrary", async(req, res) => {
+
+    try {
+        const admin = req.user.id;
+        const library = await Library.findOne({admin}).populate("cards.card");
+        console.log(library);
+        return res.send({
+            success: true,
+            library
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
+});
+
 // Modificar datos de  Mi Biblioteca
 LibraryRouter.put("/update", async(req, res) => {
     try {

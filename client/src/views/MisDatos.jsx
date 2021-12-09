@@ -1,51 +1,112 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+const MisDatos = () => {
+  let navigate = useNavigate();
 
-const MisDatos = ()=>{
+  let [state, setState] = useState({
+    name: "",
+    surname: "",
+    user_Name: "",
+    email: "",
+    password: "",
+  });
 
-    return(
-        <div>
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-            <form>
-                <h3>Modificar Datos</h3>
+  const submit = async (e) => {
+    e.preventDefault();
 
-                <div className="form-group">
-                    {/* <label>First name</label> */}
-                    <input type="text" className="form-control" placeholder="Nombre" />
-                </div>
+    try {
+      const response = await axios.put("/users/update", state, {
+        headers: {
+          Authorization: localStorage.getItem("jwt_token"),
+        },
+      });
 
-                <div className="form-group">
-                    {/* <label>Last name</label> */}
-                    <input type="text" className="form-control" placeholder="Apellido" />
-                </div>
+      console.log(response.data);
+      navigate("/MiCuenta");
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
 
-                <div className="form-group">
-                    {/* <label>Last name</label> */}
-                    <input type="text" className="form-control" placeholder="Nombre de Usuario" />
-                </div>
+  return (
+    <div>
+      <form>
+        <h3>Modificar Datos</h3>
 
-                <div className="form-group">
-                    {/* <label>Email address</label> */}
-                    <input type="email" className="form-control" placeholder="Email" />
-                </div>
-
-                <div className="form-group">
-                    {/* <label>Password</label> */}
-                    <input type="password" className="form-control" placeholder="Contraseña" />
-                </div>
-
-                <Link to=""><button type="submit" className="btn btn-primary btn-block">Aceptar Cambios</button></Link>
-                {/* <p className="forgot-password text-right">
-                    ¿Ya estás registrado? <Link to="/Login">Inicia Sesión</Link>
-                </p> */}
-            </form>  
-
-
-            {/* <p>FORMULARIO CAMBIO DE DATOS</p>
-            <button>Aceptar Cambios</button> */}
-
+        <div className="form-group">
+          <label>Nombre</label>
+          <input
+            type="text"
+            name="name"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
         </div>
-    );
-}
+
+        <div className="form-group">
+          <label>Apellido</label>
+          <input
+            type="text"
+            name="surname"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Nombre de Usuario</label>
+          <input
+            type="text"
+            name="user_Name"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Contraseña</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder=""
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+
+        <button
+          onClick={(e) => submit(e)}
+          type="submit"
+          className="btn btn-primary btn-block"
+        >
+          Aceptar Cambios
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default MisDatos;

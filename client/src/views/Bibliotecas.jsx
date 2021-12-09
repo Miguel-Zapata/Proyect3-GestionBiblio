@@ -30,9 +30,9 @@ const Bibliotecas = () => {
 
       {listaBibliotecas.map((biblioteca, i) => {
         return (
-          <div>
+          <div key={i}>
             <div>
-              <BiblioList key={i} biblioteca={biblioteca} />
+              <BiblioList  biblioteca={biblioteca} />
             </div>
           </div>
         );

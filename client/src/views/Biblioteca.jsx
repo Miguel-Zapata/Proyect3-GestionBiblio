@@ -14,14 +14,13 @@ const Biblioteca = () => {
       try {
         let response = await axios(`/libraries/find/${BibliotecaId}`, {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODcwMDA5MCwiZXhwIjoxNjcwMjU3NjkwfQ.mACPWJKHi7MmgTys7yRAmC-gP2uz5MWzv59GWaya-Ik",
+            Authorization: localStorage.getItem("jwt_token"),
           },
         });
         console.log(response.data);
         setBiblioteca(response.data.library);
       } catch (err) {
-        console.log(err);
+        console.log(err.response.data);
       }
     };
     getData();
