@@ -2,18 +2,72 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LibroList from "../components/LibroList";
-import LoTengo from "../components/LoTengo";
+import AddLibro from "../components/AddLibro";
+
 
 const Libros = () => {
   const [listaLibros, setListaLibros] = useState([]);
+  const [miBiblio, setMiBiblio] = useState([]);
+
+ /*  useEffect (()=>{
+    const miBiblioteca = async () => {
+      try {
+        let response = await axios("/libraries/mylibrary", {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        });
+        console.log(response.data);
+        setMiBiblio(response.data.library.cards);
+        
+      } catch (err) {
+        console.log(err.response.data);
+      }
+  
+      let coincide =(miLibro) => miLibro.card._id === "61a0f3b48823c8d2f3ce4c5b";
+      console.log(miBiblio.some(coincide));
+    };
+    miBiblioteca();
+  },[]); */
+   
+
 
   useEffect(() => {
+
+   /*  const miBiblioteca = async () => {
+      try {
+        let response = await axios("/libraries/mylibrary", {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        });
+        // console.log(response.data);
+        setMiBiblio(response.data.library.cards);
+        
+      } catch (err) {
+        console.log(err.response.data);
+      }
+  
+      let coincide =(miLibro) =>{
+        return (
+          miLibro.card._id === "61a0f3b48823c8d2f3ce4c5b"
+          );
+          console.log(miLibro)
+
+      }
+      console.log(miBiblio.some(coincide))
+    }; */
+
+
+
+
+
+
     const getData = async () => {
       try {
         let response = await axios("/cards", {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOTNjOGQwM2E5OTM4YTRjMjUzZGY0YSIsImlhdCI6MTYzODcwMDA5MCwiZXhwIjoxNjcwMjU3NjkwfQ.mACPWJKHi7MmgTys7yRAmC-gP2uz5MWzv59GWaya-Ik",
+            Authorization: localStorage.getItem("jwt_token"),
           },
         });
         console.log(response.data);
@@ -22,6 +76,8 @@ const Libros = () => {
         console.log(err);
       }
     };
+   
+    // miBiblioteca();
     getData();
   }, []);
 
@@ -39,13 +95,15 @@ const Libros = () => {
         </Link>
       </div>
 
+
       {listaLibros.map((libro, i) => {
         return (
           <div key={i} className="libros__container">
             <div >
               <LibroList url={`/Libros/${libro._id}`} libro={libro} />
               <div>
-                <LoTengo />
+
+                <AddLibro idLibro={libro._id}/>
               </div>
             </div>
           </div>

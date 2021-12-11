@@ -151,7 +151,7 @@ LibraryRouter.put("/add-card", async(req, res) => {
                 message: "Esta no es tu Biblioteca"
             });
         }
-
+        console.log(req.body);
         let repetido = library.cards.find(item => {
             return item.card.equals(card);
         });

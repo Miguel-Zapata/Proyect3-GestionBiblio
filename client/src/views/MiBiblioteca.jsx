@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LibroList from "../components/LibroList";
-import LoTengo from "../components/LoTengo";
+// import LoTengo from "../components/LoTengo";
 
 const MiBiblioteca = () => {
   const [state, setState] = useState(null);
@@ -47,7 +47,7 @@ const MiBiblioteca = () => {
                 libro={libro.card}
               />
               <div>
-                <LoTengo />
+                {/* <LoTengo /> */}
               </div>
             </div>
           );

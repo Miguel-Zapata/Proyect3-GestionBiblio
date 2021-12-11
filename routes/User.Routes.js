@@ -134,10 +134,10 @@ UserRouter.get("/mybookings", async(req, res) => {
         const { id } = req.user;
         const user = await User.findById(id).populate({
             path: "bookings",
-            select: "card",
+            select: "card start_Date finish_Date",
             populate: {
                 path: "card",
-                select: "title"
+                select: "title portada"
             }
         });
 

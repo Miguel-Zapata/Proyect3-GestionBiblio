@@ -1,17 +1,73 @@
-
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../styles/Libros.css";
 
+const MisReservas = () => {
+  const [state, setState] = useState(null);
 
-const MisReservas = ()=>{
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let response = await axios("/users/mybookings", {
+          headers: {
+            Authorization: localStorage.getItem("jwt_token"),
+          },
+        });
+        console.log(response.data);
+        setState(response.data.myBookings);
+      } catch (err) {
+        console.log(err.response.data);
+      }
+    };
+    getData();
+  }, []);
 
-
-    return(
+  const content = () => {
+    return (
+      <div>
         <div>
-            <p>Listado de reservas</p>
-            <Link to="/MiReservaDelete"><button>Eliminar reserva</button></Link>
-            <Link to="/MisReservasDelete"><button>Eliminar TODAS mis reservas</button></Link>
+          <h2>Mis Reservas</h2>
         </div>
+
+        {state.map((reserva, i) => {
+          return (
+            <div key={i} className="libros__container">
+              <div>
+                <div className="container_libroList">
+                  <div className="reservas--portada">
+                    <img
+                      className="reservas--portada__imagen"
+                      alt=""
+                      src={reserva.card.portada}
+                    />
+                  </div>
+                  <div className="reservas--info__container">
+                    <div>
+                      <h5 className="reservas--titulo">{reserva.card.title}</h5>
+                      <p>{`Recoger: ${reserva.start_Date}`}</p>
+                      <p>{`Devolver: ${reserva.finish_Date}`}</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <Link to="/MiReservaDelete">
+                    <button>Eliminar reserva</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        <Link to="/MisReservasDelete">
+          <button>Eliminar TODAS mis reservas</button>
+        </Link>
+      </div>
     );
-}
+  };
+
+  return <div>{state ? content() : "loading..."}</div>;
+};
 
 export default MisReservas;
