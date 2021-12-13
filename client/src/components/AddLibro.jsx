@@ -14,8 +14,9 @@ const AddLibro = (props)=>{
             }
           );
           console.log(response.data);
+          props.refresh();
         } catch (err) {
-          console.log(err);
+          console.log(err.response.data);
         }
       };
     

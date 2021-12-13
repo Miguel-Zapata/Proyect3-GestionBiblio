@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const InfoLibro = () => {
   let { LibroId } = useParams();
   console.log(LibroId);
-  
+
   const [libro, setLibro] = useState(null);
 
   useEffect(() => {
@@ -25,15 +25,21 @@ const InfoLibro = () => {
     getData();
   }, []);
 
-  const content = ()=>{
-      return (
-        <div className="infoLibro__Container">
-          <div>
-          <img className="infoLibro--portada" src={libro.portada} alt="portada" />
-          <h1 className="infoLibro--title">{libro.title} {libro.number}</h1>
-          </div>
+  const content = () => {
+    return (
+      <div className="infoLibro__Container">
+        <div>
+          <img
+            className="infoLibro--portada"
+            src={libro.portada}
+            alt="portada"
+          />
+          <h1 className="infoLibro--title">
+            {libro.title} {libro.number}
+          </h1>
+        </div>
 
-          <div>
+        <div>
           <p>Escritor: {libro.writer}</p>
           <p>Arte: {libro.art}</p>
           <p>Color: {libro.color}</p>
@@ -46,16 +52,11 @@ const InfoLibro = () => {
           <p>Fecha Publicación: {libro.publication_Date}</p>
           <p>Formato: {libro.format}</p>
           <p className="infoLibro--sinopsis">{libro.synopsis}</p>
-          </div>
         </div>
-      );
-  }
-  return(
-      <div>
-          {libro ? content() : "loading..."}
       </div>
-  );
-  
+    );
+  };
+  return <div>{libro ? content() : "loading..."}</div>;
 };
 
 export default InfoLibro;

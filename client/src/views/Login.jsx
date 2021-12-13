@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import GlobalState from "../context/GlobalState";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -9,6 +10,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const globalState = useContext(GlobalState)
+  const [, setToken]= globalState.token
 
   const handleChange = (e) => {
     setState({
@@ -22,10 +26,10 @@ const Login = () => {
     try {
       const response = await axios.post("/authentications/login", state);
       console.log(response.data);
-
-      navigate("/");
-
+      
+      setToken(response.data.token);
       localStorage.setItem("jwt_token", response.data.token);
+      navigate("/");
     } catch (err) {
       console.log(err.response.data);
     }

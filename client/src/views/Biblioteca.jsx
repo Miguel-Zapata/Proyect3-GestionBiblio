@@ -38,7 +38,8 @@ const Biblioteca = () => {
             <div key={i} className="libros__container">
               <LibroList
                 url={`/Bibliotecas/${biblioteca._id}/${libro.card._id}`}
-                libro={libro.card} condition={libro.condition}
+                libro={libro.card}
+                condition={libro.condition}
               />
             </div>
           );

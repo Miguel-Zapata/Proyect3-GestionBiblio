@@ -24,9 +24,9 @@ const Bibliotecas = () => {
 
   return (
     <div>
-      <div>
+      {/* <div>
         <button>Buscar...</button>
-      </div>
+      </div> */}
 
       {listaBibliotecas.map((biblioteca, i) => {
         return (

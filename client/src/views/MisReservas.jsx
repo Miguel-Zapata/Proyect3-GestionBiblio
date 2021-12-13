@@ -50,18 +50,18 @@ const MisReservas = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <Link to="/MiReservaDelete">
                     <button>Eliminar reserva</button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           );
         })}
 
         <Link to="/MisReservasDelete">
-          <button>Eliminar TODAS mis reservas</button>
+          {/* <button>Eliminar TODAS mis reservas</button> */}
         </Link>
       </div>
     );

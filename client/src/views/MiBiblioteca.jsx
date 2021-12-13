@@ -30,14 +30,14 @@ const MiBiblioteca = () => {
           <h2>{state.name}</h2>
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor="buscaLibro">Buscar</label>
           <input type="search" name="buscaLibro" id="buscaLibro" />
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <button>Filtros</button>
-        </div>
+        </div> */}
 
         {state.cards.map((libro, i) => {
           return (

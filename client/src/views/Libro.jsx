@@ -6,15 +6,15 @@ const Libro = () => {
   
   return(
       <div>
-        <div>
+        {/* <div>
         <LoTengo/>
-        </div>
+        </div> */}
         <div>
         <InfoLibro/>
         </div>
-        <div>
+        {/* <div>
         <LoTengo/>
-        </div>
+        </div> */}
       </div>
   );
   

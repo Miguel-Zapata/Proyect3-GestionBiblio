@@ -18,7 +18,8 @@ return(
         <p>{props.libro.writer}</p>
         <p>{props.libro.editorial}</p>
         <p>{props.libro.language}</p>
-        <p>{`Disponible: ${props.condition}`}</p>
+        <p>{!props.condition?"":"Disponible" /* `Disponible: ${props.condition}` */}</p>
+        {/* <p>{`Disponible: ${props.condition}`}</p> */}
         
     </div>
 </div>

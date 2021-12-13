@@ -12,9 +12,13 @@ const BiblioList = (props) => {
               key={props.biblioteca._id}
             >
               {" "}
-              <h5>{`${props.biblioteca.name}. Prestamos: ${props.biblioteca.give}`}</h5>
+              <h5>{props.biblioteca.name}</h5>
             </Link>
+            <ul>
+              <li>{!props.biblioteca.give?"Presta libros: NO":"Presta libros: SÍ" /* `Prestamos: ${props.biblioteca.give}` */}</li>
+            </ul>
           </li>
+          
         </ul>
       </div>
     </div>

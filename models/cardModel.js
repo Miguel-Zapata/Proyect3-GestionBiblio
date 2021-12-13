@@ -8,7 +8,8 @@ const CardSchema = new Schema({
         enum: ["Libro", "Cómic", "Juego de rol"]
     },
     portada: {
-        type: String
+        type: String,
+        required: true
     },
     cloudinary_id: {
         type: String

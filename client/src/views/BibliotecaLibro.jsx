@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const BibliotecaLibro = () => {
-
   let navigate = useNavigate();
   let { BibliotecaId } = useParams();
   let { LibroId } = useParams();
@@ -15,7 +14,7 @@ const BibliotecaLibro = () => {
   let [state, setState] = useState({
     library: BibliotecaId,
     card: LibroId,
-    start_Date:""
+    start_Date: "",
   });
 
   const handleChange = (e) => {
@@ -25,30 +24,21 @@ const BibliotecaLibro = () => {
     });
   };
 
-
-
-  const reservar = async (e)=>{
+  const reservar = async (e) => {
     e.preventDefault();
 
     try {
-      let response = await axios.post( "/bookings", state,
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwt_token"),
-          },
-        }
-      );
+      let response = await axios.post("/bookings", state, {
+        headers: {
+          Authorization: localStorage.getItem("jwt_token"),
+        },
+      });
       console.log(response.data);
       navigate("/MisReservas");
     } catch (err) {
       console.log(err.response.data);
     }
-
-  }
-
-
-
-
+  };
 
   return (
     <div>
@@ -63,7 +53,12 @@ const BibliotecaLibro = () => {
       </div>
 
       <div>
-        <input type="date" name="start_Date" id="fechaR" onChange={(e) => handleChange(e)}/>
+        <input
+          type="date"
+          name="start_Date"
+          id="fechaR"
+          onChange={(e) => handleChange(e)}
+        />
         <button onClick={(e) => reservar(e)}>Hacer Reserva</button>
         <a name="abajo"></a>
       </div>
