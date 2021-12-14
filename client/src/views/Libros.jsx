@@ -53,7 +53,7 @@ const Libros = () => {
 
       <div>
         <Link to="/LibroCrear">
-          <button>Crear Libro</button>
+          <button className="boton--libros btn btn-primary">Crear Libro</button>
         </Link>
       </div>
 

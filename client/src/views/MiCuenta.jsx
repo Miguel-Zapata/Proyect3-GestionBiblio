@@ -1,32 +1,56 @@
 import { Link } from "react-router-dom";
 import InfoUsuario from "../components/InfoUsuario";
+import Logout from "../components/Logout";
+import "../styles/micuenta.css";
 
-const MiCuenta = ()=>{
+const MiCuenta = () => {
+  return (
+    <div>
+      <div>
+        <h2>MI CUENTA</h2>
+      </div>
 
-    return (
+      <div className="info--usuario">
+        <InfoUsuario />
+      </div>
+
+      <div className="boton__container">
         <div>
-           
-
-            <div>
-            <h3>MI CUENTA</h3>
-            </div>
-
-            <div>
-                <InfoUsuario/>
-            </div>
-
-            <div>
-            <Link to="/MisDatos"><button>Modificar Datos</button></Link>
-            <Link to="/CrearBiblioteca"><button>Crear Biblioteca</button></Link>
-            <Link to="/MiBiblioteca"><button>Mi Biblioteca</button></Link>
-            <Link to="/MisReservas"><button>Mis Reservas</button></Link>
-            {/* <Link to="/MiCuentaDelete"><button>Eliminar Cuenta</button></Link> */}
-            {/* <Link to="/MiBibliotecaDelete"><button>Eliminar Biblioteca</button></Link> */}
-            </div>
-
-            
+          <Link to="/MisDatos">
+            <button className=" boton--miCuenta btn btn-primary">
+              Modificar Datos
+            </button>
+          </Link>
         </div>
-    );
+        <div>
+          <Link to="/CrearBiblioteca">
+            <button className=" boton--miCuenta btn btn-primary">
+              Crear Biblioteca
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/MiBiblioteca">
+            <button className=" boton--miCuenta btn btn-primary">
+              Mi Biblioteca
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/MisReservas">
+            <button className=" boton--miCuenta btn btn-primary">
+              Mis Reservas
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Logout />
+        </div>
+        {/* <Link to="/MiCuentaDelete"><button>Eliminar Cuenta</button></Link> */}
+        {/* <Link to="/MiBibliotecaDelete"><button>Eliminar Biblioteca</button></Link> */}
+      </div>
+    </div>
+  );
 };
 
 export default MiCuenta;

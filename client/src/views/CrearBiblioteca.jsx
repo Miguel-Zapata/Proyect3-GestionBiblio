@@ -37,6 +37,7 @@ const CrearBiblioteca = () => {
 
   return (
     <div>
+      <form onSubmit={(e) => handleChange(e)} className="form__container">
       <div>
         <Form.Label>Pon nombre a tu Biblioteca</Form.Label>
         <Form.Control
@@ -61,8 +62,9 @@ const CrearBiblioteca = () => {
       </div>
 
       <div>
-        <button onClick={(e) => submit(e)}>Crear Biblioteca</button>
+        <button className=" btn btn-primary" onClick={(e) => submit(e)}>Crear Biblioteca</button>
       </div>
+      </form>
     </div>
   );
 };

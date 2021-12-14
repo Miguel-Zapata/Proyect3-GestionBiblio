@@ -30,7 +30,7 @@ const Biblioteca = () => {
     return (
       <div>
         <div>
-          <p>{biblioteca.name}</p>
+          <h2>{biblioteca.name}</h2>
         </div>
 
         {biblioteca.cards.map((libro, i) => {

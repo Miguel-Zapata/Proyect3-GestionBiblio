@@ -1,0 +1,18 @@
+
+
+
+.boton__container{
+    display: flexbox;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton--miCuenta {
+    margin: 1rem;
+    width: 10rem;
+}
+
+.info--usuario {
+    padding: 1rem;
+}

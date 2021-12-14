@@ -25,6 +25,7 @@ function UserApi(token) {
       getUser();
     }
     setLoading(false);
+    // setIsLogged(false);
   }, [token]);
 
   return {

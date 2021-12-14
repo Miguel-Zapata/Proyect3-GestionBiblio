@@ -2,6 +2,7 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/Libros.css"
 
 const FormCrearLibro = () => {
   let navigate = useNavigate();
@@ -70,7 +71,7 @@ const FormCrearLibro = () => {
 
   return (
     <div>
-      <form onSubmit={(e) => handleChange(e)}>
+      <form onSubmit={(e) => handleChange(e)} className="form__container">
         <div>
           <Form.Label>Tipo</Form.Label>
           <Form.Select
@@ -85,7 +86,7 @@ const FormCrearLibro = () => {
         </div>
 
         <div>
-          <Form.Group controlId="formFile" className="mb-3">
+          {/* <Form.Group controlId="formFile" className="mb-3"> */}
             <Form.Label>Portada</Form.Label>
             <Form.Control
               onChange={(e) => {
@@ -97,7 +98,7 @@ const FormCrearLibro = () => {
               name="portada"
               type="file"
             />
-          </Form.Group>
+          {/* </Form.Group> */}
         </div>
 
         <div>
@@ -231,7 +232,7 @@ const FormCrearLibro = () => {
         </div>
 
         <div>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          {/* <Form.Group className="" controlId="exampleForm.ControlTextarea1"> */}
             <Form.Label>Sinopsis</Form.Label>
             <Form.Control
               onChange={(e) => handleChange(e)}
@@ -239,14 +240,14 @@ const FormCrearLibro = () => {
               as="textarea"
               rows={2}
             />
-          </Form.Group>
+          {/* </Form.Group> */}
         </div>
 
         <div>
           <button
             onClick={(e) => submit(e)}
             type="submit"
-            className="botonCrear"
+            className=" boton--libros btn btn-primary"
           >
             CREAR LIBRO
           </button>

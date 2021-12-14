@@ -10,7 +10,7 @@
 }
 
 .libroList--portada {
-    height: 110px;
+    height: 12rem;
     width: auto;
 }
 
@@ -39,8 +39,16 @@ div.container_libroList div.libroList--info h5 {
 
 /* INFOLIBRO */
 
+.infoLibro__Container {
+    padding: 1rem;
+}
+
+.padding-1rem {
+    padding: 1rem;
+}
+
 .libros__container {
-    border-bottom: 2px solid #3b2900;
+    border-bottom: 2px solid #16161d;
 }
 
 .infoLibro--portada {
@@ -89,3 +97,13 @@ div.reservas--info__container div p {
     margin: 0px;
     font-size: 18px;
 }
+
+.boton--libros {
+    margin: 0.5rem;
+}
+
+form div {
+    margin: 1rem;
+    text-align: start;
+}
+

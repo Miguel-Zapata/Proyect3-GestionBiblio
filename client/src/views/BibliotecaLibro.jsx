@@ -3,6 +3,7 @@ import req from "express/lib/request";
 import InfoLibro from "../components/InfoLibro";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "../styles/Libros.css"
 
 const BibliotecaLibro = () => {
   let navigate = useNavigate();
@@ -42,9 +43,9 @@ const BibliotecaLibro = () => {
 
   return (
     <div>
-      <div>
+      <div className="padding-1rem">
         <a href="#abajo">
-          <button>Quiero Reservarlo</button>
+          <button className="btn btn-primary">Quiero Reservarlo</button>
         </a>
       </div>
 
@@ -52,14 +53,16 @@ const BibliotecaLibro = () => {
         <InfoLibro />
       </div>
 
-      <div>
+      <div className="padding-1rem">
         <input
           type="date"
           name="start_Date"
           id="fechaR"
           onChange={(e) => handleChange(e)}
         />
-        <button onClick={(e) => reservar(e)}>Hacer Reserva</button>
+      </div>
+      <div className="padding-1rem">
+        <button className="btn btn-primary" onClick={(e) => reservar(e)}>Hacer Reserva</button>
         <a name="abajo"></a>
       </div>
     </div>

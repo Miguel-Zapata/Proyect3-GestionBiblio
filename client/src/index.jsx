@@ -53,7 +53,7 @@ ReactDOM.render(
             <Route path="MisDatos" element={<MisDatos />} />
             <Route path="CrearBiblioteca" element={<CrearBiblioteca />} />
             <Route path="MiBiblioteca" element={<MiBiblioteca />} />
-            <Route path="MiBibliotecaLibro" element={<MiBibliotecaLibro />} />
+            <Route path="MiBiblioteca/:LibroId" element={<MiBibliotecaLibro />} />
             <Route path="MiBibliotecaDelete" element={<MiBibliotecaDelete />} />
             <Route
               path="MiBibliotecaLibroDelete"

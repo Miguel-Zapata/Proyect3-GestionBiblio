@@ -1,25 +1,36 @@
 
+.flex--items {
+display:flex;
+flex-direction:row;
+justify-content:space-around;
+align-items: center;
+}
 
 .container--navbar{
-    background-color: #3b2900;
+    background-color: #0051ca;
     height:fit-content;
 }
 
 .home--navbar {
     height: 30px;
+    margin:5px 10px;
 }
 
 .user--navbar{
     height: 30px;
+    margin:5px 10px;
 }
 
 .libros--navbar{
     height: 30px;
+    margin:5px 10px;
 }
 .bibliotecas--navbar{
     height: 30px;
+    margin:5px 10px;
 }
 
 .text-main{
-    color:#fcfcf3 !important;
+    color:snow !important;
+    padding:5px;
 }

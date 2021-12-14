@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BiblioList from "../components/BiblioList";
+import "../styles/bibliotecas.css"
 
 const Bibliotecas = () => {
   const [listaBibliotecas, setlistaBibliotecas] = useState([]);
@@ -30,7 +31,7 @@ const Bibliotecas = () => {
 
       {listaBibliotecas.map((biblioteca, i) => {
         return (
-          <div key={i}>
+          <div key={i} className="bibliotecas__container">
             <div>
               <BiblioList  biblioteca={biblioteca} />
             </div>

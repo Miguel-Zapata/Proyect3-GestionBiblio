@@ -35,14 +35,14 @@ const MisReservas = () => {
             <div key={i} className="libros__container">
               <div>
                 <div className="container_libroList">
-                  <div className="reservas--portada">
+                  <div className="libroList--portada">
                     <img
-                      className="reservas--portada__imagen"
+                      className="libroList--portada__imagen"
                       alt=""
                       src={reserva.card.portada}
                     />
                   </div>
-                  <div className="reservas--info__container">
+                  <div className="libroList--info">
                     <div>
                       <h5 className="reservas--titulo">{reserva.card.title}</h5>
                       <p>{`Recoger: ${reserva.start_Date}`}</p>

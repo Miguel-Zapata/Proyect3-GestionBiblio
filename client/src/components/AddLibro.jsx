@@ -21,7 +21,7 @@ const AddLibro = (props)=>{
       };
     
       return (
-        <button onClick={addLibro}>Añadir a mi Biblioteca</button>
+        <button className="boton--libros btn btn-primary" onClick={addLibro}>Añadir a mi Biblioteca</button>
       );
 
 }

@@ -40,7 +40,7 @@ const MisDatos = () => {
   return (
     <div>
       <form>
-        <h3>Modificar Datos</h3>
+        <h2>Modificar Datos</h2>
 
         <div className="form-group">
           <label>Nombre</label>
@@ -100,7 +100,7 @@ const MisDatos = () => {
         <button
           onClick={(e) => submit(e)}
           type="submit"
-          className="btn btn-primary btn-block"
+          className=" boton--miCuenta btn btn-primary"
         >
           Aceptar Cambios
         </button>
