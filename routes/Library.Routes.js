@@ -9,7 +9,7 @@ LibraryRouter.post("/", async(req, res) => {
         const { name, give } = req.body;
 
         if (!name || !give) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Rellena los campos obligatorios"
             });
@@ -18,7 +18,7 @@ LibraryRouter.post("/", async(req, res) => {
         let libraryAdmin = await Library.findOne({ admin });
         console.log(libraryAdmin);
         if (libraryAdmin) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Solo se puede tener 1 Biblioteca por Usuario"
             });
@@ -26,7 +26,7 @@ LibraryRouter.post("/", async(req, res) => {
 
         let libraryName = await Library.findOne({ name });
         if (libraryName) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "El nombre de Biblioteca ya está en uso"
             });
@@ -52,6 +52,27 @@ LibraryRouter.post("/", async(req, res) => {
     }
 });
 
+// Mostrar MI Biblioteca
+LibraryRouter.get("/mylibrary", async(req, res) => {
+
+    try {
+        const admin = req.user.id;
+        const library = await Library.findOne({admin}).populate("cards.card");
+        console.log(library);
+        return res.send({
+            success: true,
+            library
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
+});
+
 // Modificar datos de  Mi Biblioteca
 LibraryRouter.put("/update", async(req, res) => {
     try {
@@ -60,7 +81,7 @@ LibraryRouter.put("/update", async(req, res) => {
         const library = await Library.findOne({ admin });
 
         if (!library.admin) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Esta no es tu Biblioteca"
             })
@@ -94,7 +115,7 @@ LibraryRouter.delete("/delete", async(req, res) => {
         const library = await Library.findOne({ admin });
 
         if (!library.admin) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Esta no es tu Biblioteca"
             });
@@ -125,12 +146,12 @@ LibraryRouter.put("/add-card", async(req, res) => {
         const library = await Library.findOne({ admin });
 
         if (!library.admin.equals(admin)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Esta no es tu Biblioteca"
             });
         }
-
+        console.log(req.body);
         let repetido = library.cards.find(item => {
             return item.card.equals(card);
         });
@@ -164,7 +185,7 @@ LibraryRouter.put("/card-condition", async(req, res) => {
         let { card } = req.body;
 
         if (!library.admin.equals(admin)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Este Libro no pertenece a tu Biblioteca"
             });
@@ -198,7 +219,7 @@ LibraryRouter.put("/delete-card", async(req, res) => {
         let { card } = req.body;
 
         if (!library.admin.equals(admin)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Este Libro no pertenece a tu Biblioteca"
             });
@@ -227,7 +248,7 @@ LibraryRouter.put("/delete-card", async(req, res) => {
 // Mostrar todas las Bibliotecas
 LibraryRouter.get("/", async(req, res) => {
     try {
-        const libraries = await Library.find().select("name give");
+        const libraries = await Library.find().select("name admin give");
         return res.send({
             success: true,
             libraries
@@ -245,7 +266,8 @@ LibraryRouter.get("/", async(req, res) => {
 LibraryRouter.get("/find/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const library = await Library.findById(id);
+        const library = await Library.findById(id).populate("cards.card");
+        console.log(library);
         return res.send({
             success: true,
             library
@@ -257,6 +279,29 @@ LibraryRouter.get("/find/:id", async(req, res) => {
             message: err.message || err._message
         });
     }
+});
+
+// Mostrar 1 Libro de 1 Biblioteca.
+LibraryRouter.get("/find/:libraryId/:cardId", async(req, res) => {
+
+    try {
+        const {cardId} = req.params;
+        const { libraryId } = req.params;
+        const library = await Library.findById(libraryId).populate("cards.card");
+
+        let libro = library.cards.find(cards => cards.card._id.equals(cardId));
+       
+            console.log(libro);
+        return res.send(libro);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+
 });
 
 // Mostrar todos los libros de 1 Biblioteca

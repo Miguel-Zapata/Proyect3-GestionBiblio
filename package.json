@@ -4,6 +4,8 @@
     "description": "Es una aplicación web donde los usuarios pueden crear y gestionar sus propias Bibliotecas Virtuales.\r ***",
     "main": "server.js",
     "scripts": {
+        "client": "cd client && npm start",
+        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js",
         "server": "nodemon server.js"
@@ -19,8 +21,11 @@
     },
     "homepage": "https://github.com/Miguel-Zapata/Proyect3-GestionBiblio#readme",
     "dependencies": {
+        "axios": "^0.24.0",
         "bcrypt": "^5.0.1",
         "cloudinary": "^1.27.1",
+        "concurrently": "^6.4.0",
+        "cors": "^2.8.5",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "jsonwebtoken": "^8.5.1",

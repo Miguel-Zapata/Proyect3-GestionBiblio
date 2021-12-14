@@ -8,8 +8,11 @@ const CardRouter = express.Router();
 
 // Crea una Ficha
 CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
+    console.log(req.file.path);
     try {
-        const result = await cloudinary.uploader.upload(req.file.path);
+
+            const result = await cloudinary.uploader.upload(req.file.path);
+        
         const { type, portada, cloudinary_id, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         let date;
 
@@ -21,7 +24,7 @@ CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
         } */
 
         if (!type || !title || !writer || !editorial) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Rellena los campos obligatorios"
             });
@@ -51,7 +54,8 @@ CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
             format,
             synopsis
         })
-        const newCard = await card.save();
+            const newCard = await card.save();
+      
         return res.status(201).send({
             success: true,
             card: newCard
@@ -68,6 +72,7 @@ CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
 // Modificar Ficha // SOLO ADMIN
 CardRouter.put("/find/:id/update", upload.single("portada"), async(req, res) => {
     try {
+        const result = await cloudinary.uploader.upload(req.file.path); // ESTO TO SIEMPRE
         const { id } = req.params;
         const { type, portada, cloudinary_id, title, number, writer, art, color, editorial, genre, serie, page_Number, language, isbn, publication_Date, format, synopsis } = req.body;
         const card = await Card.findById(id);
@@ -82,9 +87,15 @@ CardRouter.put("/find/:id/update", upload.single("portada"), async(req, res) => 
         if (type) {
             card.type = type;
         }
-        if (portada) {
-            card.portada = portada;
+
+        if ({ portada }) {
+            await cloudinary.uploader.destroy(card.cloudinary_id);
+            card.portada = result.secure_url;
         }
+        if ({ cloudinary_id }) {
+            card.cloudinary_id = result.public_id;
+        }
+
         if (title) {
             card.title = title;
         }
@@ -173,7 +184,7 @@ CardRouter.delete("/find/:id/delete", async(req, res) => {
 // Mostrar todas Fichas
 CardRouter.get("/", checkToken, async(req, res) => {
     try {
-        const cards = await Card.find({}).select("title number writer editorial publication_Date");
+        const cards = await Card.find({}).select("title portada number writer editorial language publication_Date");
         return res.send({
             success: true,
             cards
@@ -194,7 +205,7 @@ CardRouter.get("/find/:id", checkToken, async(req, res) => {
         const card = await Card.findById(id);
 
         if (!card) {
-            return res.json({
+            return res.status(404).json({
                 success: false,
                 message: "Este libro no existe"
             });

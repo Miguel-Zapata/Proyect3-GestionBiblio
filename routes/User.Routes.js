@@ -11,7 +11,7 @@ UserRouter.put("/update", async(req, res) => {
         const user = await User.findById(id);
 
         if (!user._id.equals(id)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "No puedes modificar el Usuario de otra persona"
             });
@@ -47,6 +47,25 @@ UserRouter.put("/update", async(req, res) => {
     }
 });
 
+// Mostrar mi Usuario
+UserRouter.get("/myuser", async(req, res) => {
+    try{
+        const { id } = req.user;
+        const myUser = await User.findById(id);
+        return res.send({
+            success: true,
+            myUser
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            message: err.message || err._message
+        });
+    }
+});
+
 // Eliminar Usuario
 UserRouter.delete("/delete", async(req, res) => {
     try {
@@ -54,7 +73,7 @@ UserRouter.delete("/delete", async(req, res) => {
         const user = await User.findByIdAndDelete(id);
 
         if (!user._id.equals(id)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "No puedes eliminar el Usuario de otra persona"
             });
@@ -115,15 +134,15 @@ UserRouter.get("/mybookings", async(req, res) => {
         const { id } = req.user;
         const user = await User.findById(id).populate({
             path: "bookings",
-            select: "card",
+            select: "card start_Date finish_Date",
             populate: {
                 path: "card",
-                select: "title"
+                select: "title portada"
             }
         });
 
         if (!user._id.equals(id)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "No puedes acceder a las reservas de otro Usuario"
             });
@@ -152,7 +171,7 @@ UserRouter.get("/mybookings/:bookingId", async(req, res) => {
         const user = await User.findById(id)
 
         if (!user._id.equals(id)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "No puedes acceder a las reservas de otro Usuario"
             });
@@ -161,7 +180,7 @@ UserRouter.get("/mybookings/:bookingId", async(req, res) => {
         let reservas = user.bookings;
         let index = reservas.indexOf(bookingId);
         if (index == -1) {
-            return res.send({
+            return res.status(404).send({
                 success: false,
                 message: 'Reserva no encontrada',
             });
@@ -215,7 +234,7 @@ UserRouter.delete("/mybookings/delete/book", async(req, res) => {
         const user = await User.findById(id);
 
         if (!user._id.equals(id)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "No puedes eliminar una reserva de otro Usuario"
             });
@@ -225,7 +244,7 @@ UserRouter.delete("/mybookings/delete/book", async(req, res) => {
         let index = reservas.indexOf(bookId);
 
         if (index == -1) {
-            return res.send({
+            return res.status(404).send({
                 success: false,
                 message: 'Reserva no encontrada',
             });

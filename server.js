@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 
 // cloudinary
 require('cloudinary').config();
@@ -22,6 +23,8 @@ connectDB();
 // Postman Frontend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 // Rutas
 app.use('/api/authentications', authRouter);

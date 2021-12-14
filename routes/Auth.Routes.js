@@ -7,7 +7,7 @@ const { env: { JWT_SECRET } } = process;
 
 
 let validatePassword = function(password) {
-    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+    var reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,24}$/;
     return reg.test(password);
 }
 var validateEmail = function(email) {
@@ -20,20 +20,20 @@ AuthRouter.post("/create-user", async(req, res) => {
     try {
         const { name, surname, user_Name, email, password } = req.body;
         if (!validatePassword(password)) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "La contraseña debe contener al menos 1 número (0-9), 1 mayúscula (A-Z) y 1 caracter especial (!@#$%^&*)"
             });
         }
         if (!validateEmail(email)) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "El email no es válido. Comprueba que no haya algún error"
             });
         }
 
         if (!name || !surname || !user_Name || !email || !password) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Faltan campos por rellenar"
             });
@@ -41,14 +41,14 @@ AuthRouter.post("/create-user", async(req, res) => {
 
         let userEmail = await User.findOne({ email });
         if (userEmail) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Este correo ya Existe"
             });
         }
         let userNick = await User.findOne({ user_Name });
         if (userNick) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Este nombre de Usuario ya Existe"
             });
@@ -101,7 +101,7 @@ AuthRouter.post("/login", async(req, res) => {
         }
 
         // Crear Token
-        let token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "24h" });
+        let token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1y" });
 
         return res.json({
             success: true,
