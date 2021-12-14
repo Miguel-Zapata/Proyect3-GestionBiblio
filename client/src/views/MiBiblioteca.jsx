@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LibroList from "../components/LibroList";
-// import LoTengo from "../components/LoTengo";
 
 const MiBiblioteca = () => {
   const [state, setState] = useState(null);
@@ -18,6 +17,7 @@ const MiBiblioteca = () => {
         setState(response.data.library);
       } catch (err) {
         console.log(err.response.data);
+        alert(err.response.data.message);
       }
     };
     getData();
@@ -46,9 +46,6 @@ const MiBiblioteca = () => {
                 url={`/MiBiblioteca/${libro.card._id}`}
                 libro={libro.card}
               />
-              <div>
-                {/* <LoTengo /> */}
-              </div>
             </div>
           );
         })}

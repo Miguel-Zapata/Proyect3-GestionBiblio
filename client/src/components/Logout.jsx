@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import GlobalState from "../context/GlobalState";
-import "../styles/micuenta.css"
+import "../styles/micuenta.css";
 
 const Logout = () => {
   let navigate = useNavigate();
@@ -12,11 +12,12 @@ const Logout = () => {
   const submit = async (e) => {
     e.preventDefault(); // para prevenir lo que hace el form por defecto
     try {
-      setToken();
+      setToken(null);
       localStorage.removeItem("jwt_token");
       navigate("/Login");
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message);
     }
   };
 

@@ -3,7 +3,7 @@ import req from "express/lib/request";
 import InfoLibro from "../components/InfoLibro";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "../styles/Libros.css"
+import "../styles/Libros.css";
 
 const BibliotecaLibro = () => {
   let navigate = useNavigate();
@@ -38,6 +38,7 @@ const BibliotecaLibro = () => {
       navigate("/MisReservas");
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message);
     }
   };
 
@@ -62,7 +63,9 @@ const BibliotecaLibro = () => {
         />
       </div>
       <div className="padding-1rem">
-        <button className="btn btn-primary" onClick={(e) => reservar(e)}>Hacer Reserva</button>
+        <button className="btn btn-primary" onClick={(e) => reservar(e)}>
+          Hacer Reserva
+        </button>
         <a name="abajo"></a>
       </div>
     </div>

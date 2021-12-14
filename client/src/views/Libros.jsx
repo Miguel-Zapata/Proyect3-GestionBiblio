@@ -19,6 +19,7 @@ const Libros = () => {
       setMiBiblio(response.data.library.cards);
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message);
     }
   };
   useEffect(() => {
@@ -33,6 +34,7 @@ const Libros = () => {
         setListaLibros(response.data.cards);
       } catch (err) {
         console.log(err.response.data);
+        alert(err.response.data.message);
       }
     };
 

@@ -32,6 +32,9 @@ const CrearBiblioteca = () => {
       navigate("/MiBiblioteca");
     } catch (err) {
       console.log(err.response.data);
+        alert(err.response.data.message);
+      
+
     }
   };
 

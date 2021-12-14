@@ -19,13 +19,15 @@ function UserApi(token) {
           setUser(response.data.myUser);
         } catch (err) {
           localStorage.removeItem("jwt_token");
+          setIsLogged(false);
           alert(err.response.data.message);
         }
       };
       getUser();
+    } else {
+      setIsLogged(false);
     }
     setLoading(false);
-    // setIsLogged(false);
   }, [token]);
 
   return {

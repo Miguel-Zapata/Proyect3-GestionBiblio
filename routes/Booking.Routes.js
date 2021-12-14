@@ -14,7 +14,7 @@ BookingRouter.post("/", checkToken, async(req, res) => {
         let fin_Date
             // TODAS LAS COMPROBACIONES MALAS AL PRINCIPIO.
         if (!card || !library || !start_Date) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Rellena todos los campos"
             });
@@ -22,7 +22,7 @@ BookingRouter.post("/", checkToken, async(req, res) => {
         // comprobar si la biblioteca existe
         let libraryFind = await Library.findById(library);
         if (!libraryFind) {
-            return res.json({
+            return res.status(404).json({
                 success: false,
                 message: "Esta Biblioteca no existe"
             });
@@ -32,14 +32,14 @@ BookingRouter.post("/", checkToken, async(req, res) => {
             return item.card.equals(card);
         });
         if (!libro) {
-            return res.json({
+            return res.status(404).json({
                 success: false,
                 message: "Libro no encontrado en la Biblioteca especificada"
             });
         }
 
         if ((libro.condition == false) || (libraryFind.give == false)) {
-            return res.json({
+            return res.status(401).json({
                 success: false,
                 message: "Este libro no puede tomarse prestado"
             });

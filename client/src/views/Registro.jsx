@@ -28,9 +28,9 @@ const Registro = () => {
       console.log(response.data);
 
       navigate("/Login");
-
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message);
     }
   };
 

@@ -16,7 +16,6 @@ const BarraNavegacion = () => {
 
   if (!isLogged) {
     return (
-    
       <div>
         <Navbar
           className="container--navbar"
@@ -45,9 +44,9 @@ const BarraNavegacion = () => {
       >
         <Container className="container--navbar">
           <Nav className="flex--items">
-          <NavLink to="/">
-            <img className="home--navbar" src={homeNav} alt="home" />
-          </NavLink>
+            <NavLink to="/">
+              <img className="home--navbar" src={homeNav} alt="home" />
+            </NavLink>
             <NavLink to="/Libros">
               <img className="libros--navbar" src={librosNav} alt="libros" />
             </NavLink>

@@ -1,109 +1,106 @@
-
 .container_libroList {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 10px;
-    align-items:stretch;
-    justify-content:start;
-    /* border-bottom: 2px solid #3b2900; */
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px;
+  align-items: stretch;
+  justify-content: start;
+  /* border-bottom: 2px solid #3b2900; */
 }
 
 .libroList--portada {
-    height: 12rem;
-    width: auto;
+  height: 12rem;
+  width: auto;
 }
 
 .libroList--portada__imagen {
-    height: 100%;
-    border: 1px solid #16161d;
+  height: 100%;
+  border: 1px solid #16161d;
 }
 
 .libroList--info {
-    height: 110px;
-    width: 100%;
-    padding-left: 10px;
-    text-align:left;
-    margin:0px;
+  height: 110px;
+  width: 100%;
+  padding-left: 10px;
+  text-align: left;
+  margin: 0px;
 }
 
 div.container_libroList div.libroList--info p {
-    margin:0px;
-    
+  margin: 0px;
 }
 
 div.container_libroList div.libroList--info h5 {
-    margin: 0px;
-    font-size: 18px;
+  margin: 0px;
+  font-size: 18px;
 }
 
 /* INFOLIBRO */
 
 .infoLibro__Container {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .padding-1rem {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .libros__container {
-    border-bottom: 2px solid #16161d;
+  border-bottom: 2px solid #16161d;
 }
 
 .infoLibro--portada {
-    height: 20rem;
+  height: 20rem;
 }
 
 .infoLibro--sinopsis {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* RESERVAS */
 
 .reservas__container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 10px;
-    align-items:stretch;
-    justify-content:start;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px;
+  align-items: stretch;
+  justify-content: start;
 
-    /* border-bottom: 2px solid #3b2900; */
+  /* border-bottom: 2px solid #3b2900; */
 }
 
 .reservas--portada {
-    height: 7rem;
-    width: auto;
+  height: 7rem;
+  width: auto;
 }
 
 .reservas--portada__imagen {
-    height: 100%;
-    border: 1px solid #16161d;
+  height: 100%;
+  border: 1px solid #16161d;
 }
 
 .reservas--info__container {
-    height: 110px;
-    width: 100%;
-    padding-left: 10px;
-    text-align:left;
-    margin:0px;
+  height: 110px;
+  width: 100%;
+  padding-left: 10px;
+  text-align: left;
+  margin: 0px;
 }
 div.reservas--info__container div p {
-    margin:0px;
+  margin: 0px;
 }
 
 .reservas--titulo {
-    margin: 0px;
-    font-size: 18px;
+  margin: 0px;
+  font-size: 18px;
 }
 
 .boton--libros {
-    margin: 0.5rem;
+  margin: 0.5rem;
 }
 
 form div {
-    margin: 1rem;
-    text-align: start;
+  margin: 1rem;
+  text-align: start;
 }
-

@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Libros.css"
+import "../styles/Libros.css";
 
 const FormCrearLibro = () => {
   let navigate = useNavigate();
@@ -66,6 +66,7 @@ const FormCrearLibro = () => {
       navigate("/Libros");
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message);
     }
   };
 
@@ -87,17 +88,17 @@ const FormCrearLibro = () => {
 
         <div>
           {/* <Form.Group controlId="formFile" className="mb-3"> */}
-            <Form.Label>Portada</Form.Label>
-            <Form.Control
-              onChange={(e) => {
-                setState({
-                  ...state,
-                  portada: e.target.files[0],
-                });
-              }}
-              name="portada"
-              type="file"
-            />
+          <Form.Label>Portada</Form.Label>
+          <Form.Control
+            onChange={(e) => {
+              setState({
+                ...state,
+                portada: e.target.files[0],
+              });
+            }}
+            name="portada"
+            type="file"
+          />
           {/* </Form.Group> */}
         </div>
 
@@ -233,13 +234,13 @@ const FormCrearLibro = () => {
 
         <div>
           {/* <Form.Group className="" controlId="exampleForm.ControlTextarea1"> */}
-            <Form.Label>Sinopsis</Form.Label>
-            <Form.Control
-              onChange={(e) => handleChange(e)}
-              name="synopsis"
-              as="textarea"
-              rows={2}
-            />
+          <Form.Label>Sinopsis</Form.Label>
+          <Form.Control
+            onChange={(e) => handleChange(e)}
+            name="synopsis"
+            as="textarea"
+            rows={2}
+          />
           {/* </Form.Group> */}
         </div>
 

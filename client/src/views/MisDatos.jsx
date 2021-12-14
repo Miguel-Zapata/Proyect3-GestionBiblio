@@ -34,6 +34,7 @@ const MisDatos = () => {
       navigate("/MiCuenta");
     } catch (err) {
       console.log(err.response.data);
+      alert(err.response.data.message);
     }
   };
 

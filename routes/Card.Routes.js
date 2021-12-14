@@ -24,7 +24,7 @@ CardRouter.post("/", upload.single("portada"), checkToken, async(req, res) => {
         } */
 
         if (!type || !title || !writer || !editorial) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Rellena los campos obligatorios"
             });
@@ -205,7 +205,7 @@ CardRouter.get("/find/:id", checkToken, async(req, res) => {
         const card = await Card.findById(id);
 
         if (!card) {
-            return res.json({
+            return res.status(404).json({
                 success: false,
                 message: "Este libro no existe"
             });

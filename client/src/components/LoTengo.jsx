@@ -16,12 +16,11 @@ const LoTengo = (props) => {
       console.log(response.data);
     } catch (err) {
       console.log(err);
+      alert(err.response.data.message);
     }
   };
 
-  return (
-    <button onClick={addLibro}>{props.idLibro}</button>
-  );
+  return <button onClick={addLibro}>{props.idLibro}</button>;
 };
 
 export default LoTengo;

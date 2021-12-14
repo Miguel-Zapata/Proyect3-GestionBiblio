@@ -9,7 +9,7 @@ LibraryRouter.post("/", async(req, res) => {
         const { name, give } = req.body;
 
         if (!name || !give) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Rellena los campos obligatorios"
             });
@@ -18,7 +18,7 @@ LibraryRouter.post("/", async(req, res) => {
         let libraryAdmin = await Library.findOne({ admin });
         console.log(libraryAdmin);
         if (libraryAdmin) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Solo se puede tener 1 Biblioteca por Usuario"
             });
@@ -26,7 +26,7 @@ LibraryRouter.post("/", async(req, res) => {
 
         let libraryName = await Library.findOne({ name });
         if (libraryName) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "El nombre de Biblioteca ya está en uso"
             });
@@ -81,7 +81,7 @@ LibraryRouter.put("/update", async(req, res) => {
         const library = await Library.findOne({ admin });
 
         if (!library.admin) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Esta no es tu Biblioteca"
             })
@@ -115,7 +115,7 @@ LibraryRouter.delete("/delete", async(req, res) => {
         const library = await Library.findOne({ admin });
 
         if (!library.admin) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Esta no es tu Biblioteca"
             });
@@ -146,7 +146,7 @@ LibraryRouter.put("/add-card", async(req, res) => {
         const library = await Library.findOne({ admin });
 
         if (!library.admin.equals(admin)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Esta no es tu Biblioteca"
             });
@@ -185,7 +185,7 @@ LibraryRouter.put("/card-condition", async(req, res) => {
         let { card } = req.body;
 
         if (!library.admin.equals(admin)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Este Libro no pertenece a tu Biblioteca"
             });
@@ -219,7 +219,7 @@ LibraryRouter.put("/delete-card", async(req, res) => {
         let { card } = req.body;
 
         if (!library.admin.equals(admin)) {
-            return res.json({
+            return res.status(403).json({
                 success: false,
                 message: "Este Libro no pertenece a tu Biblioteca"
             });

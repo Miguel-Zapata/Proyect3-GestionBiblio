@@ -27,7 +27,6 @@ import LibroCrear from "./views/LibroCrear";
 import CrearBiblioteca from "./views/CrearBiblioteca";
 import RequireAuth from "./utils/PrivateRoute";
 
-
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -48,12 +47,14 @@ ReactDOM.render(
               path="Bibliotecas/:BibliotecaId/:LibroId"
               element={<BibliotecaLibro />}
             />
-            {/* <Route path="HacerReserva" element={<HacerReserva />} /> */}
             <Route path="MiCuenta" element={<MiCuenta />} />
             <Route path="MisDatos" element={<MisDatos />} />
             <Route path="CrearBiblioteca" element={<CrearBiblioteca />} />
             <Route path="MiBiblioteca" element={<MiBiblioteca />} />
-            <Route path="MiBiblioteca/:LibroId" element={<MiBibliotecaLibro />} />
+            <Route
+              path="MiBiblioteca/:LibroId"
+              element={<MiBibliotecaLibro />}
+            />
             <Route path="MiBibliotecaDelete" element={<MiBibliotecaDelete />} />
             <Route
               path="MiBibliotecaLibroDelete"

@@ -21,6 +21,7 @@ const Biblioteca = () => {
         setBiblioteca(response.data.library);
       } catch (err) {
         console.log(err.response.data);
+        alert(err.response.data.message);
       }
     };
     getData();

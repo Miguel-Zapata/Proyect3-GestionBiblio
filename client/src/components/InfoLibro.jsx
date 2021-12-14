@@ -20,6 +20,7 @@ const InfoLibro = () => {
         setLibro(response.data.card);
       } catch (err) {
         console.log(err.response.data);
+        alert(err.response.data.message);
       }
     };
     getData();
