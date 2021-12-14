@@ -37,7 +37,7 @@ const Registro = () => {
   return (
     <div>
       <form>
-        <h3>Registro de usuario</h3>
+        <h2>Registro de usuario</h2>
 
         <div className="form-group">
           <label>Nombre</label>
@@ -97,11 +97,11 @@ const Registro = () => {
         <button
           onClick={(e) => submit(e)}
           type="submit"
-          className="btn btn-primary btn-block"
+          className="boton__home btn btn-primary"
         >
           Registrarse
         </button>
-        <p className="forgot-password text-right">
+        <p className="forgot-password text-right padding-1rem">
           ¿Ya estás registrado? <Link to="/Login">Inicia Sesión</Link>
         </p>
       </form>

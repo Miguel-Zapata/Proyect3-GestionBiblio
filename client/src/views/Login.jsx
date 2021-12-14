@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import GlobalState from "../context/GlobalState";
 
+
 const Login = () => {
   let navigate = useNavigate();
   let [state, setState] = useState({
@@ -39,7 +40,7 @@ const Login = () => {
   return (
     <div>
       <form>
-        <h3>Inicio de Sesión</h3>
+        <h2>Inicio de Sesión</h2>
 
         <div className="form-group">
           <label>Email</label>
@@ -68,12 +69,12 @@ const Login = () => {
         <button
           onClick={(e) => submit(e)} // esta sintaxis es por estar dentro del form
           type="submit"
-          className="btn btn-primary btn-block"
+          className="boton__home btn btn-primary "
         >
           Iniciar Sesión
         </button>
 
-        <p className="forgot-password text-right">
+        <p className="forgot-password text-right padding-1rem">
           ¿No estás registrado? <Link to="/Registro">Regístrate</Link>
         </p>
       </form>
