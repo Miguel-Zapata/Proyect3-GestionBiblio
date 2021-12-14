@@ -10,7 +10,8 @@ const LibrarySchema = new Schema({
     cards: [{
         card: {
             type: mongoose.Types.ObjectId,
-            ref: "Card"
+            ref: "Card",
+            required: true
         },
         condition: { type: Boolean }
     }],

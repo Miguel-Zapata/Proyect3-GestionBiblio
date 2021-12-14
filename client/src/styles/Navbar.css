@@ -1,0 +1,37 @@
+.flex--items {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container--navbar {
+  background-color: #0051ca;
+  width: 100%;
+  height: fit-content;
+}
+
+.home--navbar {
+  height: 30px;
+  margin: 5px 10px;
+}
+
+.user--navbar {
+  height: 30px;
+  margin: 5px 10px;
+}
+
+.libros--navbar {
+  height: 30px;
+  margin: 5px 10px;
+}
+.bibliotecas--navbar {
+  height: 30px;
+  margin: 5px 10px;
+}
+
+.text-main {
+  color: snow !important;
+  padding: 5px;
+}

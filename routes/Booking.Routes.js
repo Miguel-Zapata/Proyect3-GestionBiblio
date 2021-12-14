@@ -1,19 +1,49 @@
-// FALTA validación de Reserva
-
 const express = require("express");
-const Booking = require("../models/BookingModel");
-const User = require("../models/UserModel");
+const Booking = require("../models/bookingModel");
+const User = require("../models/userModel");
 const Library = require("../models/LibraryModel");
 const { checkToken } = require('../middlewares');
 const BookingRouter = express.Router();
 
-// Crear Reserva + añadir reserva al usuario + valida libro +valida biblioteca
+// Crear Reserva + añadir reserva al usuario
 BookingRouter.post("/", checkToken, async(req, res) => {
     try {
         const user = req.user.id;
-        const { card, library, start_Date, finish_Date } = req.body;
+        const { card, library, start_Date } = req.body;
         let st_Date
         let fin_Date
+            // TODAS LAS COMPROBACIONES MALAS AL PRINCIPIO.
+        if (!card || !library || !start_Date) {
+            return res.status(403).json({
+                success: false,
+                message: "Rellena todos los campos"
+            });
+        }
+        // comprobar si la biblioteca existe
+        let libraryFind = await Library.findById(library);
+        if (!libraryFind) {
+            return res.status(404).json({
+                success: false,
+                message: "Esta Biblioteca no existe"
+            });
+        }
+        // comprobar si el libro existe en esa biblioteca
+        let libro = libraryFind.cards.find(item => {
+            return item.card.equals(card);
+        });
+        if (!libro) {
+            return res.status(404).json({
+                success: false,
+                message: "Libro no encontrado en la Biblioteca especificada"
+            });
+        }
+
+        if ((libro.condition == false) || (libraryFind.give == false)) {
+            return res.status(401).json({
+                success: false,
+                message: "Este libro no puede tomarse prestado"
+            });
+        }
 
         if (start_Date) {
             st_Date = new Date(start_Date);
@@ -33,26 +63,14 @@ BookingRouter.post("/", checkToken, async(req, res) => {
             finish_Date: fin_Date,
         })
 
-        let libraryFind = await Library.findById(library);
-        let libro = libraryFind.cards.find(item => {
-            return item.card.equals(card);
+        const newBooking = await booking.save();
+        let arrayBooking = await User.findById(user);
+        arrayBooking.bookings.push(newBooking._id);
+        await arrayBooking.save();
+        return res.status(201).send({
+            success: true,
+            booking: newBooking
         });
-
-        // ESTUDIAR ESTO
-        console.log(libro.condition);
-        console.log(libraryFind.give);
-        if ((libro.condition == true) && (libraryFind.give == true)) {
-            const newBooking = await booking.save();
-            let arrayBooking = await User.findById(user);
-            arrayBooking.bookings.push(newBooking._id);
-            await arrayBooking.save();
-            return res.status(201).send({
-                success: true,
-                booking: newBooking
-            });
-        } else {
-            return res.send("ERROR AL CREAR LA RESERVA");
-        }
 
     } catch (err) {
         console.log(err);
@@ -67,7 +85,7 @@ BookingRouter.post("/", checkToken, async(req, res) => {
 BookingRouter.put("/find/:id/update", async(req, res) => {
     try {
         const { id } = req.params;
-        let { user, card, library, condition, start_Date, finish_Date } = req.body;
+        let { user, card, library, condition, start_Date } = req.body;
         const booking = await Booking.findById(id);
         if (user) {
             booking.user = user
@@ -84,9 +102,6 @@ BookingRouter.put("/find/:id/update", async(req, res) => {
         if (start_Date) {
             booking.start_Date = start_Date
         }
-        /* if (finish_Date) {
-            booking.finish_Date = finish_Date
-        } */
         const updateBooking = await booking.save();
 
         return res.send({

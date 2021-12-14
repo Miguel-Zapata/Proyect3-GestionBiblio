@@ -36,19 +36,16 @@ node_modules/
 ```
 ***
 ## Descripción funcional de la aplicación.
-Como visitante de la web podrás acceder a una home donde hay un apartado de novedades editoriales y desde donde registrarse en la web y hacer login.
+Como visitante de la web podrás acceder a una home desde donde registrarse en la web y hacer login.
 
 Como Usuario Registrado podrás:
-- Modificar o Eliminar el propio Usuario.
-- Buscar otros Usuarios.
+- Modificar el propio Usuario.
 - Reservar libros en las Bibliotecas que lo permitan.
-- Ver y eliminar reservas de tu perfil.
-- Crear, Modificar o Eliminar una Biblioteca.
-- Añadir o Eliminar Libros a tu biblioteca.
-- Cambiar disponibilidad de tus libros.
+- Ver las reservas de tu perfil.
+- Crear una Biblioteca.
+- Añadir Libros a tu biblioteca.
 - Buscar las bibliotecas de otros Usuarios y ver su contenido.
 - Crear nuevos Libros para añadirlos a tu biblioteca.
-- Buscar libros por filtros.
 
 Existen Rutas reservadas solo para un Administrador. Tales como:
 - Modificar o Eliminar un Libro ya existente.
@@ -66,17 +63,27 @@ Existen Rutas reservadas solo para un Administrador. Tales como:
 - [Dotenv:](https://www.npmjs.com/package/dotenv) Para mantener en secreto nuestros datos sensibles.
 - [Bcrypt:](https://www.npmjs.com/package/bcrypt) Para encriptar las contraseñas de los Usuarios.
 - [Jsonwebtoken:](https://www.npmjs.com/package/jsonwebtoken?activeTab=readme) Para hacer login y privatizar las rutas que solo podrá usar un Usuario Registrado.
+- [React:](https://es.reactjs.org/docs/getting-started.html) Para hacer la parte Frontend
 - [Github:](https://github.com/) Como repositorio.
 - [Google:](https://www.google.es/) Como principal herramienta de busqueda.
 - [Trello:](https://trello.com/) Para organizar las tareas.
 - [Google Calendar](https://calendar.google.com/) Para gestionar mi tiempo de manera eficiente.
 ***
 ## Versión
-Versión 1.0 - 18/11/2021
+- Versión 1.0 - 18/11/2021
+
+- Versión 1.1 - 15/12/2021
+    - Se ha añadido la parte Frontend al proyecto.
+    - Se han añadido 3 nuevas rutas al Backend.
+    - Ahora se pueden añadir portadas a los libros.
+    - Se han personalizado los errores para el usuario.
 ***
 ## To Do
+- Añadir funcionalidades Delete
+- Cambiar estado de un Libro al crear una reserva
 - Añadir Administrador 
-- Personalizar más errores.
+- Gestión de errores.
+- Añadir un Modo Oscuro.
 ***
 ## Relación de datos.
 ![gestion_biblioteca](https://user-images.githubusercontent.com/91878984/142232089-2c290cee-6097-4def-9aea-7601711f4992.png)
