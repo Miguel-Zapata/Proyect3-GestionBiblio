@@ -59,6 +59,15 @@ LibraryRouter.get("/mylibrary", async(req, res) => {
         const admin = req.user.id;
         const library = await Library.findOne({admin}).populate("cards.card");
         console.log(library);
+
+        if (!library) {
+            return res.status(403).json({
+                success: false,
+                message: "Todavía no has creado una Biblioteca."
+            });
+        }
+
+
         return res.send({
             success: true,
             library

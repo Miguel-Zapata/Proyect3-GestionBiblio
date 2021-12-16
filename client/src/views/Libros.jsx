@@ -3,10 +3,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import LibroList from "../components/LibroList";
 import AddLibro from "../components/AddLibro";
+import AlertaWarning from "../components/AlertaWarning";
+import AlertDismissibleExample from "../components/AlertaWarning";
+
 
 const Libros = () => {
   const [listaLibros, setListaLibros] = useState([]);
   const [miBiblio, setMiBiblio] = useState([]);
+  const [alerta, setAlerta] = useState(null);
 
   const miBiblioteca = async () => {
     try {
@@ -19,7 +23,8 @@ const Libros = () => {
       setMiBiblio(response.data.library.cards);
     } catch (err) {
       console.log(err.response.data);
-      alert(err.response.data.message);
+      setAlerta(err.response.data.message);
+      // alert(err.response.data.message);
     }
   };
   useEffect(() => {
@@ -43,6 +48,8 @@ const Libros = () => {
   }, []);
 
   return (
+
+
     <div>
       {/* <div>
         <label htmlFor="buscaLibro">Buscar</label>
@@ -52,6 +59,12 @@ const Libros = () => {
       {/* <div>
         <button>Filtros</button>
         </div> */}
+
+        <div>
+          {/* <AlertDismissibleExample/> */}
+          {alerta && <AlertaWarning setwarning={setAlerta} mensaje={alerta}/>}
+        </div>
+
 
       <div>
         <Link to="/LibroCrear">
