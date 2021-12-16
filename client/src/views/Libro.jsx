@@ -1,5 +1,5 @@
 import InfoLibro from "../components/InfoLibro";
-import LoTengo from "../components/LoTengo";
+
 
 const Libro = () => {
   return (

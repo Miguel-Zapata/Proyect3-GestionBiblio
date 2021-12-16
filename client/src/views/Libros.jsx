@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import LibroList from "../components/LibroList";
 import AddLibro from "../components/AddLibro";
 import AlertaWarning from "../components/AlertaWarning";
-import AlertDismissibleExample from "../components/AlertaWarning";
-
 
 const Libros = () => {
   const [listaLibros, setListaLibros] = useState([]);
@@ -48,8 +46,6 @@ const Libros = () => {
   }, []);
 
   return (
-
-
     <div>
       {/* <div>
         <label htmlFor="buscaLibro">Buscar</label>
@@ -60,11 +56,10 @@ const Libros = () => {
         <button>Filtros</button>
         </div> */}
 
-        <div>
-          {/* <AlertDismissibleExample/> */}
-          {alerta && <AlertaWarning setwarning={setAlerta} mensaje={alerta}/>}
-        </div>
-
+      <div>
+        {/* <AlertDismissibleExample/> */}
+        {alerta && <AlertaWarning setalerta={setAlerta} mensaje={alerta} />}
+      </div>
 
       <div>
         <Link to="/LibroCrear">
@@ -77,7 +72,7 @@ const Libros = () => {
           <div key={i} className="libros__container">
             <div>
               <LibroList url={`/Libros/${libro._id}`} libro={libro} />
-              {!miBiblio.some((miLibro) => miLibro.card._id == libro._id) && (
+              {!miBiblio.some((miLibro) => miLibro.card._id === libro._id) && (
                 <div>
                   <AddLibro refresh={miBiblioteca} idLibro={libro._id} />
                 </div>

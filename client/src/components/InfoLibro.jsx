@@ -24,7 +24,7 @@ const InfoLibro = () => {
       }
     };
     getData();
-  }, []);
+  }, [LibroId]);
 
   const content = () => {
     return (

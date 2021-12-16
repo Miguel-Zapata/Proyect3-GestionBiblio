@@ -1,23 +1,23 @@
 import Alert from "react-bootstrap/Alert";
 
-const AlertaWarning = (props) => {
+const AlertaDanger = (props) => {
   if (props.mensaje) {
     return (
       <Alert
-        variant="warning"
+        variant="danger"
         onClose={() => props.setalerta(false)}
         dismissible
       >
-        <Alert.Heading>¡Importante!</Alert.Heading>
+        <Alert.Heading>¡Error!</Alert.Heading>
         <p>{props.mensaje}</p>
         <p>
           {" "}
-          Podrás ver el listado y crear nuevos Libros, pero no podrás añadirlos
-          a tu Biblioteca.
+          Es obligatorio rellenar los campos que tienen un
+          <span className="required-asterisco"> *</span>.
         </p>
       </Alert>
     );
   }
 };
 
-export default AlertaWarning;
+export default AlertaDanger;

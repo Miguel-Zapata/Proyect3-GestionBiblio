@@ -5,3 +5,8 @@
 .container_biblioList {
   padding: 0.5rem;
 }
+
+.visibility-hidden {
+/* display:none; */
+visibility: hidden;
+}
