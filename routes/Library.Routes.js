@@ -154,6 +154,13 @@ LibraryRouter.put("/add-card", async(req, res) => {
         let contain = { card, condition: true };
         const library = await Library.findOne({ admin });
 
+        if (!library) {
+            return res.status(403).json({
+                success: false,
+                message: "Todavía no tienes Biblioteca"
+            });
+        }
+
         if (!library.admin.equals(admin)) {
             return res.status(403).json({
                 success: false,

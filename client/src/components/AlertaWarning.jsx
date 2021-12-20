@@ -10,11 +10,11 @@ const AlertaWarning = (props) => {
       >
         <Alert.Heading>¡Importante!</Alert.Heading>
         <p>{props.mensaje}</p>
-        <p>
+        {/* <p>
           {" "}
           Podrás ver el listado y crear nuevos Libros, pero no podrás añadirlos
           a tu Biblioteca.
-        </p>
+        </p> */}
       </Alert>
     );
   }

@@ -42,17 +42,34 @@ const InfoLibro = () => {
 
         <div>
           <p>Escritor: {libro.writer}</p>
-          <p>Arte: {libro.art}</p>
-          <p>Color: {libro.color}</p>
+          {libro.art ? <p>Arte: {libro.art}</p> : ""}
+          {/* <p>Arte: {libro.art}</p> */}
+          {libro.color ? <p>Color: {libro.color}</p> : ""}
+          {/* <p>Color: {libro.color}</p> */}
           <p>Editorial: {libro.editorial}</p>
-          <p>Género: {libro.genre}</p>
-          <p>Serie: {libro.serie}</p>
-          <p>Nº páginas: {libro.page_Number}</p>
+          {libro.genre ? <p>Género: {libro.genre}</p> : ""}
+          {/* <p>Género: {libro.genre}</p> */}
+          {libro.serie ? <p>Serie: {libro.serie}</p> : ""}
+          {/* <p>Serie: {libro.serie}</p> */}
+          {libro.page_Number ? <p>Nº páginas: {libro.page_Number}</p> : ""}
+          {/* <p>Nº páginas: {libro.page_Number}</p> */}
           <p>Idioma: {libro.language}</p>
-          <p>ISBN: {libro.isbn}</p>
-          <p>Fecha Publicación: {libro.publication_Date}</p>
-          <p>Formato: {libro.format}</p>
-          <p className="infoLibro--sinopsis">{libro.synopsis}</p>
+          {libro.isbn ? <p>ISBN: {libro.isbn}</p> : ""}
+          {/* <p>ISBN: {libro.isbn}</p> */}
+          {libro.publication_Date ? (
+            <p>Fecha Publicación: {libro.publication_Date}</p>
+          ) : (
+            ""
+          )}
+          {/* <p>Fecha Publicación: {libro.publication_Date}</p> */}
+          {libro.format ? <p>Formato: {libro.format}</p> : ""}
+          {/* <p>Formato: {libro.format}</p> */}
+          {libro.synopsis ? (
+            <p className="infoLibro--sinopsis">{libro.synopsis}</p>
+          ) : (
+            ""
+          )}
+          {/* <p className="infoLibro--sinopsis">{libro.synopsis}</p> */}
         </div>
       </div>
     );

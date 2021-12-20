@@ -60,7 +60,7 @@ const BarraNavegacion = () => {
                 alt="bibliotecas"
               />
             </NavLink>
-            
+
             <NavLink to="/MiCuenta">
               <img className="user--navbar" src={userNav} alt="miCuenta" />
             </NavLink>

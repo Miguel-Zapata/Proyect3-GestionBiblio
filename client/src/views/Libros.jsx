@@ -57,7 +57,6 @@ const Libros = () => {
         </div> */}
 
       <div>
-        {/* <AlertDismissibleExample/> */}
         {alerta && <AlertaWarning setalerta={setAlerta} mensaje={alerta} />}
       </div>
 

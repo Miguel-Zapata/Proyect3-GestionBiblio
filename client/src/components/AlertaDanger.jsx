@@ -10,11 +10,11 @@ const AlertaDanger = (props) => {
       >
         <Alert.Heading>¡Error!</Alert.Heading>
         <p>{props.mensaje}</p>
-        <p>
+        {/* <p>
           {" "}
           Es obligatorio rellenar los campos que tienen un
           <span className="required-asterisco"> *</span>.
-        </p>
+        </p> */}
       </Alert>
     );
   }
