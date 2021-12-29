@@ -3,10 +3,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import LibroList from "../components/LibroList";
 import AddLibro from "../components/AddLibro";
+import AlertaWarning from "../components/AlertaWarning";
 
 const Libros = () => {
   const [listaLibros, setListaLibros] = useState([]);
   const [miBiblio, setMiBiblio] = useState([]);
+  const [alerta, setAlerta] = useState(null);
 
   const miBiblioteca = async () => {
     try {
@@ -19,7 +21,8 @@ const Libros = () => {
       setMiBiblio(response.data.library.cards);
     } catch (err) {
       console.log(err.response.data);
-      alert(err.response.data.message);
+      setAlerta(err.response.data.message);
+      // alert(err.response.data.message);
     }
   };
   useEffect(() => {
@@ -54,6 +57,10 @@ const Libros = () => {
         </div> */}
 
       <div>
+        {alerta && <AlertaWarning setalerta={setAlerta} mensaje={alerta} />}
+      </div>
+
+      <div>
         <Link to="/LibroCrear">
           <button className="boton--libros btn btn-primary">Crear Libro</button>
         </Link>
@@ -64,7 +71,7 @@ const Libros = () => {
           <div key={i} className="libros__container">
             <div>
               <LibroList url={`/Libros/${libro._id}`} libro={libro} />
-              {!miBiblio.some((miLibro) => miLibro.card._id == libro._id) && (
+              {!miBiblio.some((miLibro) => miLibro.card._id === libro._id) && (
                 <div>
                   <AddLibro refresh={miBiblioteca} idLibro={libro._id} />
                 </div>

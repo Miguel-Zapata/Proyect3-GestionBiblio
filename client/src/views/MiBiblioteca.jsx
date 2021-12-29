@@ -1,9 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import AlertaDanger from "../components/AlertaDanger";
+
+
 import LibroList from "../components/LibroList";
 
 const MiBiblioteca = () => {
   const [state, setState] = useState(null);
+  const [alerta, setAlerta] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -17,7 +21,8 @@ const MiBiblioteca = () => {
         setState(response.data.library);
       } catch (err) {
         console.log(err.response.data);
-        alert(err.response.data.message);
+        setAlerta(err.response.data.message);
+        // alert(err.response.data.message);
       }
     };
     getData();

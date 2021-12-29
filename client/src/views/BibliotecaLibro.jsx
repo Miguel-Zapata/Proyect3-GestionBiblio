@@ -1,5 +1,5 @@
 import axios from "axios";
-import req from "express/lib/request";
+
 import InfoLibro from "../components/InfoLibro";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -66,7 +66,7 @@ const BibliotecaLibro = () => {
         <button className="btn btn-primary" onClick={(e) => reservar(e)}>
           Hacer Reserva
         </button>
-        <a name="abajo"></a>
+        <a href="#top" className="visibility-hidden" name="abajo">abajo</a>
       </div>
     </div>
   );

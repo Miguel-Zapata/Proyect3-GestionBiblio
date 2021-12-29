@@ -5,6 +5,8 @@ const cors = require('cors');
 require('cloudinary').config();
 const CLOUDINARY_URL = process.env.CLOUDINARY_URL;
 
+// ... other imports HEROKU
+const path = require("path")
 
 const express = require('express');
 const app = express();
@@ -26,12 +28,23 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
+// ... other app.use middleware HEROKU
+app.use(express.static(path.join(__dirname, "client", "build")))
+
 // Rutas
 app.use('/api/authentications', authRouter);
 app.use('/api/users', checkToken, userRouter);
 app.use('/api/libraries', checkToken, libraryRouter);
 app.use('/api/cards', cardRouter);
 app.use('/api/bookings', bookingRouter);
+
+
+// ... HEROKU
+// Right before your app.listen(), add this:
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+// app.listen(...)
 
 // Puerto
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });

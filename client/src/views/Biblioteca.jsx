@@ -25,7 +25,7 @@ const Biblioteca = () => {
       }
     };
     getData();
-  }, []);
+  }, [BibliotecaId]);
 
   const content = () => {
     return (

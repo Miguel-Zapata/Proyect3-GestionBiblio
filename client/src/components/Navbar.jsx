@@ -23,6 +23,9 @@ const BarraNavegacion = () => {
         >
           <Container className="container--navbar">
             <Nav className="flex--items">
+              <NavLink to="/">
+                <img className="home--navbar" src={homeNav} alt="home" />
+              </NavLink>
               <NavLink className="text-main" to="/Registro">
                 Registro
               </NavLink>
@@ -57,12 +60,7 @@ const BarraNavegacion = () => {
                 alt="bibliotecas"
               />
             </NavLink>
-            {/* <NavLink className="text-main" to="/Registro">
-              Registro
-            </NavLink>
-            <NavLink className="text-main" to="/Login">
-              Inicio de Sesión
-            </NavLink> */}
+
             <NavLink to="/MiCuenta">
               <img className="user--navbar" src={userNav} alt="miCuenta" />
             </NavLink>
