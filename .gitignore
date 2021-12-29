@@ -3,14 +3,6 @@ node_modules/
 /package-lock.json
 /client/package-lock.json
 
-# HEROKU
-.DS_Store
-node_modules/
-.env
-*.orig
-.idea/
-.vscode/
-
 # dependencies
 /.pnp
 .pnp.js

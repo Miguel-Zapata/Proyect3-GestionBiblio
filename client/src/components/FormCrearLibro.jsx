@@ -2,12 +2,9 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-import AlertaDanger from "./AlertaDanger";
 import "../styles/Libros.css";
 
 const FormCrearLibro = () => {
-  const [alerta, setAlerta] = useState(null);
   let navigate = useNavigate();
 
   let [state, setState] = useState({
@@ -37,7 +34,6 @@ const FormCrearLibro = () => {
   };
 
   const inputFile = useRef();
-  console.log(inputFile);
 
   const submit = async (e) => {
     e.preventDefault(); // para prevenir lo que hace el form por defecto
@@ -70,25 +66,15 @@ const FormCrearLibro = () => {
       navigate("/Libros");
     } catch (err) {
       console.log(err.response.data);
-      setAlerta(err.response.data.message);
-      // alert(err.response.data.message);
+      alert(err.response.data.message);
     }
   };
 
   return (
-    <div className="absolute">
+    <div>
       <form onSubmit={(e) => handleChange(e)} className="form__container">
-        <div className="borde-inferior">
-          <p>
-            <span className="required-asterisco">* </span>
-            <span className="cursiva">Campos obligatorios</span>
-          </p>
-        </div>
-
         <div>
-          <Form.Label>
-            Tipo<span className="required-asterisco"> *</span>
-          </Form.Label>
+          <Form.Label>Tipo</Form.Label>
           <Form.Select
             onChange={(e) => handleChange(e)}
             name="type"
@@ -102,9 +88,7 @@ const FormCrearLibro = () => {
 
         <div>
           {/* <Form.Group controlId="formFile" className="mb-3"> */}
-          <Form.Label>
-            Portada<span className="required-asterisco"> *</span>
-          </Form.Label>
+          <Form.Label>Portada</Form.Label>
           <Form.Control
             onChange={(e) => {
               setState({
@@ -119,9 +103,7 @@ const FormCrearLibro = () => {
         </div>
 
         <div>
-          <Form.Label>
-            Título<span className="required-asterisco"> *</span>
-          </Form.Label>
+          <Form.Label>Título</Form.Label>
           <Form.Control
             onChange={(e) => handleChange(e)}
             name="title"
@@ -141,9 +123,7 @@ const FormCrearLibro = () => {
         </div>
 
         <div>
-          <Form.Label>
-            Escritor<span className="required-asterisco"> *</span>
-          </Form.Label>
+          <Form.Label>Escritor</Form.Label>
           <Form.Control
             onChange={(e) => handleChange(e)}
             name="writer"
@@ -173,9 +153,7 @@ const FormCrearLibro = () => {
         </div>
 
         <div>
-          <Form.Label>
-            Editorial<span className="required-asterisco"> *</span>
-          </Form.Label>
+          <Form.Label>Editorial</Form.Label>
           <Form.Control
             onChange={(e) => handleChange(e)}
             name="editorial"
@@ -215,9 +193,7 @@ const FormCrearLibro = () => {
         </div>
 
         <div>
-          <Form.Label>
-            Idioma<span className="required-asterisco"> *</span>
-          </Form.Label>
+          <Form.Label>Idioma</Form.Label>
           <Form.Control
             onChange={(e) => handleChange(e)}
             name="language"
@@ -267,19 +243,17 @@ const FormCrearLibro = () => {
           />
           {/* </Form.Group> */}
         </div>
+
+        <div>
+          <button
+            onClick={(e) => submit(e)}
+            type="submit"
+            className=" boton--libros btn btn-primary"
+          >
+            CREAR LIBRO
+          </button>
+        </div>
       </form>
-      <div>
-        {alerta && <AlertaDanger setalerta={setAlerta} mensaje={alerta} />}
-      </div>
-      <div className="boton--libros">
-        <button
-          onClick={(e) => submit(e)}
-          type="submit"
-          className=" boton--libros btn btn-primary "
-        >
-          CREAR LIBRO
-        </button>
-      </div>
     </div>
   );
 };
