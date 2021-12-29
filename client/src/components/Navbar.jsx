@@ -23,9 +23,6 @@ const BarraNavegacion = () => {
         >
           <Container className="container--navbar">
             <Nav className="flex--items">
-              <NavLink to="/">
-                <img className="home--navbar" src={homeNav} alt="home" />
-              </NavLink>
               <NavLink className="text-main" to="/Registro">
                 Registro
               </NavLink>
