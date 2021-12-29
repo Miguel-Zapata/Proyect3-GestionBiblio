@@ -1,6 +1,6 @@
 const express = require("express");
-const Booking = require("../models/bookingModel");
-const User = require("../models/userModel");
+const Booking = require("../models/BookingModel");
+const User = require("../models/UserModel");
 const Library = require("../models/LibraryModel");
 const { checkToken } = require('../middlewares');
 const BookingRouter = express.Router();
