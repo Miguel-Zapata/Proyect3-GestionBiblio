@@ -1,5 +1,5 @@
 const express = require("express");
-const Library = require("../models/BibliotecaModel");
+const Library = require("../models/LibraryModel");
 const LibraryRouter = express.Router();
 
 // Crear Mi Biblioteca
