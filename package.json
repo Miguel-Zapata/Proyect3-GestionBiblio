@@ -11,6 +11,9 @@
     "server": "nodemon server.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
+  "engines": {
+    "node": "16.13.0"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Miguel-Zapata/Proyect3-GestionBiblio.git"
