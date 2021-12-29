@@ -42,5 +42,4 @@ const CardSchema = new Schema({
     synopsis: { type: String }
 });
 
-
 module.exports = Card = mongoose.model("Card", CardSchema);
