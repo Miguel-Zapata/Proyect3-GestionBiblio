@@ -19,4 +19,5 @@ const BookingSchema = new Schema({
     finish_Date: { type: Date }
 });
 
+
 module.exports = Booking = mongoose.model("Booking", BookingSchema);
