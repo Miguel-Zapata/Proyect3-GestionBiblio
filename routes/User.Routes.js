@@ -1,6 +1,6 @@
 const express = require("express");
-const User = require("../models/userModel");
-const Booking = require("../models/bookingModel");
+const User = require("../models/UserModel");
+const Booking = require("../models/BookingModel");
 const UserRouter = express.Router();
 
 // Modificar datos del usuario.
