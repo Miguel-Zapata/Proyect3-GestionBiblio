@@ -24,7 +24,7 @@ const Registro = () => {
   const submit = async (e) => {
     e.preventDefault(); // para prevenir lo que hace el form por defecto
     try {
-      const response = await axios.post("/authentications/create-user", state);
+      const response = await axios.post("/api/authentications/create-user", state);
       console.log(response.data);
 
       navigate("/Login");

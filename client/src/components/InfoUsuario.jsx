@@ -7,7 +7,7 @@ const InfoUsuario = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios("/users/myuser", {
+        let response = await axios("/api/users/myuser", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

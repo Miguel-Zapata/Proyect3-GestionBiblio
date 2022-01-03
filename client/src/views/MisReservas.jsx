@@ -9,7 +9,7 @@ const MisReservas = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios("/users/mybookings", {
+        let response = await axios("/api/users/mybookings", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },
