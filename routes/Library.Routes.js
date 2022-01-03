@@ -59,15 +59,6 @@ LibraryRouter.get("/mylibrary", async(req, res) => {
         const admin = req.user.id;
         const library = await Library.findOne({admin}).populate("cards.card");
         console.log(library);
-
-        if (!library) {
-            return res.status(403).json({
-                success: false,
-                message: "Todavía no has creado una Biblioteca."
-            });
-        }
-
-
         return res.send({
             success: true,
             library
@@ -153,13 +144,6 @@ LibraryRouter.put("/add-card", async(req, res) => {
         let { card } = req.body;
         let contain = { card, condition: true };
         const library = await Library.findOne({ admin });
-
-        if (!library) {
-            return res.status(403).json({
-                success: false,
-                message: "Todavía no tienes Biblioteca"
-            });
-        }
 
         if (!library.admin.equals(admin)) {
             return res.status(403).json({
