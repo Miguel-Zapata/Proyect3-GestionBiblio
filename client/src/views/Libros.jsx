@@ -12,7 +12,7 @@ const Libros = () => {
 
   const miBiblioteca = async () => {
     try {
-      let response = await axios("/libraries/mylibrary", {
+      let response = await axios("/api/libraries/mylibrary", {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },
@@ -28,7 +28,7 @@ const Libros = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios("/cards", {
+        let response = await axios("/api/cards", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

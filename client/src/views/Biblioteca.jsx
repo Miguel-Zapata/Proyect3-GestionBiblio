@@ -12,7 +12,7 @@ const Biblioteca = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios(`/libraries/find/${BibliotecaId}`, {
+        let response = await axios(`/api/libraries/find/${BibliotecaId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

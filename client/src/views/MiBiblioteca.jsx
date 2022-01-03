@@ -1,18 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import AlertaDanger from "../components/AlertaDanger";
+// import AlertaDanger from "../components/AlertaDanger";
 
 
 import LibroList from "../components/LibroList";
 
 const MiBiblioteca = () => {
   const [state, setState] = useState(null);
-  const [alerta, setAlerta] = useState(null);
+  // const [alerta, setAlerta] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios("/libraries/mylibrary", {
+        let response = await axios("/api/libraries/mylibrary", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },
@@ -21,7 +21,7 @@ const MiBiblioteca = () => {
         setState(response.data.library);
       } catch (err) {
         console.log(err.response.data);
-        setAlerta(err.response.data.message);
+        // setAlerta(err.response.data.message);
         // alert(err.response.data.message);
       }
     };

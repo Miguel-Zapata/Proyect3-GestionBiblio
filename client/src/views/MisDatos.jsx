@@ -24,7 +24,7 @@ const MisDatos = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put("/users/update", state, {
+      const response = await axios.put("/api/users/update", state, {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },

@@ -11,7 +11,7 @@ const InfoLibro = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios(`/cards/find/${LibroId}`, {
+        let response = await axios(`/api/cards/find/${LibroId}`, {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

@@ -22,7 +22,7 @@ const CrearBiblioteca = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/libraries", state, {
+      const response = await axios.post("/api/libraries", state, {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },
