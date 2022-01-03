@@ -9,7 +9,7 @@ const Bibliotecas = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        let response = await axios("/libraries", {
+        let response = await axios("/api/libraries", {
           headers: {
             Authorization: localStorage.getItem("jwt_token"),
           },

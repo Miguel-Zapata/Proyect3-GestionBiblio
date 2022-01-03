@@ -29,7 +29,7 @@ const BibliotecaLibro = () => {
     e.preventDefault();
 
     try {
-      let response = await axios.post("/bookings", state, {
+      let response = await axios.post("/api/bookings", state, {
         headers: {
           Authorization: localStorage.getItem("jwt_token"),
         },

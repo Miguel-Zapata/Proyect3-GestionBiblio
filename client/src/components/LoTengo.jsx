@@ -5,7 +5,7 @@ const LoTengo = (props) => {
   const addLibro = async () => {
     try {
       let response = await axios.put(
-        "/libraries/add-card",
+        "/api/libraries/add-card",
         { card: props.idLibro },
         {
           headers: {

@@ -4,7 +4,7 @@ const AddLibro = (props) => {
   const addLibro = async () => {
     try {
       let response = await axios.put(
-        "/libraries/add-card",
+        "/api/libraries/add-card",
         { card: props.idLibro },
         {
           headers: {
@@ -20,6 +20,7 @@ const AddLibro = (props) => {
     }
   };
 
+  
   return (
     <button className="boton--libros btn btn-primary" onClick={addLibro}>
       Añadir a mi Biblioteca

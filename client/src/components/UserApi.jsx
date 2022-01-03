@@ -10,7 +10,7 @@ function UserApi(token) {
     if (token) {
       const getUser = async () => {
         try {
-          const response = await axios.get("/users/myuser", {
+          const response = await axios.get("/api/users/myuser", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
